@@ -1,0 +1,56 @@
+{{!--
+    Параметры:
+    - text (string): Текст кнопки.
+    - styles (object): Объект с классами CSS Modules (обязательный).
+    - variant ('primary' | 'secondary' | 'outline' | 'destructive', default: 'primary'): Тип кнопки.
+    - size ('s' | 'm' | 'l', default: 'm'): Размер кнопки.
+    - hover (boolean, default: false): Применить стили hover (если нужно вручную).
+    - focus (boolean, default: false): Применить стили focus (если нужно вручную).
+    - loading (boolean, default: false): Кнопка находится в состоянии загрузки.
+    - disabled (boolean, default: false): Кнопка отключена.
+    - tagName ('button' | 'a', default: 'button'): Какой HTML-тег использовать.
+    - href (string): URL, если tagName='a'.
+    - target (string): Цель ссылки, если tagName='a'.
+    - iconClass (string): Класс для иконки (например, 'fas fa-plus').
+    - attributes (object): Произвольные HTML-атрибуты (id, data-*, etc.)
+--}}
+
+{{!-- Определяем базовые и динамические классы --}}
+{{assign "buttonClasses" (array styles.button)}}
+{{#if (eq variant 'primary')}}{{push buttonClasses styles.primary}}{{/if}}
+{{#if (eq variant 'secondary')}}{{push buttonClasses styles.secondary}}{{/if}}
+{{#if (eq variant 'outline')}}{{push buttonClasses styles.outline}}{{/if}}
+{{#if (eq variant 'destructive')}}{{push buttonClasses styles.destructive}}{{/if}}
+
+{{#if (eq size 's')}}{{push buttonClasses styles.sizeS}}{{/if}}
+{{#if (eq size 'm')}}{{push buttonClasses styles.sizeM}}{{/if}}
+{{#if (eq size 'l')}}{{push buttonClasses styles.sizeL}}{{/if}}
+
+{{#if loading}}{{push buttonClasses styles.loading}}{{/if}}
+{{#if disabled}}{{push buttonClasses styles.disabled}}{{/if}}
+
+{{!-- Дополнительные классы, если нужно --}}
+{{#if class}}{{push buttonClasses class}}{{/if}}
+
+{{#if (eq tagName 'a')}}
+    <a href="{{href}}"
+       class="{{join buttonClasses ' '}}"
+       {{#if target}}target="{{target}}"{{/if}}
+       {{#each attributes}} {{_key}}="{{this}}"{{/each}}
+       {{#if disabled}}aria-disabled="true"{{/if}}
+       {{#if loading}}aria-busy="true"{{/if}}
+    >
+        {{#if iconClass}}<span class="{{styles.icon}} {{iconClass}}"></span>{{/if}}
+        <span class="{{styles.buttonText}}">{{text}}</span>
+    </a>
+{{else}}
+    <button type="{{type default='button'}}"
+            class="{{join buttonClasses ' '}}"
+            {{#if disabled}}disabled{{/if}}
+            {{#if loading}}aria-busy="true"{{/if}}
+            {{#each attributes}} {{_key}}="{{this}}"{{/each}}
+    >
+        {{#if iconClass}}<span class="{{styles.icon}} {{iconClass}}"></span>{{/if}}
+        <span class="{{styles.buttonText}}">{{text}}</span>
+    </button>
+{{/if}}

@@ -1,0 +1,78 @@
+/* src/components/_input.module.css */
+
+/* Общая обертка для поля ввода и его связанных элементов (label, helpText, error) */
+.inputGroup {
+    margin-bottom: 1rem; /* Отступ между группами полей */
+}
+
+/* Стили для метки */
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+}
+.labelRequired::after {
+    content: ' *';
+    color: #dc3545; /* Красный для обязательного поля */
+}
+
+/* Базовый стиль поля ввода */
+.input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Фокус */
+.input:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Отключенное состояние */
+.input:disabled,
+.input[readonly] {
+    background-color: #e9ecef;
+    opacity: 1; /* Для IE */
+    cursor: not-allowed;
+}
+
+/* Состояние ошибки */
+.inputError {
+    border-color: #dc3545; /* Красная граница */
+}
+.inputError:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Текст ошибки */
+.errorMessage {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #dc3545; /* Красный текст */
+}
+
+/* Вспомогательный текст */
+.helpText {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #6c757d; /* Серый текст */
+}
+
+/* Стили для разных типов инпутов, если они нужны */
+/* Например, если email-инпуты должны выглядеть иначе */
+.inputEmail {
+    /* специфические стили для email */
+}

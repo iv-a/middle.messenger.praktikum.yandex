@@ -1,0 +1,27 @@
+<div class="{{styles.inputGroup}} {{class}}">
+    {{#if label}}
+    <label for="{{inputId}}" class="{{styles.label}}{{#if required}} {{styles.labelRequired}}{{/if}}">
+        {{label}}
+    </label>
+    {{/if}}
+
+    <input 
+        id="{{inputId}}" 
+        name="{{name}}" 
+        value="{{value}}" 
+        placeholder="{{placeholder}}"
+        class="{{styles.input}}{{#if error}} 
+        {{styles.inputError}}{{/if}}" 
+        {{#if required}}required{{/if}} 
+        {{#if disabled}}disabled{{/if}} 
+        {{#if readonly}}readonly{{/if}} 
+        {{#each attributes}} {{_key}}="{{this}}" {{/each}}>
+
+    {{#if error}}
+    <p class="{{styles.errorMessage}}">{{error}}</p>
+    {{else if helpText}}
+    <p class="{{styles.helpText}}">{{helpText}}</p>
+    {{/if}}
+
+
+</div>
