@@ -1,0 +1,46 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  width: 100%;
+  max-width: 360px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  color: var(--primary);
+  font: var(--font-h1);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--placeholder);
+  font: var(--font-h4);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  width: 100%;
+
+  & > button {
+    margin-top: var(--s-2);
+  }
+}

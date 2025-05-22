@@ -1,7 +1,25 @@
-@import url('./fonts.css');
-@import url('./normalize.css');
-@import url('./_variables.css');
+@import url("./fonts.css");
+@import url("./normalize.css");
+@import url("./_variables.css");
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 100dvw;
+  height: 100dvh;
+  max-height: 100dvh;
+  font-family: var(--font-base);
+  background-color: #fff;
+
+  [id="app"] {
+    width: inherit;
+    height: inherit;
+  }
 }

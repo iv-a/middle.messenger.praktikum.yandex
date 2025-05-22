@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   width: max-content;
-  font: var(--font-h3);
+  font: var(--font-h4);
   line-height: 20px;
   white-space: nowrap;
   text-decoration: none;
@@ -153,4 +153,8 @@
 .iconOnly {
   aspect-ratio: 1;
   padding: 0;
+}
+
+.block {
+  width: 100%;
 }

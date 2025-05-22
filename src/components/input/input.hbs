@@ -9,6 +9,7 @@
         id="{{inputId}}" 
         name="{{name}}" 
         value="{{value}}" 
+        type="{{default type 'text'}}"
         placeholder="{{placeholder}}"
         class="{{styles.input}}{{#if error}} 
         {{styles.inputError}}{{/if}}" 
@@ -25,6 +26,4 @@
     {{else if helpText}}
     <p class="{{styles.helpText}}">{{helpText}}</p>
     {{/if}}
-
-
 </div>

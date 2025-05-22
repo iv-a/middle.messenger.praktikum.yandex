@@ -1,0 +1,27 @@
+<form class="{{styles.form}}">
+    {{> Input 
+            inputId="login"
+            name="login" 
+            placeholder="Login"
+            label="Login"
+            value=""
+            styles=inputStyles
+    }}
+    {{> Input 
+            inputId="password"
+            type="password"
+            name="password" 
+            placeholder="Password"
+            label="Password"
+            value=""
+            styles=inputStyles
+    }}
+    {{> Button 
+            type="submit"
+            text="Sign in"
+            size="l"
+            variant="primary"
+            block=true
+            styles=btnStyles
+    }}
+</form>

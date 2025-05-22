@@ -1,42 +1,3 @@
-// interface HandlebarsContext {
-//     [key: string]: any;
-// }
-
-// function isEqual(argA: unknown, argB: unknown) {
-//     return argA === argB
-// }
-
-// function assign(this: HandlebarsContext, propertyName: string, value: unknown) {
-//     this[propertyName] = value;
-// }
-
-// function createArray(this: HandlebarsContext, ...items: unknown[]) {
-//     const args = items.slice(0, -1);
-//     return args;
-// }
-
-// function push(this: HandlebarsContext, arr: any[], item: unknown) {
-//     if (Array.isArray(arr)) {
-//         arr.push(item);
-//     }
-//     return '';
-// }
-
-// function join(this: HandlebarsContext, arr: unknown[], separator: string = '') {
-//     if (Array.isArray(arr)) {
-//         return arr.join(separator);
-//     }
-//     return '';
-// }
-
-// export const HELPERS = {
-//     eq: isEqual,
-//     assign: assign,
-//     array: createArray,
-//     push: push,
-//     join: join,
-// };
-
 interface HandlebarsContext {
   [key: string]: any;
 }
@@ -68,7 +29,7 @@ function not(value: unknown): boolean {
 // Присваивание
 function assign(this: HandlebarsContext, key: string, value: unknown): string {
   this[key] = value;
-  return '';
+  return "";
 }
 
 // Работа с массивами
@@ -80,21 +41,21 @@ function push(this: HandlebarsContext, arr: any[], item: unknown): string {
   if (Array.isArray(arr)) {
     arr.push(item);
   }
-  return '';
+  return "";
 }
 
-function join(arr: unknown[], separator = ''): string {
-  return Array.isArray(arr) ? arr.join(separator) : '';
+function join(arr: unknown[], separator = ""): string {
+  return Array.isArray(arr) ? arr.join(separator) : "";
 }
 
 // Работа со строками
 function concat(...args: any[]): string {
   args.pop();
-  return args.join('');
+  return args.join("");
 }
 
 function capitalize(str: string): string {
-  return typeof str === 'string' && str.length > 0
+  return typeof str === "string" && str.length > 0
     ? str.charAt(0).toUpperCase() + str.slice(1)
     : str;
 }
@@ -134,5 +95,5 @@ export const HELPERS = {
   capitalize,
   lookup,
   default: defaultValue,
-  object: objectHelper
+  object: objectHelper,
 };
