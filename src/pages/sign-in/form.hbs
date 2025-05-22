@@ -1,27 +1,22 @@
 <form class="{{styles.form}}">
-    {{> Input 
-            inputId="login"
-            name="login" 
-            placeholder="Login"
-            label="Login"
-            value=""
-            styles=inputStyles
+  {{#each inputs}}
+    {{> Input
+          inputId=this.inputId
+          name=this.name
+          placeholder=this.placeholder
+          label=this.label
+          value=this.value
+          styles=../inputStyles
+          type=this.type
     }}
-    {{> Input 
-            inputId="password"
-            type="password"
-            name="password" 
-            placeholder="Password"
-            label="Password"
-            value=""
-            styles=inputStyles
-    }}
-    {{> Button 
-            type="submit"
-            text="Sign in"
-            size="l"
-            variant="primary"
-            block=true
-            styles=btnStyles
-    }}
+  {{/each}}
+
+  {{> Button 
+        type="submit"
+        text="Sign in"
+        size="l"
+        variant="primary"
+        block=true
+        styles=btnStyles
+  }}
 </form>
