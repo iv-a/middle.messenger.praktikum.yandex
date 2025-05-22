@@ -2,77 +2,86 @@
 
 /* Общая обертка для поля ввода и его связанных элементов (label, helpText, error) */
 .inputGroup {
-    margin-bottom: 1rem; /* Отступ между группами полей */
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  width: 100%;
 }
 
 /* Стили для метки */
 .label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #333;
+  margin: 0;
+  padding: 0;
+  font: var(--font-h3);
 }
+
 .labelRequired::after {
-    content: ' *';
-    color: #dc3545; /* Красный для обязательного поля */
+  color: var(--destructive);
+  content: "*";
 }
 
-/* Базовый стиль поля ввода */
 .input {
-    display: block;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: var(--h-9);
+  padding: var(--s-2) var(--s-3);
+  color: var(--foreground);
+  font: var(--font-h4);
+  line-height: 24px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid var(--br-input);
+  border-radius: 8px;
+  outline: 0;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-/* Фокус */
+.input::placeholder {
+  color: var(--placeholder);
+}
+
 .input:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border: 1px solid var(--ring);
+  box-shadow: var(--sh-focus);
 }
 
-/* Отключенное состояние */
 .input:disabled,
 .input[readonly] {
-    background-color: #e9ecef;
-    opacity: 1; /* Для IE */
-    cursor: not-allowed;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
-/* Состояние ошибки */
 .inputError {
-    border-color: #dc3545; /* Красная граница */
+  border-color: var(--destructive);
 }
+
 .inputError:focus {
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  border-color: var(--destructive);
+  box-shadow: var(--sh-destructive-focus);
 }
 
-/* Текст ошибки */
-.errorMessage {
-    margin-top: 0.25rem;
-    font-size: 0.875rem;
-    color: #dc3545; /* Красный текст */
-}
-
-/* Вспомогательный текст */
+.errorMessage,
 .helpText {
-    margin-top: 0.25rem;
-    font-size: 0.875rem;
-    color: #6c757d; /* Серый текст */
+  margin: 0;
+  padding: 0;
+  color: var(--destructive);
+  font: var(--font-h4);
 }
 
-/* Стили для разных типов инпутов, если они нужны */
-/* Например, если email-инпуты должны выглядеть иначе */
-.inputEmail {
-    /* специфические стили для email */
+.helpText {
+  color: var(--placeholder);
+}
+
+.errorContainer {
+  display: flex;
+  gap: var(--s-1);
+  align-items: center;
+  color: var(--destructive);
+
+  svg {
+    width: var(--w-4);
+    height: var(--h-4);
+  }
 }

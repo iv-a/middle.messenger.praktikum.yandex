@@ -1,0 +1,31 @@
+{{assign "buttonClasses" (array styles.button)}}
+
+{{! Мапы классов }}
+{{assign
+  "variantMap"
+  (object
+    "primary"
+    styles.primary
+    "secondary"
+    styles.secondary
+    "outline"
+    styles.outline
+    "destructive"
+    styles.destructive
+  )
+}}
+
+{{assign "sizeMap" (object "s" styles.s "m" styles.m "l" styles.l)}}
+
+{{! Добавление по variant/size }}
+{{#if (lookup variantMap variant)}}{{push
+    buttonClasses
+    (lookup variantMap variant)
+  }}{{/if}}
+{{#if (lookup sizeMap size)}}{{push buttonClasses (lookup sizeMap size)}}{{/if}}
+
+{{#if loading}}{{push buttonClasses styles.loading}}{{/if}}
+{{#if disabled}}{{push buttonClasses styles.disabled}}{{/if}}
+{{#if iconOnly}}{{push buttonClasses styles.iconOnly}}{{/if}}
+
+{{#if class}}{{push buttonClasses class}}{{/if}}

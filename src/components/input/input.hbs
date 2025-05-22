@@ -18,7 +18,10 @@
         {{#each attributes}} {{_key}}="{{this}}" {{/each}}>
 
     {{#if error}}
+    <div class="{{styles.errorContainer}}">
+        {{{alertIcon}}}
     <p class="{{styles.errorMessage}}">{{error}}</p>
+    </div>
     {{else if helpText}}
     <p class="{{styles.helpText}}">{{helpText}}</p>
     {{/if}}

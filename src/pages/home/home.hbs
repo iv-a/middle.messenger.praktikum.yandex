@@ -6,6 +6,7 @@
     {{> Button text="Button Secondary" styles=btnStyles variant="outline" size="s" }}
     {{> Button text="Button Secondary" styles=btnStyles variant="destructive" size="s" }}
 
+    {{> Button styles=btnStyles variant="primary" size="m" icon=alertIcon iconOnly=true }}
     {{> Button text="Button Primary" styles=btnStyles variant="primary" size="m" }}
     {{> Button text="Button Secondary" styles=btnStyles variant="secondary" size="m" }}
     {{> Button text="Button Secondary" styles=btnStyles variant="outline" size="m" }}
@@ -18,8 +19,23 @@
 
 
     {{!-- Простое текстовое поле --}}
-    {{> Input label="Имя пользователя" name="username" placeholder="Введите ваше имя"
+    {{> Input label="Login" name="username" placeholder="Login"
     value=formData.username
     styles=inputStyles
+    helpText='This is an input description.'
+    required=true
+    }}
+
+    {{> Input label="Login" name="username" placeholder="Login"
+    value=formData.username
+    styles=inputStyles
+    error='This is an input description.'
+    }}
+
+    {{> Input label="Login" name="username" placeholder="Login"
+    value=formData.username
+    styles=inputStyles
+    helpText='This is an input description.'
+    disabled=true
     }}
 </section>

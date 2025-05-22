@@ -2,7 +2,8 @@ import Handlebars from "handlebars";
 import * as Components from './components';
 import * as Pages from './pages';
 import './assets/styles/index.css';
-import { HELPERS, registerHelpers, registerPartials } from "./utils";
+import { HELPERS, registerHelpers, registerPartialComponents } from "./utils";
+import alertIcon from './assets/icons/warning-octagon.svg?raw';
 
 const pages = {
     'home': [
@@ -10,7 +11,8 @@ const pages = {
         {
             styles: Pages.HomePage.styles,
             btnStyles: Components.Button.styles,
-            // inputStyles: Components.Input.styles,
+            inputStyles: Components.Input.styles,
+            alertIcon,
             // formData: { // Пример данных для формы
             // username: 'john.doe',
             // }
@@ -19,7 +21,7 @@ const pages = {
 };
 
 registerHelpers(HELPERS);
-registerPartials(Components);
+registerPartialComponents(Components);
 
 const app = document.getElementById('app');
 const [source, context] = pages.home;
