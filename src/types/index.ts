@@ -1,4 +1,4 @@
 export interface PartialComponent {
-    Component: string;
-    styles: CSSModuleClasses;
+  Component: string;
+  styles: CSSModuleClasses;
 }

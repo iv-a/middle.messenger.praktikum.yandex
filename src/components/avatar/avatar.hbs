@@ -1,0 +1,12 @@
+{{assign "avatarClasses" (array styles.container)}}
+{{assign
+  "sizeMap"
+  (object
+    "s" styles.s "m" styles.m "l" styles.l "xl" styles.xl "xxl" styles.xxl
+  )
+}}
+{{#if (lookup sizeMap size)}}{{push avatarClasses (lookup sizeMap size)}}{{/if}}
+
+<div class="{{join avatarClasses ' '}}">
+  <img class="{{styles.avatar}}" src="{{avatarUrl}}" alt="{{title}}" />
+</div>

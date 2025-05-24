@@ -1,0 +1,44 @@
+<div class="{{styles.page}}">
+  <header class="{{styles.header}}">
+    {{> Header title="Settings" subtitle="Manage your account settings." styles=headerStyles}}
+  </header>
+  <main class="{{styles.main}}">
+    <nav class="{{styles.nav}}">
+      {{> Button
+        type="button"
+        text="Back to Chats"
+        size="m"
+        variant="outline"
+        block=true
+        styles=btnStyles
+        icon=caretLeftIcon
+        prefix=true
+  }}
+    </nav>
+    <ul class={{styles.settingsList}}>
+      <li class={{styles.settingsItem}}>
+        <section class="{{styles.section}}">
+          {{> section-heading title="Basic information" subtitle="View and update your personal details and account information." }}
+          {{> basic-information-form }}
+        </section>
+      </li>
+      
+
+      <li class={{styles.settingsItem}}>
+        <section class="{{styles.section}}">
+          {{> section-heading title="Change password" subtitle="Update your password to keep your account secure." }}
+          {{> change-password-form }}
+        </section>
+      </li>
+
+      <li class={{styles.settingsItem}}>
+        <section class="{{styles.section}}">
+          {{> section-heading title="Avatar" subtitle="Avatar is your profile picture - everyone who visits your profile will see this." }}
+          {{> change-avatar-form }}
+        </section>
+      </li>
+      
+    </ul>
+
+  </main>
+</div>

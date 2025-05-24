@@ -1,32 +1,27 @@
 import Handlebars from 'handlebars';
-import * as Components from './components';
+import { Components, componentsStyles } from './components';
 import * as Pages from './pages';
+import { icons } from './assets/icons';
 import './assets/styles/index.css';
 import { HELPERS, registerHelpers, registerPartialComponents } from './utils';
-import alertIcon from './assets/icons/warning-octagon.svg?raw';
-import logoIcon from './assets/icons/logo.svg?raw';
+import { images } from './assets/images';
 
 const pages = {
   home: [
     Pages.HomePage.Component,
     {
       styles: Pages.HomePage.styles,
-      btnStyles: Components.Button.styles,
-      inputStyles: Components.Input.styles,
-      alertIcon,
-      // formData: { // Пример данных для формы
-      // username: 'john.doe',
-      // }
+      ...componentsStyles,
+      ...icons,
+      ...images,
     },
   ],
   'sign-in': [
     Pages.SignIn.Component,
     {
       styles: Pages.SignIn.styles,
-      btnStyles: Components.Button.styles,
-      inputStyles: Components.Input.styles,
-      alertIcon,
-      logoIcon,
+      ...componentsStyles,
+      ...icons,
       inputs: [
         {
           inputId: 'login',
@@ -50,10 +45,8 @@ const pages = {
     Pages.SignUp.Component,
     {
       styles: Pages.SignUp.styles,
-      btnStyles: Components.Button.styles,
-      inputStyles: Components.Input.styles,
-      alertIcon,
-      logoIcon,
+      ...componentsStyles,
+      ...icons,
       inputs: [
         {
           inputId: 'email',
@@ -118,18 +111,130 @@ const pages = {
       ],
     },
   ],
+  settings: [
+    Pages.Settings.Component,
+    {
+      styles: Pages.Settings.styles,
+      ...componentsStyles,
+      ...icons,
+      ...images,
+      basicInformationInputs: [
+        {
+          inputId: 'login',
+          name: 'login',
+          placeholder: 'Login',
+          label: 'Login',
+          value: '',
+          helpText: '3–16 characters. Letters, numbers, or underscores.',
+        },
+        {
+          inputId: 'first_name',
+          name: 'first_name',
+          placeholder: 'First Name',
+          label: 'First Name',
+          value: '',
+          helpText: 'Use your real first name.',
+        },
+        {
+          inputId: 'second_name',
+          name: 'second_name',
+          placeholder: 'Second Name',
+          label: 'Second Name',
+          value: '',
+          helpText: 'Use your real last name.',
+        },
+        {
+          inputId: 'email',
+          name: 'email',
+          placeholder: 'Email',
+          label: 'Email',
+          value: '',
+          helpText: 'Enter a valid email you have access to.',
+          type: 'email',
+        },
+        {
+          inputId: 'phone',
+          name: 'phone',
+          placeholder: 'Phone number',
+          label: 'Phone number',
+          value: '',
+          helpText: 'Include country code (e.g. +7).',
+          type: 'tel',
+        },
+      ],
+      changePasswordInputs: [
+        {
+          inputId: 'oldPassword',
+          name: 'oldPassword',
+          placeholder: 'Password',
+          label: 'Verify current password',
+          value: '',
+          helpText: ' Use your current password.',
+          type: 'password',
+        },
+        {
+          inputId: 'newPassword',
+          name: 'newPassword',
+          placeholder: 'Password',
+          label: 'New password',
+          value: '',
+          helpText: '8+ characters with letters, numbers & symbols.',
+          type: 'password',
+        },
+        {
+          inputId: 'confirm_password',
+          name: 'confirm_password',
+          placeholder: 'Confirm Password',
+          label: 'Confirm Password',
+          value: '',
+          helpText: 'Repeat your password exactly.',
+          type: 'password',
+        },
+      ],
+    },
+  ],
 };
 
 registerHelpers(HELPERS);
 registerPartialComponents(Components);
 
-const app = document.getElementById('app');
-const [source, context] = pages['sign-up'];
+const navigate = (page: keyof typeof pages) => {
+  const app = document.getElementById('app');
 
-console.log({ app, pages });
+  const [source, context] = pages[page];
 
-const templatingFunction = Handlebars.compile(source);
-const html = templatingFunction(context);
-// console.log({ html, app});
+  const templatingFunction = Handlebars.compile(source);
+  const html = templatingFunction(context);
 
-if (app) app.innerHTML = html;
+  if (app) app.innerHTML = html;
+};
+
+type PageName = keyof typeof pages;
+
+const handleRouting = () => {
+  const hash = window.location.hash.slice(2);
+  const page = (hash || 'home') as PageName;
+
+  if (pages[page]) {
+    navigate(page);
+
+    if (page === 'settings') {
+      const openModalButton = document.getElementById('updateAvatarBtn');
+      console.log(openModalButton);
+
+      openModalButton?.addEventListener('click', () => {
+        console.log('click');
+
+        (
+          document.getElementById('uploadAvatarModal') as HTMLDialogElement
+        )?.showModal();
+      });
+    }
+  } else {
+    document.getElementById('app')!.innerHTML =
+      '<h1>404 — Страница не найдена</h1>';
+  }
+};
+
+window.addEventListener('hashchange', handleRouting);
+window.addEventListener('DOMContentLoaded', handleRouting);

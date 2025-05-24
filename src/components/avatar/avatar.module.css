@@ -1,0 +1,32 @@
+.container {
+  width: 40px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.avatar {
+  width: 100%;
+  object-fit: scale-down;
+  object-position: center;
+}
+
+.s {
+  width: 32px;
+}
+
+.m {
+  width: 40px;
+}
+
+.l {
+  width: 48px;
+}
+
+.lx {
+  width: 56px;
+}
+
+.xxl {
+  width: 64px;
+}

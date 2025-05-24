@@ -1,41 +1,55 @@
-<section class="{{styles.container}}">
-    <h1>OBAMA</h1>
-    <p>{{btnStyles}}</p>
-    {{> Button text="Button Primary" styles=btnStyles variant="primary" size="s" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="secondary" size="s" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="outline" size="s" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="destructive" size="s" }}
+<main class="{{styles.page}}">
+  <section class="{{styles.section}}">
+    {{> Header title="Sprint 1" subtitle="Use the buttons below and browser navigation to go to the appropriate page." styles=headerStyles}}
 
-    {{> Button styles=btnStyles variant="primary" size="m" icon=alertIcon iconOnly=true }}
-    {{> Button text="Button Primary" styles=btnStyles variant="primary" size="m" block=true }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="secondary" size="m" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="outline" size="m" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="destructive" size="m" }}
+<nav>
+ <ul class="{{styles.list}}">
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/sign-in" 
+                text="Sign In Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
 
-    {{> Button text="Button Primary" styles=btnStyles variant="primary" size="l" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="secondary" size="l" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="outline" size="l" }}
-    {{> Button text="Button Secondary" styles=btnStyles variant="destructive" size="l" }}
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/sign-up" 
+                text="Sign Up Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
 
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/settings" 
+                text="Settings Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+        
+                
+    </ul>
+</nav>
+   
+  </section>
+</main>
 
-    {{!-- Простое текстовое поле --}}
-    {{> Input label="Login" name="username" placeholder="Login"
-    value=formData.username
-    styles=inputStyles
-    helpText='This is an input description.'
-    required=true
-    }}
-
-    {{> Input label="Login" name="username" placeholder="Login"
-    value=formData.username
-    styles=inputStyles
-    error='This is an input description.'
-    }}
-
-    {{> Input label="Login" name="username" placeholder="Login"
-    value=formData.username
-    styles=inputStyles
-    helpText='This is an input description.'
-    disabled=true
-    }}
-</section>

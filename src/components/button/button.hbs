@@ -14,6 +14,7 @@
   <button type="{{default type 'button'}}"
           class="{{join buttonClasses ' '}}"
           {{#if disabled}}disabled{{/if}}
+          {{#if id}}id="{{id}}"{{/if}}
           {{#if loading}}aria-busy="true"{{/if}}
           {{#each attributes}} {{_key}}="{{this}}"{{/each}}
   >
