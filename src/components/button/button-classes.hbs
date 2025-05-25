@@ -18,15 +18,26 @@
 {{assign "sizeMap" (object "s" styles.s "m" styles.m "l" styles.l)}}
 
 {{! Добавление по variant/size }}
-{{#if (lookup variantMap variant)}}{{push
-    buttonClasses
-    (lookup variantMap variant)
-  }}{{/if}}
-{{#if (lookup sizeMap size)}}{{push buttonClasses (lookup sizeMap size)}}{{/if}}
+{{#if (lookup variantMap variant)}}
+  {{push buttonClasses (lookup variantMap variant)}}
+{{/if}}
+{{#if (lookup sizeMap size)}}
+  {{push buttonClasses (lookup sizeMap size)}}
+{{/if}}
 
-{{#if loading}}{{push buttonClasses styles.loading}}{{/if}}
-{{#if disabled}}{{push buttonClasses styles.disabled}}{{/if}}
-{{#if iconOnly}}{{push buttonClasses styles.iconOnly}}{{/if}}
-{{#if block}}{{push buttonClasses styles.block}}{{/if}}
+{{#if loading}}
+  {{push buttonClasses styles.loading}}
+{{/if}}
+{{#if disabled}}
+  {{push buttonClasses styles.disabled}}
+{{/if}}
+{{#if iconOnly}}
+  {{push buttonClasses styles.iconOnly}}
+{{/if}}
+{{#if block}}
+  {{push buttonClasses styles.block}}
+{{/if}}
 
-{{#if class}}{{push buttonClasses class}}{{/if}}
+{{#if class}}
+  {{push buttonClasses class}}
+{{/if}}
