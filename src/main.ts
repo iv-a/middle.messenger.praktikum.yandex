@@ -305,7 +305,67 @@ const pages = {
           unread: 1,
         },
       ],
-      messages: [],
+      messages: [
+        {
+          message: 'Hey!',
+          time: '14:02',
+          self: false,
+        },
+        {
+          message:
+            'Hey, long time no see. How have you been? What are you up to these days?',
+          time: '14:03',
+          self: true,
+        },
+        {
+          message:
+            'I’ve been doing alright. Work has been pretty intense lately, but I try to find time to recharge. I’ve been going out of town on weekends to get some fresh air.',
+          time: '14:05',
+          self: false,
+        },
+        {
+          message:
+            'That sounds great. I’ve been thinking about taking a short trip myself. Even just a day or two away from the computer could really help. Lately, I’ve been glued to the screen nonstop.',
+          time: '14:07',
+          self: true,
+        },
+        {
+          message:
+            'Yeah, I know the feeling. When you’re deep in a project, it’s hard to take a break. I had the same thing last month. The only thing that helped was a full digital detox over the weekend.',
+          time: '14:09',
+          self: false,
+        },
+        {
+          message:
+            'Sounds like a plan. Do you usually work on a fixed schedule or just go with the flow?',
+          time: '14:10',
+          self: true,
+        },
+        {
+          message:
+            'More of a go-with-the-flow type, honestly. As long as I hit deadlines, I don’t stress about timing. I try to start by 10 AM, but evenings are flexible. If something’s urgent, I’ll work late. If not, I’ll hit the gym or read a bit.',
+          time: '14:12',
+          self: false,
+        },
+        {
+          message:
+            'I might try that approach too. My schedule’s been a mess lately. I wake up late, my whole day shifts, and by evening I’m too tired to do anything meaningful.',
+          time: '14:14',
+          self: true,
+        },
+        {
+          message: `I’ve been there. I used to go to bed super late, then wake up around noon, and wonder why I had no time. What helped me was building a simple morning routine: stretch a little, drink water, read 10–15 minutes. 
+    That helped ground my day. It’s easier to stay focused after that. Don’t try to overhaul everything at once — just add one new habit each week. After a couple of months, your lifestyle shifts naturally.`,
+          time: '14:17',
+          self: false,
+        },
+        {
+          message: `That actually sounds really doable. I always tell myself I’ll start fresh on Monday or next month, but I keep going in circles. It’s frustrating — you feel stuck, even though you know the problem. 
+    I think I’ll start small, like you said. Tomorrow, I’ll set my alarm for 8:30 and see how it feels.`,
+          time: '14:20',
+          self: true,
+        },
+      ],
     },
   ],
 };

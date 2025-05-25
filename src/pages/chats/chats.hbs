@@ -4,7 +4,7 @@
       <div class={{styles.logo}}>
         {{{logoIcon}}}
       </div>
-      {{> Button styles=btnStyles variant="outline" size="m" icon=gearSixIcon iconOnly=true }}
+      {{> Button tagName="a" href="#/settings" styles=btnStyles variant="outline" size="m" icon=gearSixIcon iconOnly=true }}
     </header>
 
     <form class="{{styles.searchChat}}">
@@ -42,23 +42,20 @@
       </div>
       {{> Button styles=btnStyles variant="outline" size="m" icon=dotsThreeIcon iconOnly=true }}
     </header>
-    <ul class="{{styles.messagesList}}"> 
-      <li class="{{styles.message}}">
-        <p class="{{styles.text}}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita cumque quis accusantium autem ex minima animi unde voluptatibus repellendus, fugiat molestias, ab aliquam pariatur laboriosam velit iste officia fugit eligendi. Sapiente et sequi, molestiae tempore nam autem hic eius sint at ab culpa corrupti maiores dolores cum quos error, non odit itaque recusandae? Possimus ad exercitationem expedita cumque? A, vel.</p>
-        <time class="{{styles.messageTime}}">10:21</time>
-      </li>
-
-      <li class="{{styles.message}} {{styles.self}}">
-        <p class="{{styles.text}}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, cum? Repudiandae suscipit odit quibusdam sed nesciunt consectetur temporibus quas distinctio alias magnam laudantium quaerat, praesentium ut dolores ad ratione quasi beatae porro voluptates modi, fugiat facilis cum itaque perspiciatis? Ad laboriosam voluptates, eius illo ut nemo aspernatur odio ducimus iure sint autem dolorem iste tempora magni aliquam, rerum officia nobis voluptatem exercitationem perferendis quia? Vero, enim? Minus perspiciatis nemo et laudantium voluptas non quisquam quidem ea suscipit mollitia minima, placeat, tenetur itaque, labore aut tempore facilis impedit? Dolores ad sint rem sapiente deserunt animi numquam asperiores unde in esse. Temporibus?</p>
-        <time class="{{styles.messageTime}}">10:03</time>
-      </li>
-
-      <li class="{{styles.message}}">
-        <p class="{{styles.text}}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita cumque quis accusantium autem ex minima animi unde voluptatibus repellendus, fugiat molestias, ab aliquam pariatur laboriosam velit iste officia fugit eligendi. Sapiente et sequi, molestiae tempore nam autem hic eius sint at ab culpa corrupti maiores dolores cum quos error, non odit itaque recusandae? Possimus ad exercitationem expedita cumque? A, vel.</p>
-        <time class="{{styles.messageTime}}">10:00</time>
-      </li>
-      <date class="{{styles.dateTag}}">May 17</date>
-    </ul>
+    <div class="{{styles.wrapper}}">
+      <ul class="{{styles.messagesList}}"> 
+        <date class="{{styles.dateTag}}">May 17</date>
+        {{#each messages}}
+          {{> MessageItem
+            message=this.message
+            time=this.time
+            styles=../messageItemStyles
+          }}
+        {{/each}}
+        
+      </ul>
+    </div>
+    
     <form class="{{styles.form}}">
       {{> Input 
         name="message" 

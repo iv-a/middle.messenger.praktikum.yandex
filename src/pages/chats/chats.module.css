@@ -56,11 +56,13 @@
 }
 
 .rightPanel {
-  display: flex;
+  display: grid;
   flex-direction: column;
+  grid-template-rows: max-content 1fr max-content;
   width: 100%;
+  min-height: 0;
   background-color: var(--secondary);
-  background-image: url('../../assets/icons/pattern.svg');
+  background-image: url('../../assets/images/pattern.png');
   background-size: 60%;
 }
 
@@ -87,50 +89,22 @@
   border-top: 1px solid var(--br-input);
 }
 
+.wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+
 .messagesList {
   display: flex;
   flex: 1;
-  flex-direction: column-reverse;
+  flex-direction: column;
   flex-shrink: 1;
   gap: var(--s-2);
-  justify-content: flex-start;
+  justify-content: flex-end;
   margin: 0;
   padding: var(--s-4);
-  overflow-y: auto;
   list-style: none;
   background-color: color-mix(in srgb, var(--br-input), transparent 30%);
-}
-
-.message {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
-  max-width: 60%;
-  padding: var(--s-4);
-  padding-bottom: var(--s-2);
-  color: var(--primary);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  background-color: #fff;
-  border-radius: 16px;
-  border-bottom-left-radius: 0;
-}
-
-.text {
-  display: inline;
-  align-self: flex-start;
-  margin: 0;
-  white-space: pre-line;
-}
-
-.self {
-  align-self: flex-end;
-  color: #fff;
-  background-color: var(--primary);
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 16px;
 }
 
 .dateTag {
@@ -141,10 +115,4 @@
   background-color: color-mix(in srgb, var(--primary), var(--secondary) 75%);
   border: 1px solid var(--br-input);
   border-radius: 100px;
-}
-
-.messageTime {
-  display: inline;
-  align-self: flex-end;
-  font: var(--font-p);
 }
