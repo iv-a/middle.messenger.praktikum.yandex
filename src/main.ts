@@ -406,8 +406,7 @@ const handleRouting = () => {
       });
     }
   } else {
-    document.getElementById('app')!.innerHTML =
-      '<h1>404 — Страница не найдена</h1>';
+    navigate('404');
   }
 };
 
