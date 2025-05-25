@@ -193,6 +193,28 @@ const pages = {
       ],
     },
   ],
+  '404': [
+    Pages.ErrorPage.Component,
+    {
+      code: '404',
+      description: 'This page could not be found.',
+      styles: Pages.ErrorPage.styles,
+      ...componentsStyles,
+      ...icons,
+      ...images,
+    },
+  ],
+  '500': [
+    Pages.ErrorPage.Component,
+    {
+      code: '500',
+      description: 'Something went wrong.',
+      styles: Pages.ErrorPage.styles,
+      ...componentsStyles,
+      ...icons,
+      ...images,
+    },
+  ],
 };
 
 registerHelpers(HELPERS);

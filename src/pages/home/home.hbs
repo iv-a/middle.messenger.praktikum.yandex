@@ -46,7 +46,33 @@
             }}
         </li>
         
-                
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/404" 
+                text="Not Found Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/500" 
+                text="Server Error Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
     </ul>
 </nav>
    
