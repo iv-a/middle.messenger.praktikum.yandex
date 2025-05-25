@@ -1,14 +1,15 @@
 .container {
   width: 40px;
   aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 50%;
 }
 
 .avatar {
   width: 100%;
-  object-fit: scale-down;
+  object-fit: cover;
   object-position: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .s {

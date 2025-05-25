@@ -1,0 +1,73 @@
+.card {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--s-3);
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  background-color: #fff;
+  border-bottom: 1px solid var(--br-input);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--secondary);
+  }
+
+  &:active {
+    background-color: color-mix(in srgb, var(--secondary), var(--primary) 5%);
+  }
+}
+
+.chatsCard:hover,
+.chatsCard:active {
+  transition: background-color 0.2s ease;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  width: 100%;
+}
+
+.group {
+  display: flex;
+  gap: var(--s-1);
+  align-items: center;
+  justify-content: space-between;
+  max-height: 56px;
+  overflow: hidden;
+}
+
+.displayName {
+  margin: 0;
+  color: var(--primary);
+  font: var(--font-h4);
+  font-weight: 600;
+}
+
+.time {
+  margin: 0;
+  font: var(--font-p);
+}
+
+.message {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--placeholder);
+  font: var(--font-p);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  margin: 0;
+  padding: 2px var(--s-2);
+  color: #fff;
+  font: var(--font-p);
+  background-color: #2563eb;
+  border-radius: 10px;
+}

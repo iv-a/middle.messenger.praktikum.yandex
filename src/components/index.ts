@@ -2,12 +2,14 @@ import { Avatar } from './avatar';
 import { Button } from './button';
 import { Header } from './header';
 import { Input } from './input';
+import { ChatItem } from './chat-item';
 
 export const Components = {
   Avatar,
   Button,
   Header,
   Input,
+  ChatItem,
 };
 
 export const componentsStyles: Record<string, CSSModuleClasses> = {
@@ -15,4 +17,5 @@ export const componentsStyles: Record<string, CSSModuleClasses> = {
   inputStyles: Components.Input.styles,
   headerStyles: Components.Header.styles,
   avatarStyles: Components.Avatar.styles,
+  chatItemStyles: Components.ChatItem.styles,
 };

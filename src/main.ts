@@ -215,6 +215,99 @@ const pages = {
       ...images,
     },
   ],
+  chats: [
+    Pages.ChatsPage.Component,
+    {
+      styles: Pages.ChatsPage.styles,
+      ...componentsStyles,
+      ...icons,
+      ...images,
+      chats: [
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1747694944418-8f20b0f97d07?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          displayName: 'William Smith',
+          time: '10:21',
+          message:
+            "Hi, let's have a meeting tomorrow to discuss the project...",
+          unread: 3,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1747835369484-97d3f0f782ac?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          displayName: 'Emily Johnson',
+          time: '09:45',
+          message: 'I reviewed the proposal. Looks good overall!',
+          unread: 1,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'Michael Brown',
+          time: '08:30',
+          message: 'Can we push the meeting to next week?',
+          unread: 0,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'Sarah Williams',
+          time: '14:10',
+          message: 'Great job on the last release!',
+          unread: 5,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'James Davis',
+          time: '11:55',
+          message: 'Let’s finalize the design today.',
+          unread: 2,
+        },
+        {
+          avatarUrl:
+            'https://plus.unsplash.com/premium_photo-1747054588575-3cf191c4e020?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          displayName: 'Olivia Miller',
+          time: '16:32',
+          message: 'I’ll join the call in 5 mins.',
+          unread: 0,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'Daniel Garcia',
+          time: '13:27',
+          message: 'We need to review the budget by tomorrow.',
+          unread: 4,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'Sophia Martinez',
+          time: '07:12',
+          message: 'The server is up again. Everything is back to normal.',
+          unread: 0,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'David Lee',
+          time: '12:03',
+          message: 'Just updated the documents with latest changes.',
+          unread: 2,
+        },
+        {
+          avatarUrl:
+            'https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+          displayName: 'Isabella Taylor',
+          time: '15:19',
+          message: 'Let’s catch up after lunch.',
+          unread: 1,
+        },
+      ],
+      messages: [],
+    },
+  ],
 };
 
 registerHelpers(HELPERS);
