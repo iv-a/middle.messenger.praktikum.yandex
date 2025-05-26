@@ -1,0 +1,70 @@
+:root {
+  /* fonts */
+  --font-fallback: 'Inter', 'Roboto', sans-serif;
+  --font-base: 'Geist', var(--font-fallback);
+  --font-h1: 700 32px / 36px var(--font-base);
+  --font-h2: 600 16px / 20px var(--font-base);
+  --font-h3: 500 14px / 14px var(--font-base);
+  --font-h4: 400 14px / 20px var(--font-base);
+  --font-p: 400 12px / 16px var(--font-base);
+
+  /* space */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 28px;
+  --s-8: 32px;
+  --s-9: 36px;
+  --s-10: 40px;
+
+  /* height */
+  --h-1: 4px;
+  --h-2: 8px;
+  --h-3: 12px;
+  --h-4: 16px;
+  --h-5: 20px;
+  --h-6: 24px;
+  --h-7: 28px;
+  --h-8: 32px;
+  --h-9: 36px;
+  --h-10: 40px;
+
+  /* width */
+  --w-1: 4px;
+  --w-2: 8px;
+  --w-3: 12px;
+  --w-4: 16px;
+  --w-5: 20px;
+  --w-6: 24px;
+  --w-7: 28px;
+  --w-8: 32px;
+  --w-9: 36px;
+  --w-10: 40px;
+
+  /* colors */
+  --primary: #171717;
+  --secondary: #f5f5f5;
+  --destructive: #dc2626;
+  --br-input: #e5e5e5;
+  --foreground: #0a0a0a;
+  --ring: #a3a3a3;
+  --placeholder: #737373;
+  --sh-focus: 0 0 0 3px rgb(163 163 163 / 50%);
+  --sh-destructive-focus: 0 0 0 3px rgb(220 38 38 / 20%);
+
+  /* alpha */
+  --alpha-100: 0%;
+  --alpha-90: 10%;
+  --alpha-80: 20%;
+  --alpha-70: 30%;
+  --alpha-60: 40%;
+  --alpha-50: 50%;
+  --alpha-40: 60%;
+  --alpha-30: 70%;
+  --alpha-20: 80%;
+  --alpha-10: 90%;
+  --alpha-0: 100%;
+}

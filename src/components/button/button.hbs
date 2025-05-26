@@ -1,0 +1,23 @@
+{{> button-classes}}
+
+{{#if (eq tagName 'a')}}
+  <a href="{{href}}"
+     class="{{join buttonClasses ' '}}"
+     {{#if target}}target="{{target}}"{{/if}}
+     {{#each attributes}} {{_key}}="{{this}}"{{/each}}
+     {{#if disabled}}aria-disabled="true"{{/if}}
+     {{#if loading}}aria-busy="true"{{/if}}
+  >
+    {{> button-content}}
+  </a>
+{{else}}
+  <button type="{{default type 'button'}}"
+          class="{{join buttonClasses ' '}}"
+          {{#if disabled}}disabled{{/if}}
+          {{#if id}}id="{{id}}"{{/if}}
+          {{#if loading}}aria-busy="true"{{/if}}
+          {{#each attributes}} {{_key}}="{{this}}"{{/each}}
+  >
+    {{> button-content}}
+  </button>
+{{/if}}

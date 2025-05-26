@@ -1,0 +1,95 @@
+<main class="{{styles.page}}">
+  <section class="{{styles.section}}">
+    {{> Header title="Sprint 1" subtitle="Use the buttons below and browser navigation to go to the appropriate page." styles=headerStyles}}
+
+<nav>
+ <ul class="{{styles.list}}">
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/sign-in" 
+                text="Sign In Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/sign-up" 
+                text="Sign Up Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/chats" 
+                text="Chats Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/settings" 
+                text="Settings Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+        
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/404" 
+                text="Not Found Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+
+        <li class="{{styles.item}}">
+            {{> Button 
+                tagName="a" 
+                href="#/500" 
+                text="Server Error Page" 
+                styles=btnStyles 
+                variant="primary" 
+                size="m" 
+                block=true
+                icon=arrowRightIcon
+                suffix=true
+            }}
+        </li>
+    </ul>
+</nav>
+   
+  </section>
+</main>
+

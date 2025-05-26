@@ -1,0 +1,18 @@
+<li class="{{styles.card}}">
+  {{> Avatar src=avatarUrl size="l" styles=avatarStyles }}
+
+  <div class="{{styles.body}}">
+    <div class="{{styles.group}}">
+      <h3 class="{{styles.displayName}}">{{displayName}}</h3>
+
+      <time class="{{styles.time}}">{{time}}</time>
+    </div>
+    <div class="{{styles.group}}">
+      <p class="{{styles.message}}">{{message}}</p>
+
+      {{#if (neq unread 0)}}
+      <p class="{{styles.badge}}">{{unread}}</p>
+      {{/if}}
+    </div>
+  </div>
+</li>

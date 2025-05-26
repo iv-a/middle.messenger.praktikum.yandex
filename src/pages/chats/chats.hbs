@@ -1,0 +1,70 @@
+<main class="{{styles.page}}">
+  <section class="{{styles.leftPanel}}">
+    <header class="{{styles.header}}">
+      <div class={{styles.logo}}>
+        {{{logoIcon}}}
+      </div>
+      {{> Button tagName="a" href="#/settings" styles=btnStyles variant="outline" size="m" icon=gearSixIcon iconOnly=true }}
+    </header>
+
+    <form class="{{styles.searchChat}}">
+      {{> Input 
+        name="search" 
+        placeholder="Search"
+        value=formData.username
+        styles=inputStyles
+      }}
+    </form>
+
+    <ul class="{{styles.chatsList}}">
+      {{#each chats}}
+        {{> ChatItem
+          styles=../chatItemStyles
+          avatarUrl=this.avatarUrl
+          displayName=this.displayName
+          time=this.time
+          message=this.message
+          unread=this.unread
+          avatarStyles=../avatarStyles
+        }}
+      {{/each}}
+      
+    </ul>
+  </section>
+
+  <div class={{styles.dividerV}}></div>
+
+  <section class="{{styles.rightPanel}}">
+    <header class="{{styles.header}}">
+      <div class={{styles.chatInfo}}>
+        {{> Avatar src="../../assets/images/avatar.jpg" size="s" styles=avatarStyles }}
+        <h1 class="{{styles.chatName}}">William Smith</h1>
+      </div>
+      {{> Button styles=btnStyles variant="outline" size="m" icon=dotsThreeIcon iconOnly=true }}
+    </header>
+    <div class="{{styles.wrapper}}">
+      <ul class="{{styles.messagesList}}"> 
+        <date class="{{styles.dateTag}}">May 17</date>
+        {{#each messages}}
+          {{> MessageItem
+            message=this.message
+            time=this.time
+            styles=../messageItemStyles
+          }}
+        {{/each}}
+        
+      </ul>
+    </div>
+    
+    <form class="{{styles.form}}">
+      {{> Input 
+        name="message" 
+        placeholder="Write a message..."
+        value=formData.username
+        styles=inputStyles
+      }}
+
+      {{> Button type="submit" styles=btnStyles variant="primary" size="m" icon=paperPlaneTilt iconOnly=true }}
+    </form>
+  </section>
+</main>

@@ -1,0 +1,42 @@
+<div class="{{styles.avatarGroup}}">
+  {{> Avatar
+        url="{{avatarUrl}}"
+        title="Avatar"
+        size="xxl"
+        styles=avatarStyles
+  }}
+
+  {{> Button
+        type="button"
+        text="Edit"
+        size="m"
+        variant="outline"
+        styles=btnStyles
+        icon=pencilIcon
+        id="updateAvatarBtn"
+        prefix=true
+  }}
+</div>
+
+<dialog id="uploadAvatarModal" class="{{styles.dialog}}">
+    <form method="dialog" class="{{styles.fileForm}}">
+        <h2 class="{{styles.dialogTitle}}">Upload new avatar</h2>
+        <input type="file" name="avatar" accept="image/*" />
+        <menu class="{{styles.dialogControls}}">
+            {{> Button
+                type="cancel"
+                text="Cancel"
+                size="m"
+                variant="outline"
+                styles=btnStyles
+            }}
+            {{> Button
+                type="submit"
+                text="Save"
+                size="m"
+                variant="primary"
+                styles=btnStyles
+            }}
+        </menu>
+    </form>
+</dialog>

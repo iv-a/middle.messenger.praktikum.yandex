@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  width: 100%;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  color: var(--primary);
+  font: var(--font-h1);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--placeholder);
+  font: var(--font-h4);
+}

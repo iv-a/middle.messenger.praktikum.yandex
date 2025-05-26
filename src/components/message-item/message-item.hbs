@@ -1,0 +1,12 @@
+{{assign "messageClasses" (array styles.message)}}
+{{#if self}}
+  {{push messageClasses styles.self}}
+{{/if}}
+<li class="{{join messageClasses " "}}">
+  <p class="{{styles.text}}">
+    {{message}}
+  </p>
+  <time class="{{styles.time}}">
+    {{time}}
+  </time>
+</li>

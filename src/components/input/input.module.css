@@ -1,0 +1,87 @@
+/* src/components/_input.module.css */
+
+/* Общая обертка для поля ввода и его связанных элементов (label, helpText, error) */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  width: 100%;
+}
+
+/* Стили для метки */
+.label {
+  margin: 0;
+  padding: 0;
+  font: var(--font-h3);
+}
+
+.labelRequired::after {
+  color: var(--destructive);
+  content: "*";
+}
+
+.input {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: var(--h-9);
+  padding: var(--s-2) var(--s-3);
+  color: var(--foreground);
+  font: var(--font-h4);
+  line-height: 24px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid var(--br-input);
+  border-radius: 8px;
+  outline: 0;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
+
+.input:focus {
+  border: 1px solid var(--ring);
+  box-shadow: var(--sh-focus);
+}
+
+.input:disabled,
+.input[readonly] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.inputError {
+  border-color: var(--destructive);
+}
+
+.inputError:focus {
+  border-color: var(--destructive);
+  box-shadow: var(--sh-destructive-focus);
+}
+
+.errorMessage,
+.helpText {
+  margin: 0;
+  padding: 0;
+  color: var(--destructive);
+  font: var(--font-h4);
+}
+
+.helpText {
+  color: var(--placeholder);
+}
+
+.errorContainer {
+  display: flex;
+  gap: var(--s-1);
+  align-items: center;
+  color: var(--destructive);
+
+  svg {
+    width: var(--w-4);
+    height: var(--h-4);
+  }
+}
