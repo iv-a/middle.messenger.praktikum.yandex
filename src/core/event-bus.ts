@@ -12,7 +12,7 @@ export class EventBus<TEventSignatures extends Record<string, unknown[]>> {
 
   on<K extends keyof TEventSignatures>(
     event: K,
-    callback: TypedEventCallback<TEventSignatures[K]>
+    callback: TypedEventCallback<TEventSignatures[K]>,
   ): void {
     if (!this.listeners[event]) {
       this.listeners[event] = new Map();
@@ -24,7 +24,7 @@ export class EventBus<TEventSignatures extends Record<string, unknown[]>> {
 
   off<K extends keyof TEventSignatures>(
     event: K,
-    callback: TypedEventCallback<TEventSignatures[K]>
+    callback: TypedEventCallback<TEventSignatures[K]>,
   ): void {
     const map = this.listeners[event];
     if (!map) {
@@ -58,7 +58,7 @@ export class EventBus<TEventSignatures extends Record<string, unknown[]>> {
     const promises: Promise<unknown>[] = [];
 
     for (const [callback, count] of entries) {
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < count; i += 1) {
         try {
           const result = callback(...args);
           if (result instanceof Promise) {

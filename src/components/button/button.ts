@@ -39,7 +39,7 @@ export class Button extends Block<ButtonProps> {
   // Решаем, когда нужно перерендерить
   protected componentDidUpdate(
     oldProps: ButtonProps,
-    newProps: ButtonProps
+    newProps: ButtonProps,
   ): boolean {
     return (
       oldProps.block !== newProps.block ||

@@ -3,8 +3,7 @@
 // import * as Pages from './pages';
 import { icons } from './assets/icons';
 import './assets/styles/index.css';
-import { HELPERS, registerHelpers, registerPartialComponents } from './utils';
-import { images } from './assets/images';
+import { HELPERS, registerHelpers } from './utils';
 
 import { Button } from './components';
 

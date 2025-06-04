@@ -1,7 +1,7 @@
-import rawTemplate from "./sign-up.hbs?raw";
-import signUpForm from "./form.hbs?raw";
-import s from "./sign-up.module.css";
-import { registerPartials } from "../../utils";
+import rawTemplate from './sign-up.hbs?raw';
+import signUpForm from './form.hbs?raw';
+import s from './sign-up.module.css';
+import { registerPartials } from '../../utils';
 
 export const SignUp = {
   Component: rawTemplate,
@@ -9,5 +9,5 @@ export const SignUp = {
 };
 
 registerPartials({
-  "sign-up-form": signUpForm,
+  'sign-up-form': signUpForm,
 });

@@ -1,10 +1,5 @@
-// core/block.ts
 import Handlebars from 'handlebars';
 import { EventBus } from './event-bus';
-
-type TypedEventCallback<Args extends unknown[]> = (
-  ...args: Args
-) => void | Promise<void>;
 
 const EVENTS_CONFIG = {
   INIT: 'init',
@@ -18,7 +13,7 @@ export type BlockEventSignatures = {
   [EVENTS_CONFIG.FLOW_CDM]: [];
   [EVENTS_CONFIG.FLOW_CDU]: [
     oldProps: Record<string, unknown>,
-    newProps: Record<string, unknown>
+    newProps: Record<string, unknown>,
   ];
   [EVENTS_CONFIG.FLOW_RENDER]: [];
 };
@@ -29,19 +24,25 @@ type BaseProps = {
   events?: Record<string, EventListener>;
 } & Record<string, unknown>;
 
-type Children = Record<string, Block<any> | Block<any>[]>;
+type Children = Record<string, Block<BaseProps> | Block<BaseProps>[]>;
 
 export abstract class Block<P extends BaseProps> {
   static EVENTS = EVENTS_CONFIG;
 
   private _eventBus: EventBus<BlockEventSignatures>;
+
   private _element: HTMLElement | null = null;
+
   private _id: string;
+
   private _mounted: boolean = false;
+
   private readonly tagName: string;
+
   private readonly _templateFn: Handlebars.TemplateDelegate;
 
   public props: P;
+
   public children: Children;
 
   constructor(tagName: string, propsWithChildren: P) {
@@ -77,7 +78,7 @@ export abstract class Block<P extends BaseProps> {
         value instanceof Block ||
         (Array.isArray(value) && value.every((item) => item instanceof Block))
       ) {
-        children[key] = value as Block<any> | Block<any>[];
+        children[key] = value as Block<BaseProps> | Block<BaseProps>[];
       } else {
         props[key] = value;
       }
@@ -86,16 +87,15 @@ export abstract class Block<P extends BaseProps> {
   }
 
   private _makePropsProxy(props: Partial<P>): Partial<P> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return new Proxy(props, {
       get(target, prop, receiver) {
         const value = Reflect.get(target, prop, receiver);
-        return typeof value === 'function'
-          ? (value as Function).bind(target)
-          : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value, receiver) {
-        const prev = (target as any)[prop as string];
+        const prev = target[prop as string];
         if (prev === value) return true;
         const oldTarget = { ...(target as object) };
         const result = Reflect.set(target, prop, value, receiver);
@@ -128,7 +128,7 @@ export abstract class Block<P extends BaseProps> {
 
   private _componentDidUpdate(
     oldProps: Record<string, unknown>,
-    newProps: Record<string, unknown>
+    newProps: Record<string, unknown>,
   ) {
     const shouldUpdate = this.componentDidUpdate(oldProps as P, newProps as P);
     if (shouldUpdate) {
@@ -287,7 +287,10 @@ export abstract class Block<P extends BaseProps> {
   }
 
   protected init(): void {}
+
   protected componentDidMount(): void {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(_oldProps: P, _newProps: P): boolean {
     return true;
   }
