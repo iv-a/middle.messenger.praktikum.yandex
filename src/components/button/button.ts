@@ -1,16 +1,8 @@
 import rawTemplate from './button.hbs?raw';
-import classesPart from './button-classes.hbs?raw';
-import contentPart from './button-content.hbs?raw';
+import rawIconOnlyTemplate from './button-icon-only.hbs?raw';
 
 import styles from './button.module.css';
 import { Block } from '../../core';
-import { registerPartials } from '../../utils';
-
-registerPartials({
-  'button-classes': classesPart,
-  'button-content': contentPart,
-});
-
 interface ButtonProps {
   tagName?: 'button' | 'a';
   variant?: 'primary' | 'secondary' | 'outline' | 'destructive';
@@ -28,7 +20,12 @@ interface ButtonProps {
 
 export class Button extends Block<ButtonProps> {
   constructor(props: ButtonProps) {
-    super('div', props);
+    const realTag = props.tagName === 'a' ? 'a' : 'button';
+    super(realTag, props);
+  }
+
+  protected init() {
+    this._recompute();
   }
 
   // Переопределяем getTemplateContext, чтобы подмешивать CSS Module
@@ -56,8 +53,66 @@ export class Button extends Block<ButtonProps> {
     );
   }
 
-  // Метод render компилирует наш главный шаблон rawTemplate
+  private _recompute() {
+    this._setClassName();
+  }
+
+  private _setClassName() {
+    const {
+      variant,
+      size,
+      loading,
+      disabled,
+      iconOnly,
+      block,
+      className: extra,
+    } = this.props;
+
+    const buttonClasses: string[] = [styles.button];
+
+    const variantMap: Record<NonNullable<ButtonProps['variant']>, string> = {
+      primary: styles.primary,
+      secondary: styles.secondary,
+      outline: styles.outline,
+      destructive: styles.destructive,
+    };
+    if (variant && variantMap[variant]) {
+      buttonClasses.push(variantMap[variant]);
+    }
+
+    const sizeMap: Record<NonNullable<ButtonProps['size']>, string> = {
+      s: styles.s,
+      m: styles.m,
+      l: styles.l,
+    };
+    if (size && sizeMap[size]) {
+      buttonClasses.push(sizeMap[size]);
+    }
+
+    if (loading) {
+      buttonClasses.push(styles.loading);
+    }
+    if (disabled) {
+      buttonClasses.push(styles.disabled);
+    }
+    if (iconOnly) {
+      buttonClasses.push(styles.iconOnly);
+    }
+    if (block) {
+      buttonClasses.push(styles.block);
+    }
+    if (typeof extra === 'string' && extra.trim() !== '') {
+      buttonClasses.push(extra);
+    }
+
+    this.props.className = buttonClasses.join(' ');
+  }
+
   protected render(): string {
-    return rawTemplate;
+    if (this.props.iconOnly) {
+      return rawIconOnlyTemplate;
+    } else {
+      return rawTemplate;
+    }
   }
 }
