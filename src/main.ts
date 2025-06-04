@@ -5,7 +5,7 @@ import { icons } from './assets/icons';
 import './assets/styles/index.css';
 import { HELPERS, registerHelpers } from './utils';
 
-import { Button } from './components';
+import { Button, Avatar } from './components';
 
 // const pages = {
 //   home: [
@@ -487,7 +487,7 @@ const btn5 = new Button({
   attributes: { type: 'button' },
 });
 root!.appendChild(btn5.getContent());
-btn1.dispatchComponentDidMount();
+btn4.dispatchComponentDidMount();
 
 const btn6 = new Button({
   tagName: 'button',
@@ -502,4 +502,12 @@ const btn6 = new Button({
   attributes: { type: 'button' },
 });
 root!.appendChild(btn6.getContent());
-btn1.dispatchComponentDidMount();
+btn6.dispatchComponentDidMount();
+const avt1 = new Avatar({
+  avatarUrl:
+    'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+  size: 'xxl',
+});
+
+root!.appendChild(avt1.getContent());
+avt1.dispatchComponentDidMount();
