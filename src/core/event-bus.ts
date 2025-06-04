@@ -1,62 +1,77 @@
-type EventCallback = Function;
+type TypedEventCallback<Args extends unknown[]> = (
+  ...args: Args
+) => void | Promise<void>;
 
-type CallbacksMap = Map<EventCallback, number>;
+export class EventBus<TEventSignatures extends Record<string, unknown[]>> {
+  private listeners: {
+    [K in keyof TEventSignatures]?: Map<
+      TypedEventCallback<TEventSignatures[K]>,
+      number
+    >;
+  } = {};
 
-export class EventBus<Events extends Record<string, string>> {
-  private listeners: Map<Events[keyof Events], CallbacksMap>;
-
-  constructor() {
-    this.listeners = new Map<Events[keyof Events], CallbacksMap>();
+  on<K extends keyof TEventSignatures>(
+    event: K,
+    callback: TypedEventCallback<TEventSignatures[K]>
+  ): void {
+    if (!this.listeners[event]) {
+      this.listeners[event] = new Map();
+    }
+    const map = this.listeners[event]!;
+    const current = map.get(callback) ?? 0;
+    map.set(callback, current + 1);
   }
 
-  on<E extends Events[keyof Events]>(event: E, callback: EventCallback) {
-    if (!this.listeners.has(event)) {
-      this.listeners.set(event, new Map());
+  off<K extends keyof TEventSignatures>(
+    event: K,
+    callback: TypedEventCallback<TEventSignatures[K]>
+  ): void {
+    const map = this.listeners[event];
+    if (!map) {
+      return;
     }
-
-    const callbacks: CallbacksMap = this.listeners.get(event)!;
-
-    if (!callbacks.has(callback)) {
-      callbacks.set(callback, 1);
+    const current = map.get(callback);
+    if (!current) {
+      return;
+    }
+    if (current > 1) {
+      map.set(callback, current - 1);
     } else {
-      const count: number = callbacks.get(callback)!;
-
-      callbacks.set(callback, count + 1);
+      map.delete(callback);
+    }
+    if (map.size === 0) {
+      delete this.listeners[event];
     }
   }
 
-  off<E extends Events[keyof Events]>(event: E, callback: EventCallback) {
-    if (!this.listeners.has(event)) {
-      throw new Error(`Error: Нет события: ${event}`);
-    }
-
-    const callbacks = this.listeners.get(event);
-
-    if (!callbacks) {
+  async emit<K extends keyof TEventSignatures>(
+    event: K,
+    ...args: TEventSignatures[K]
+  ): Promise<void> {
+    const map = this.listeners[event];
+    if (!map) {
       return;
     }
+    // Копируем entries, чтобы безопасно итерировать, даже если внутри колбэков
+    // кто-то вызовет off/on на том же событии
+    const entries = Array.from(map.entries());
+    const promises: Promise<unknown>[] = [];
 
-    callbacks.delete(callback);
-  }
-
-  emit<Evant extends Events[keyof Events], Args extends unknown[]>(
-    event: Evant,
-    ...args: Args
-  ) {
-    if (!this.listeners.has(event)) {
-      throw new Error(`Error: Нет события: ${event}`);
-    }
-
-    const callbacks = this.listeners.get(event);
-
-    if (!callbacks) {
-      return;
-    }
-
-    for (const [callback, count] of callbacks) {
+    for (const [callback, count] of entries) {
       for (let i = 0; i < count; i++) {
-        callback(...args);
+        try {
+          const result = callback(...args);
+          if (result instanceof Promise) {
+            promises.push(result);
+          }
+        } catch (err) {
+          console.error(`Error in callback for event "${String(event)}":`, err);
+        }
       }
+    }
+
+    if (promises.length) {
+      await Promise.all(promises);
     }
   }
 }
