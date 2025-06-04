@@ -1,29 +1,27 @@
-<div class="{{styles.inputGroup}} {{class}}">
-    {{#if label}}
-    <label for="{{inputId}}" class="{{styles.label}}{{#if required}} {{styles.labelRequired}}{{/if}}">
-        {{label}}
-    </label>
-    {{/if}}
+{{#if label}}
+<label for="{{inputId}}" class="{{styles.label}}{{#if required}} {{styles.labelRequired}}{{/if}}">
+    {{label}}
+</label>
+{{/if}}
 
-    <input 
-        id="{{inputId}}" 
-        name="{{name}}" 
-        value="{{value}}" 
-        type="{{default type 'text'}}"
-        placeholder="{{placeholder}}"
-        class="{{styles.input}}{{#if error}} 
-        {{styles.inputError}}{{/if}}" 
-        {{#if required}}required{{/if}} 
-        {{#if disabled}}disabled{{/if}} 
-        {{#if readonly}}readonly{{/if}} 
-        {{#each attributes}} {{_key}}="{{this}}" {{/each}}>
+<input 
+    id="{{inputId}}" 
+    name="{{name}}" 
+    value="{{value}}" 
+    type="{{default type 'text'}}"
+    placeholder="{{placeholder}}"
+    class="{{styles.input}}{{#if error}} 
+    {{styles.inputError}}{{/if}}" 
+    {{#if required}}required{{/if}} 
+    {{#if disabled}}disabled{{/if}} 
+    {{#if readonly}}readonly{{/if}} 
+    {{#each attributes}} {{_key}}="{{this}}" {{/each}}>
 
-    {{#if error}}
-    <div class="{{styles.errorContainer}}">
-        {{{alertIcon}}}
-    <p class="{{styles.errorMessage}}">{{error}}</p>
-    </div>
-    {{else if helpText}}
-    <p class="{{styles.helpText}}">{{helpText}}</p>
-    {{/if}}
+{{#if error}}
+<div class="{{styles.errorContainer}}">
+    {{{alertIcon}}}
+<p class="{{styles.errorMessage}}">{{error}}</p>
 </div>
+{{else if helpText}}
+<p class="{{styles.helpText}}">{{helpText}}</p>
+{{/if}}

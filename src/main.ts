@@ -5,7 +5,7 @@ import { icons } from './assets/icons';
 import './assets/styles/index.css';
 import { HELPERS, registerHelpers } from './utils';
 
-import { Button, Avatar } from './components';
+import { Button, Avatar, Input } from './components';
 
 // const pages = {
 //   home: [
@@ -511,3 +511,11 @@ const avt1 = new Avatar({
 
 root!.appendChild(avt1.getContent());
 avt1.dispatchComponentDidMount();
+
+const inp1 = new Input({
+  placeholder: 'Enter pass',
+  label: 'password',
+  helpText: 'hello my friend',
+});
+root!.appendChild(inp1.getContent());
+inp1.dispatchComponentDidMount();
