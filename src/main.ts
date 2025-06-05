@@ -17,6 +17,8 @@ import {
   MessageForm,
   ChatItem,
   MessageItem,
+  Header,
+  SectionHeading,
 } from './components';
 
 // const pages = {
@@ -575,3 +577,18 @@ const mi1 = new MessageItem({
 });
 root!.appendChild(mi1.getContent());
 mi1.dispatchComponentDidMount();
+
+const hed1 = new Header({
+  logoIcon: icons.logoIcon,
+  title: 'ldsfnljndnfls',
+  subtitle: 'jdfapsdfa ask;ld a;lsd alsk laskd;a;s',
+});
+root!.appendChild(hed1.getContent());
+hed1.dispatchComponentDidMount();
+
+const sh1 = new SectionHeading({
+  title: 'ldsfnljndnfls',
+  subtitle: 'jdfapsdfa ask;ld a;lsd alsk laskd;a;s',
+});
+root!.appendChild(sh1.getContent());
+sh1.dispatchComponentDidMount();
