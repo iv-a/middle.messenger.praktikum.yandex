@@ -10,10 +10,15 @@ type FieldName =
   | 'login'
   | 'email'
   | 'password'
+  | 'confirm_password'
   | 'phone'
   | 'message';
 
-export function validateField(field: FieldName, value: string): string {
+export function validateField(
+  field: FieldName,
+  value: string,
+  allValues?: Partial<Record<FieldName, string>>,
+): string {
   switch (field) {
     case 'first_name':
     case 'second_name':
@@ -38,6 +43,15 @@ export function validateField(field: FieldName, value: string): string {
       if (!value) return 'Password must not be empty.';
       if (!passwordRegex.test(value)) {
         return '8–40 characters, must include at least one uppercase letter and one digit.';
+      }
+      return '';
+    case 'confirm_password':
+      if (!value) return 'Повторите пароль, пожалуйста.';
+      if (!allValues || typeof allValues.password !== 'string') {
+        return 'Невозможно проверить совпадение паролей.';
+      }
+      if (value !== allValues.password) {
+        return 'Пароли не совпадают.';
       }
       return '';
     case 'phone':

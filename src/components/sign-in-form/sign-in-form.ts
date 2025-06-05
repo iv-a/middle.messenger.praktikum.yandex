@@ -96,7 +96,7 @@ export class SignInForm extends Block<SignInFormProps> {
               this.setProps({
                 formState: {
                   ...this.props.formState,
-                  login: target.value,
+                  password: target.value,
                 },
               });
             }
@@ -106,7 +106,7 @@ export class SignInForm extends Block<SignInFormProps> {
       SignInButton: new Button({
         variant: 'primary',
         text: 'Sign in',
-        size: 'm',
+        size: 'l',
         block: true,
         type: 'submit',
         events: {
