@@ -1,8 +1,8 @@
 .page {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
 }
@@ -10,8 +10,8 @@
 .section {
   display: flex;
   gap: var(--s-6);
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
   color: var(--primary);
 }

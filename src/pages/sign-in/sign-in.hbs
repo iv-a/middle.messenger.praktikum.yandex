@@ -1,15 +1,15 @@
-<main class="{{styles.page}}">
-  <section class="{{styles.section}}">
-    {{> Header title="Welcome back" subtitle="Enter your credentials to access your account." styles=headerStyles}}
+<section class="{{styles.section}}">
+  {{{Header}}}
+  <div class="{{styles.container}}">
+    {{{SignInForm}}}
 
-    <div class="{{styles.container}}">
-        {{> sign-in-form}}
-
-        <nav class="{{styles.linkGroup}}">
-            <p class="{{styles.subtitle}}">Don’t have an account?</p>
-            <a class="{{styles.link}}" href="/#sign-up">Sign up</a>
-        </nav>
-    </div>
-    
-  </section>
-</main>
+    <nav class="{{styles.linkGroup}}">
+      <p class="{{styles.subtitle}}">
+        Don’t have an account?
+      </p>
+      <a class="{{styles.link}}" href="/#/sign-up">
+        Sign up
+      </a>
+    </nav>
+  </div>
+</section>

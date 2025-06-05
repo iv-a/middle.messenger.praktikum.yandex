@@ -1,80 +1,101 @@
 interface HandlebarsContext {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Сравнение
-function eq(a: unknown, b: unknown): boolean {
+export function eq(a: unknown, b: unknown): boolean {
   return a === b;
 }
 
-function neq(a: unknown, b: unknown): boolean {
+export function neq(a: unknown, b: unknown): boolean {
   return a !== b;
 }
 
 // Логические операторы
-function and(...args: any[]): boolean {
-  args.pop();
-  return args.every(Boolean);
+export function and(...args: unknown[]): boolean {
+  // Последний аргумент — это объект опций Handlebars, его игнорируем
+  const values = args.slice(0, -1);
+  return values.every((v) => Boolean(v));
 }
 
-function or(...args: any[]): boolean {
-  args.pop();
-  return args.some(Boolean);
+export function or(...args: unknown[]): boolean {
+  // Последний аргумент — это объект опций Handlebars, его игнорируем
+  const values = args.slice(0, -1);
+  return values.some((v) => Boolean(v));
 }
 
-function not(value: unknown): boolean {
+export function not(value: unknown): boolean {
   return !value;
 }
 
 // Присваивание
-function assign(this: HandlebarsContext, key: string, value: unknown): string {
+export function assign(
+  this: HandlebarsContext,
+  key: string,
+  value: unknown,
+): string {
   this[key] = value;
-  return "";
+  return '';
 }
 
 // Работа с массивами
-function array(...args: unknown[]): unknown[] {
-  return args.slice(0, -1); // последний аргумент — Handlebars options
+export function array(...args: unknown[]): unknown[] {
+  // Последний аргумент — объект опций Handlebars, его отбрасываем
+  return args.slice(0, -1);
 }
 
-function push(this: HandlebarsContext, arr: any[], item: unknown): string {
+export function push(
+  this: HandlebarsContext,
+  arr: unknown[],
+  item: unknown,
+): string {
   if (Array.isArray(arr)) {
     arr.push(item);
   }
-  return "";
+  return '';
 }
 
-function join(arr: unknown[], separator = ""): string {
-  return Array.isArray(arr) ? arr.join(separator) : "";
+export function join(arr: unknown[], separator = ''): string {
+  return Array.isArray(arr) ? arr.join(separator) : '';
 }
 
 // Работа со строками
-function concat(...args: any[]): string {
-  args.pop();
-  return args.join("");
+export function concat(...args: unknown[]): string {
+  // Последний аргумент — объект опций Handlebars, его игнорируем
+  const values = args.slice(0, -1).map((v) => String(v));
+  return values.join('');
 }
 
-function capitalize(str: string): string {
-  return typeof str === "string" && str.length > 0
-    ? str.charAt(0).toUpperCase() + str.slice(1)
-    : str;
+export function capitalize(str: unknown): string {
+  if (typeof str === 'string' && str.length > 0) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  return '';
 }
 
 // Безопасный доступ к ключу объекта
-function lookup(obj: any, key: string): any {
+export function lookup(
+  obj: Record<string, unknown> | null | undefined,
+  key: string,
+): unknown {
   return obj?.[key];
 }
 
 // Условие по умолчанию
-function defaultValue(value: any, defaultVal: any): any {
+export function defaultValue<T>(value: T | null | undefined, defaultVal: T): T {
   return value != null ? value : defaultVal;
 }
 
-function objectHelper(...args: any[]) {
-  const out: Record<string, any> = {};
-  const params = args.slice(0, -1); // без options
+export function objectHelper(...args: unknown[]): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  // Последний аргумент — объект опций Handlebars, его отбрасываем
+  const params = args.slice(0, -1);
   for (let i = 0; i < params.length; i += 2) {
-    out[params[i]] = params[i + 1];
+    const key = params[i] as string;
+    const value = params[i + 1];
+    if (typeof key === 'string') {
+      out[key] = value;
+    }
   }
   return out;
 }

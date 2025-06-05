@@ -1,14 +1,14 @@
-import Handlebars from 'handlebars';
+import Handlebars, { type HelperDelegate } from 'handlebars';
 import { PartialComponent } from '../types';
 
-export const registerHelpers = (helpers: Record<string, any>) => {
+export const registerHelpers = (helpers: Record<string, HelperDelegate>) => {
   Object.entries(helpers).forEach(([name, helper]) => {
     Handlebars.registerHelper(name, helper);
   });
 };
 
 export const registerPartialComponents = (
-  partials: Record<string, PartialComponent>
+  partials: Record<string, PartialComponent>,
 ) => {
   Object.entries(partials).forEach(([name, { Component }]) => {
     Handlebars.registerPartial(name, Component);

@@ -1,0 +1,25 @@
+.sectionHeading {
+  position: sticky;
+  top: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  width: 100%;
+  height: max-content;
+
+  @media (width <= 1024px) {
+    position: static;
+  }
+}
+
+.sectionTitle {
+  margin: 0;
+  color: var(--primary);
+  font: var(--font-h2);
+}
+
+.sectionSubtitle {
+  margin: 0;
+  color: var(--placeholder);
+  font: var(--font-h4);
+}
