@@ -1,8 +1,10 @@
 import { Block } from '../../core';
 import styles from './input.module.css';
 import rawTemplate from './input.hbs?raw';
+import { InputField } from '../input-field';
+import { InputFieldProps } from '../input-field/input-field';
 
-interface InputProps {
+export interface InputProps {
   label?: string;
   inputId?: string;
   name?: string;
@@ -13,16 +15,36 @@ interface InputProps {
   required?: boolean;
   disabled?: boolean;
   readonly?: boolean;
-  attributes?: Record<string, string>;
   helpText?: string;
   alertIcon?: string;
-  className?: string;
+  attrs?: Record<string, string>;
+  events?: Record<string, EventListener>;
   [key: string]: unknown;
 }
 
 export class Input extends Block<InputProps> {
   constructor(props: InputProps) {
-    super('div', props);
+    super('div', {
+      ...props,
+      InputField: new InputField({
+        events: props.events,
+        error: props.error,
+        attrs: {
+          placeholder: props.placeholder ?? '',
+          id: props.inputId ?? '',
+          name: props.name ?? '',
+          type: props.type ?? '',
+        },
+      }),
+    });
+  }
+
+  protected componentDidUpdate(
+    _oldProps: InputProps,
+    _newProps: InputProps,
+  ): boolean {
+    (this.children.InputField as Block<InputFieldProps>).setProps(_newProps);
+    return true;
   }
 
   protected init() {
@@ -31,13 +53,6 @@ export class Input extends Block<InputProps> {
 
   protected getTemplateContext(): Record<string, unknown> {
     return { styles };
-  }
-
-  protected componentDidUpdate(
-    oldProps: InputProps,
-    newProps: InputProps,
-  ): boolean {
-    return oldProps.value !== newProps.value;
   }
 
   protected render(): string {

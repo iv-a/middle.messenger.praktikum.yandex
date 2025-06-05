@@ -5,7 +5,7 @@ import { icons } from './assets/icons';
 import './assets/styles/index.css';
 import { HELPERS, registerHelpers } from './utils';
 
-import { Button, Avatar, Input } from './components';
+import { Button, Avatar, Input, SignInForm } from './components';
 
 // const pages = {
 //   home: [
@@ -516,6 +516,11 @@ const inp1 = new Input({
   placeholder: 'Enter pass',
   label: 'password',
   helpText: 'hello my friend',
+  error: 'HEEEELP',
 });
 root!.appendChild(inp1.getContent());
 inp1.dispatchComponentDidMount();
+
+const sgnin1 = new SignInForm();
+root!.appendChild(sgnin1.getContent());
+sgnin1.dispatchComponentDidMount();

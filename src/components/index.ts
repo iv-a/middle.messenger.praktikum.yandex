@@ -25,3 +25,4 @@ export const componentsStyles: Record<string, CSSModuleClasses> = {
 export * from './button';
 export * from './avatar';
 export * from './input';
+export * from './sign-in-form';

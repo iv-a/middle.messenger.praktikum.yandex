@@ -4,18 +4,7 @@
 </label>
 {{/if}}
 
-<input 
-    id="{{inputId}}" 
-    name="{{name}}" 
-    value="{{value}}" 
-    type="{{default type 'text'}}"
-    placeholder="{{placeholder}}"
-    class="{{styles.input}}{{#if error}} 
-    {{styles.inputError}}{{/if}}" 
-    {{#if required}}required{{/if}} 
-    {{#if disabled}}disabled{{/if}} 
-    {{#if readonly}}readonly{{/if}} 
-    {{#each attributes}} {{_key}}="{{this}}" {{/each}}>
+{{{InputField}}}
 
 {{#if error}}
 <div class="{{styles.errorContainer}}">

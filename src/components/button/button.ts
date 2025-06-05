@@ -3,7 +3,7 @@ import rawIconOnlyTemplate from './button-icon-only.hbs?raw';
 
 import styles from './button.module.css';
 import { Block } from '../../core';
-interface ButtonProps {
+export interface ButtonProps {
   tagName?: 'button' | 'a';
   variant?: 'primary' | 'secondary' | 'outline' | 'destructive';
   size?: 's' | 'm' | 'l';
@@ -15,6 +15,9 @@ interface ButtonProps {
   prefix?: boolean;
   suffix?: boolean;
   text?: string;
+  attrs?: Record<string, string>;
+  events?: Record<string, EventListener>;
+  onClick?: EventListener;
   [key: string]: unknown;
 }
 
@@ -24,33 +27,17 @@ export class Button extends Block<ButtonProps> {
     super(realTag, props);
   }
 
-  protected init() {
-    this._recompute();
-  }
-
-  // Переопределяем getTemplateContext, чтобы подмешивать CSS Module
   protected getTemplateContext(): Record<string, unknown> {
     return { styles };
   }
+  protected componentDidUpdate(): boolean {
+    // console.log({ _oldProps, _newProps });
+    this._recompute();
+    return true;
+  }
 
-  // Решаем, когда нужно перерендерить
-  protected componentDidUpdate(
-    oldProps: ButtonProps,
-    newProps: ButtonProps,
-  ): boolean {
-    return (
-      oldProps.block !== newProps.block ||
-      oldProps.disabled !== newProps.disabled ||
-      oldProps.icon !== newProps.icon ||
-      oldProps.iconOnly !== newProps.iconOnly ||
-      oldProps.loading !== newProps.loading ||
-      oldProps.prefix !== newProps.prefix ||
-      oldProps.size !== newProps.size ||
-      oldProps.suffix !== newProps.suffix ||
-      oldProps.tagName !== newProps.tagName ||
-      oldProps.text !== newProps.text ||
-      oldProps.variant !== newProps.variant
-    );
+  protected init() {
+    this._recompute();
   }
 
   private _recompute() {
@@ -58,15 +45,7 @@ export class Button extends Block<ButtonProps> {
   }
 
   private _setClassName() {
-    const {
-      variant,
-      size,
-      loading,
-      disabled,
-      iconOnly,
-      block,
-      className: extra,
-    } = this.props;
+    const { variant, size, loading, disabled, iconOnly, block } = this.props;
 
     const buttonClasses: string[] = [styles.button];
 
@@ -100,9 +79,6 @@ export class Button extends Block<ButtonProps> {
     }
     if (block) {
       buttonClasses.push(styles.block);
-    }
-    if (typeof extra === 'string' && extra.trim() !== '') {
-      buttonClasses.push(extra);
     }
 
     this.props.className = buttonClasses.join(' ');
