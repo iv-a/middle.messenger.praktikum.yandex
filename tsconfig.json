@@ -18,6 +18,6 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "vite.config.ts", "postcss.config.js"],
   "exclude": ["node_modules", "dist"]
 }
