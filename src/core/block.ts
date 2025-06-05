@@ -56,7 +56,6 @@ export abstract class Block<P extends BaseProps> {
     this.props = this._makePropsProxy(props as P) as P;
     this.children = children;
 
-    // Компилируем шаблон (строку, которую вернёт render()) в функцию
     this._templateFn = Handlebars.compile(this.render());
 
     this._registerEvents(eventBus);
@@ -87,7 +86,6 @@ export abstract class Block<P extends BaseProps> {
   }
 
   private _makePropsProxy(props: Partial<P>): Partial<P> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return new Proxy(props, {
       get(target, prop, receiver) {
@@ -139,7 +137,6 @@ export abstract class Block<P extends BaseProps> {
   private _render() {
     if (!this._element) return;
 
-    // 1. Обновляем className и attrs (очищаем старые)
     this._element.className = '';
     if (typeof this.props.className === 'string') {
       this._element.classList.add(...this.props.className.split(' '));
@@ -155,14 +152,11 @@ export abstract class Block<P extends BaseProps> {
       }
     }
 
-    // 2. Снимаем события
     this._removeEvents();
 
-    // 3. Генерируем новый контент с учётом children + контекста из getTemplateContext()
     const fragment = this._compile();
     this._element.replaceChildren(fragment);
 
-    // 4. Вешаем события заново
     this._addEvents();
   }
 
@@ -179,13 +173,11 @@ export abstract class Block<P extends BaseProps> {
   }
 
   private _compile(): DocumentFragment {
-    // Формируем контекст: props + getTemplateContext()
     const propsAndStubs: Record<string, unknown> = {
       ...(this.props as object),
       ...this.getTemplateContext(),
     };
 
-    // Заменяем children на заглушки <div data-id="..."></div>
     for (const key in this.children) {
       const child = this.children[key];
       if (Array.isArray(child)) {
@@ -197,12 +189,10 @@ export abstract class Block<P extends BaseProps> {
       }
     }
 
-    // Скомпилированный шаблон (this._templateFn) возвращает строку HTML
     const html = this._templateFn(propsAndStubs);
     const wrapper = document.createElement('template');
     wrapper.innerHTML = html;
 
-    // Заменяем все заглушки на реальные дети
     for (const key in this.children) {
       const child = this.children[key];
       if (Array.isArray(child)) {
@@ -273,15 +263,11 @@ export abstract class Block<P extends BaseProps> {
         child.destroy && child.destroy();
       }
     });
-    // Очищаем EventBus и DOM
+
     this._eventBus = new EventBus<BlockEventSignatures>();
     this._element = null;
   }
 
-  /**
-   * Позволяет потомкам (Button, Card и т. д.) подмешать дополнительные поля
-   * (например, CSS-модуль) в контекст шаблона. По умолчанию — пустой объект.
-   */
   protected getTemplateContext(): Record<string, unknown> {
     return {};
   }
@@ -290,7 +276,6 @@ export abstract class Block<P extends BaseProps> {
 
   protected componentDidMount(): void {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(_oldProps: P, _newProps: P): boolean {
     return true;
   }

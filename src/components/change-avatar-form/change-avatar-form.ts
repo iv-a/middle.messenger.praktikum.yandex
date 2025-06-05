@@ -42,7 +42,7 @@ export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
           blur: (e: Event) => {
             const target = e.target;
             if (target instanceof HTMLInputElement) {
-              // todo
+              // TODO: Sprint 3
             }
           },
           change: (e: Event) => {

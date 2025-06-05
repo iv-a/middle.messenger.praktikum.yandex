@@ -19,5 +19,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'class-methods-use-this': 0,
     'no-underscore-dangle': 0,
+    "@typescript-eslint/no-this-alias": 0,
+    '@typescript-eslint/no-unused-vars': 0,
   },
 };

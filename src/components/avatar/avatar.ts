@@ -35,8 +35,6 @@ export class Avatar extends Block<AvatarProps> {
   }
 
   protected render(): string {
-    // Вложенной обёртки <div> больше нет:
-    // корневой <div> создаётся базовым Block, ему будут присвоены классы из props.className
     return rawTemplate;
   }
 
@@ -53,7 +51,6 @@ export class Avatar extends Block<AvatarProps> {
     const baseClass = styles.container;
     const extra = this.props.className ?? '';
 
-    // Комбинируем: контейнер + класс размера (если есть) + любые дополнительные классы
     const combined = [baseClass, sizeClass, extra].filter(Boolean).join(' ');
     this.props.className = combined;
   }

@@ -31,7 +31,6 @@ export class Button extends Block<ButtonProps> {
     return { styles };
   }
   protected componentDidUpdate(): boolean {
-    // console.log({ _oldProps, _newProps });
     this._recompute();
     return true;
   }

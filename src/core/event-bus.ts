@@ -52,8 +52,6 @@ export class EventBus<TEventSignatures extends Record<string, unknown[]>> {
     if (!map) {
       return;
     }
-    // Копируем entries, чтобы безопасно итерировать, даже если внутри колбэков
-    // кто-то вызовет off/on на том же событии
     const entries = Array.from(map.entries());
     const promises: Promise<unknown>[] = [];
 
