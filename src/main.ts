@@ -20,7 +20,7 @@ import {
   Header,
   SectionHeading,
 } from './components';
-import { SignInPage, SignUpPage } from './pages';
+import { SettingsPage, SignInPage, SignUpPage } from './pages';
 
 // const pages = {
 //   home: [
@@ -594,6 +594,6 @@ const root = document.getElementById('app');
 // root!.appendChild(sh1.getContent());
 // sh1.dispatchComponentDidMount();
 
-const sif1 = new SignUpPage({});
+const sif1 = new SettingsPage({});
 root!.appendChild(sif1.getContent());
 sif1.dispatchComponentDidMount();
