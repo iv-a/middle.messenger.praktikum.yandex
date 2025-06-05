@@ -2,7 +2,7 @@
 // import { Button } from './button';
 import { Header } from './header';
 // import { ChatItem } from './chat-item';
-import { MessageItem } from './message-item';
+// import { MessageItem } from './message-item';
 
 export const Components = {
   // Avatar,
@@ -10,7 +10,7 @@ export const Components = {
   Header,
   // Input,
   // ChatItem,
-  MessageItem,
+  // MessageItem,
 };
 
 export const componentsStyles: Record<string, CSSModuleClasses> = {
@@ -19,7 +19,7 @@ export const componentsStyles: Record<string, CSSModuleClasses> = {
   headerStyles: Components.Header.styles,
   // avatarStyles: Components.Avatar.styles,
   // chatItemStyles: Components.ChatItem.styles,
-  messageItemStyles: Components.MessageItem.styles,
+  // messageItemStyles: Components.MessageItem.styles,
 };
 
 export * from './button';
@@ -32,3 +32,4 @@ export * from './change-password-form';
 export * from './change-avatar-form';
 export * from './message-form';
 export * from './chat-item';
+export * from './message-item';

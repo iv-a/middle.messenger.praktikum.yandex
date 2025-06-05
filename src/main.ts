@@ -16,6 +16,7 @@ import {
   ChangeAvatarForm,
   MessageForm,
   ChatItem,
+  MessageItem,
 } from './components';
 
 // const pages = {
@@ -566,3 +567,11 @@ const ci1 = new ChatItem({
 });
 root!.appendChild(ci1.getContent());
 ci1.dispatchComponentDidMount();
+
+const mi1 = new MessageItem({
+  isSelf: true,
+  message: 'sdasdasdas',
+  time: '10:32',
+});
+root!.appendChild(mi1.getContent());
+mi1.dispatchComponentDidMount();
