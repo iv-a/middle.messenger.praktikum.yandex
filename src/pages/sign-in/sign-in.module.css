@@ -15,19 +15,6 @@
   max-width: 360px;
 }
 
-.titleGroup {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
-  width: 100%;
-}
-
-.title {
-  margin: 0;
-  color: var(--primary);
-  font: var(--font-h1);
-}
-
 .subtitle {
   margin: 0;
   color: var(--placeholder);
@@ -39,17 +26,6 @@
   flex-direction: column;
   gap: var(--s-4);
   width: 100%;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
-  width: 100%;
-
-  & > button {
-    margin-top: var(--s-2);
-  }
 }
 
 .linkGroup {

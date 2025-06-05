@@ -8,11 +8,11 @@ import { ButtonProps } from '../button/button';
 import { InputProps } from '../input/input';
 
 export interface SignInFormProps {
-  formState: {
+  formState?: {
     login: string;
     password: string;
   };
-  errors: {
+  errors?: {
     login: string;
     password: string;
   };

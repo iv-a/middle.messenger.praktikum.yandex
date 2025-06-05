@@ -20,6 +20,7 @@ import {
   Header,
   SectionHeading,
 } from './components';
+import { SignInPage } from './pages';
 
 // const pages = {
 //   home: [
@@ -551,44 +552,48 @@ const root = document.getElementById('app');
 // root!.appendChild(cpf1.getContent());
 // cpf1.dispatchComponentDidMount();
 
-const caf1 = new ChangeAvatarForm();
-root!.appendChild(caf1.getContent());
-caf1.dispatchComponentDidMount();
+// const caf1 = new ChangeAvatarForm();
+// root!.appendChild(caf1.getContent());
+// caf1.dispatchComponentDidMount();
 
-const mf1 = new MessageForm();
-root!.appendChild(mf1.getContent());
-mf1.dispatchComponentDidMount();
+// const mf1 = new MessageForm();
+// root!.appendChild(mf1.getContent());
+// mf1.dispatchComponentDidMount();
 
-const ci1 = new ChatItem({
-  avatarUrl:
-    'https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
-  displayName: 'Isabella Taylor',
-  time: '15:19',
-  message: 'Let’s catch up after lunch.',
-  unread: 1,
-});
-root!.appendChild(ci1.getContent());
-ci1.dispatchComponentDidMount();
+// const ci1 = new ChatItem({
+//   avatarUrl:
+//     'https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+//   displayName: 'Isabella Taylor',
+//   time: '15:19',
+//   message: 'Let’s catch up after lunch.',
+//   unread: 1,
+// });
+// root!.appendChild(ci1.getContent());
+// ci1.dispatchComponentDidMount();
 
-const mi1 = new MessageItem({
-  isSelf: true,
-  message: 'sdasdasdas',
-  time: '10:32',
-});
-root!.appendChild(mi1.getContent());
-mi1.dispatchComponentDidMount();
+// const mi1 = new MessageItem({
+//   isSelf: true,
+//   message: 'sdasdasdas',
+//   time: '10:32',
+// });
+// root!.appendChild(mi1.getContent());
+// mi1.dispatchComponentDidMount();
 
-const hed1 = new Header({
-  logoIcon: icons.logoIcon,
-  title: 'ldsfnljndnfls',
-  subtitle: 'jdfapsdfa ask;ld a;lsd alsk laskd;a;s',
-});
-root!.appendChild(hed1.getContent());
-hed1.dispatchComponentDidMount();
+// const hed1 = new Header({
+//   logoIcon: icons.logoIcon,
+//   title: 'ldsfnljndnfls',
+//   subtitle: 'jdfapsdfa ask;ld a;lsd alsk laskd;a;s',
+// });
+// root!.appendChild(hed1.getContent());
+// hed1.dispatchComponentDidMount();
 
-const sh1 = new SectionHeading({
-  title: 'ldsfnljndnfls',
-  subtitle: 'jdfapsdfa ask;ld a;lsd alsk laskd;a;s',
-});
-root!.appendChild(sh1.getContent());
-sh1.dispatchComponentDidMount();
+// const sh1 = new SectionHeading({
+//   title: 'ldsfnljndnfls',
+//   subtitle: 'jdfapsdfa ask;ld a;lsd alsk laskd;a;s',
+// });
+// root!.appendChild(sh1.getContent());
+// sh1.dispatchComponentDidMount();
+
+const sif1 = new SignInPage({});
+root!.appendChild(sif1.getContent());
+sif1.dispatchComponentDidMount();
