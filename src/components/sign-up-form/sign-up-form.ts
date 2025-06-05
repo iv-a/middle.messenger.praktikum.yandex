@@ -285,7 +285,9 @@ export class SignUpForm extends Block<SignUpFormProps> {
           blur: (e: Event) => {
             const target = e.target;
             if (target instanceof HTMLInputElement) {
-              const error = validateField('confirm_password', target.value);
+              const error = validateField('confirm_password', target.value, {
+                password: this.props.formState.password,
+              });
               (
                 this.children.ConfirmPasswordInput as Block<InputProps>
               ).setProps({

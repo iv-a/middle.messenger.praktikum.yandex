@@ -125,7 +125,9 @@ export class ChangePasswordForm extends Block<ChangePasswordFormProps> {
           blur: (e: Event) => {
             const target = e.target;
             if (target instanceof HTMLInputElement) {
-              const error = validateField('confirm_password', target.value);
+              const error = validateField('confirm_password', target.value, {
+                password: this.props.formState.newPassword,
+              });
               (
                 this.children.ConfirmPasswordInput as Block<InputProps>
               ).setProps({
