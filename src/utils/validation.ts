@@ -46,12 +46,12 @@ export function validateField(
       }
       return '';
     case 'confirm_password':
-      if (!value) return 'Повторите пароль, пожалуйста.';
+      if (!value) return 'Please repeat the password.';
       if (!allValues || typeof allValues.password !== 'string') {
-        return 'Невозможно проверить совпадение паролей.';
+        return 'Unable to verify password match.';
       }
       if (value !== allValues.password) {
-        return 'Пароли не совпадают.';
+        return 'Passwords do not match.';
       }
       return '';
     case 'phone':

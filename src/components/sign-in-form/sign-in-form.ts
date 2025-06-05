@@ -26,7 +26,7 @@ export class SignInForm extends Block<SignInFormProps> {
       errors: { login: '', password: '' },
     },
   ) {
-    super('div', {
+    super('form', {
       ...props,
       LoginInput: new Input({
         inputId: 'login',

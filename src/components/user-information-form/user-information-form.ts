@@ -44,7 +44,7 @@ export class UserInformationForm extends Block<UserInformationFormProps> {
       },
     },
   ) {
-    super('div', {
+    super('form', {
       ...props,
       EmailInput: new Input({
         inputId: 'email',

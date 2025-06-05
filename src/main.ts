@@ -12,6 +12,7 @@ import {
   SignInForm,
   SignUpForm,
   UserInformationForm,
+  ChangePasswordForm,
 } from './components';
 
 // const pages = {
@@ -539,3 +540,7 @@ sgnup1.dispatchComponentDidMount();
 const uif1 = new UserInformationForm();
 root!.appendChild(uif1.getContent());
 uif1.dispatchComponentDidMount();
+
+const cpf1 = new ChangePasswordForm();
+root!.appendChild(cpf1.getContent());
+cpf1.dispatchComponentDidMount();

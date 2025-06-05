@@ -52,7 +52,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
       },
     },
   ) {
-    super('div', {
+    super('form', {
       ...props,
       EmailInput: new Input({
         inputId: 'email',
