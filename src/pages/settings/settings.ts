@@ -33,7 +33,6 @@ export class SettingsPage extends Block<SettingsPageProps> {
         text: 'Back to Chats',
         size: 'm',
         block: true,
-        type: 'submit',
         icon: icons.caretLeftIcon,
         prefix: true,
       }),

@@ -20,7 +20,7 @@ import {
   Header,
   SectionHeading,
 } from './components';
-import { SettingsPage, SignInPage, SignUpPage } from './pages';
+import { ErrorPage, SettingsPage, SignInPage, SignUpPage } from './pages';
 
 // const pages = {
 //   home: [
@@ -594,6 +594,6 @@ const root = document.getElementById('app');
 // root!.appendChild(sh1.getContent());
 // sh1.dispatchComponentDidMount();
 
-const sif1 = new SettingsPage({});
+const sif1 = new ErrorPage({ code: 404, description: 'Not found' });
 root!.appendChild(sif1.getContent());
 sif1.dispatchComponentDidMount();
