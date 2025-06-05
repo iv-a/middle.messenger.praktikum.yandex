@@ -13,6 +13,7 @@ import {
   SignUpForm,
   UserInformationForm,
   ChangePasswordForm,
+  ChangeAvatarForm,
 } from './components';
 
 // const pages = {
@@ -544,3 +545,7 @@ uif1.dispatchComponentDidMount();
 const cpf1 = new ChangePasswordForm();
 root!.appendChild(cpf1.getContent());
 cpf1.dispatchComponentDidMount();
+
+const caf1 = new ChangeAvatarForm();
+root!.appendChild(caf1.getContent());
+caf1.dispatchComponentDidMount();

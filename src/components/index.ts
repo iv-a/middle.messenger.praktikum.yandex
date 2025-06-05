@@ -29,3 +29,4 @@ export * from './sign-in-form';
 export * from './sign-up-form';
 export * from './user-information-form';
 export * from './change-password-form';
+export * from './change-avatar-form';
