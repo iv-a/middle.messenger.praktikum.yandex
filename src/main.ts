@@ -14,6 +14,7 @@ import {
   UserInformationForm,
   ChangePasswordForm,
   ChangeAvatarForm,
+  MessageForm,
 } from './components';
 
 // const pages = {
@@ -426,126 +427,130 @@ registerHelpers(HELPERS);
 const root = document.getElementById('app');
 
 // 1. Обычная кнопка <button>
-const btn1 = new Button({
-  tagName: 'button',
-  text: 'Нажми меня',
-  variant: 'primary',
-  size: 'm',
-  events: {
-    click: () => alert('Кнопка нажата'),
-  },
-  attributes: { type: 'button' },
-});
-root!.appendChild(btn1.getContent());
-btn1.dispatchComponentDidMount();
+// const btn1 = new Button({
+//   tagName: 'button',
+//   text: 'Нажми меня',
+//   variant: 'primary',
+//   size: 'm',
+//   events: {
+//     click: () => alert('Кнопка нажата'),
+//   },
+//   attributes: { type: 'button' },
+// });
+// root!.appendChild(btn1.getContent());
+// btn1.dispatchComponentDidMount();
 
-// 2. Кнопка-ссылка <a>
-const btn2 = new Button({
-  tagName: 'a',
-  text: 'Открыть example.com',
-  href: 'https://example.com',
-  target: '_blank',
-  variant: 'outline',
-  size: 'l',
-  attributes: { 'data-test': 'link-button' },
-});
-root!.appendChild(btn2.getContent());
-btn2.dispatchComponentDidMount();
+// // 2. Кнопка-ссылка <a>
+// const btn2 = new Button({
+//   tagName: 'a',
+//   text: 'Открыть example.com',
+//   href: 'https://example.com',
+//   target: '_blank',
+//   variant: 'outline',
+//   size: 'l',
+//   attributes: { 'data-test': 'link-button' },
+// });
+// root!.appendChild(btn2.getContent());
+// btn2.dispatchComponentDidMount();
 
-// 3. Иконка-кнопка (iconOnly)
-const plusSvg = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-    viewBox="0 0 16 16">
-    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 8a.5.5 0 0 
-      1-.5.5H8.5V11a.5.5 0 0 1-1 0V8.5H5a.5.5 0 0 1 0-1h2.5V5a.5.5 
-      0 0 1 1 0v2.5H11a.5.5 0 0 1 .5.5z"/>
-  </svg>
-`;
-const btn3 = new Button({
-  text: '', // пустой для iconOnly
-  icon: plusSvg,
-  prefix: true, // иконка впереди текста (но текст нет, т. к. iconOnly)
-  variant: 'primary',
-  size: 'm',
-  iconOnly: true,
-  attributes: { type: 'button' },
-});
-root!.appendChild(btn3.getContent());
-btn3.dispatchComponentDidMount();
+// // 3. Иконка-кнопка (iconOnly)
+// const plusSvg = `
+//   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+//     viewBox="0 0 16 16">
+//     <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 8a.5.5 0 0
+//       1-.5.5H8.5V11a.5.5 0 0 1-1 0V8.5H5a.5.5 0 0 1 0-1h2.5V5a.5.5
+//       0 0 1 1 0v2.5H11a.5.5 0 0 1 .5.5z"/>
+//   </svg>
+// `;
+// const btn3 = new Button({
+//   text: '', // пустой для iconOnly
+//   icon: plusSvg,
+//   prefix: true, // иконка впереди текста (но текст нет, т. к. iconOnly)
+//   variant: 'primary',
+//   size: 'm',
+//   iconOnly: true,
+//   attributes: { type: 'button' },
+// });
+// root!.appendChild(btn3.getContent());
+// btn3.dispatchComponentDidMount();
 
-// 4. Disabled + Loading + Block
-const btn4 = new Button({
-  text: 'Загружаем...',
-  variant: 'destructive',
-  size: 'm',
-  loading: true,
-  disabled: true,
-  block: true,
-});
-root!.appendChild(btn4.getContent());
-btn4.dispatchComponentDidMount();
+// // 4. Disabled + Loading + Block
+// const btn4 = new Button({
+//   text: 'Загружаем...',
+//   variant: 'destructive',
+//   size: 'm',
+//   loading: true,
+//   disabled: true,
+//   block: true,
+// });
+// root!.appendChild(btn4.getContent());
+// btn4.dispatchComponentDidMount();
 
-const btn5 = new Button({
-  tagName: 'button',
-  text: 'Нажми меня',
-  variant: 'outline',
-  size: 'm',
-  events: {
-    click: () => alert('Кнопка нажата'),
-  },
-  attributes: { type: 'button' },
-});
-root!.appendChild(btn5.getContent());
-btn4.dispatchComponentDidMount();
+// const btn5 = new Button({
+//   tagName: 'button',
+//   text: 'Нажми меня',
+//   variant: 'outline',
+//   size: 'm',
+//   events: {
+//     click: () => alert('Кнопка нажата'),
+//   },
+//   attributes: { type: 'button' },
+// });
+// root!.appendChild(btn5.getContent());
+// btn4.dispatchComponentDidMount();
 
-const btn6 = new Button({
-  tagName: 'button',
-  text: 'Нажми меня',
-  variant: 'destructive',
-  size: 'm',
-  icon: icons.alertIcon,
-  prefix: true,
-  events: {
-    click: () => alert('Кнопка нажата'),
-  },
-  attributes: { type: 'button' },
-});
-root!.appendChild(btn6.getContent());
-btn6.dispatchComponentDidMount();
-const avt1 = new Avatar({
-  avatarUrl:
-    'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
-  size: 'xxl',
-});
+// const btn6 = new Button({
+//   tagName: 'button',
+//   text: 'Нажми меня',
+//   variant: 'destructive',
+//   size: 'm',
+//   icon: icons.alertIcon,
+//   prefix: true,
+//   events: {
+//     click: () => alert('Кнопка нажата'),
+//   },
+//   attributes: { type: 'button' },
+// });
+// root!.appendChild(btn6.getContent());
+// btn6.dispatchComponentDidMount();
+// const avt1 = new Avatar({
+//   avatarUrl:
+//     'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+//   size: 'xxl',
+// });
 
-root!.appendChild(avt1.getContent());
-avt1.dispatchComponentDidMount();
+// root!.appendChild(avt1.getContent());
+// avt1.dispatchComponentDidMount();
 
-const inp1 = new Input({
-  placeholder: 'Enter pass',
-  label: 'password',
-  helpText: 'hello my friend',
-  error: 'HEEEELP',
-});
-root!.appendChild(inp1.getContent());
-inp1.dispatchComponentDidMount();
+// const inp1 = new Input({
+//   placeholder: 'Enter pass',
+//   label: 'password',
+//   helpText: 'hello my friend',
+//   error: 'HEEEELP',
+// });
+// root!.appendChild(inp1.getContent());
+// inp1.dispatchComponentDidMount();
 
-const sgnin1 = new SignInForm();
-root!.appendChild(sgnin1.getContent());
-sgnin1.dispatchComponentDidMount();
+// const sgnin1 = new SignInForm();
+// root!.appendChild(sgnin1.getContent());
+// sgnin1.dispatchComponentDidMount();
 
-const sgnup1 = new SignUpForm();
-root!.appendChild(sgnup1.getContent());
-sgnup1.dispatchComponentDidMount();
+// const sgnup1 = new SignUpForm();
+// root!.appendChild(sgnup1.getContent());
+// sgnup1.dispatchComponentDidMount();
 
-const uif1 = new UserInformationForm();
-root!.appendChild(uif1.getContent());
-uif1.dispatchComponentDidMount();
+// const uif1 = new UserInformationForm();
+// root!.appendChild(uif1.getContent());
+// uif1.dispatchComponentDidMount();
 
-const cpf1 = new ChangePasswordForm();
-root!.appendChild(cpf1.getContent());
-cpf1.dispatchComponentDidMount();
+// const cpf1 = new ChangePasswordForm();
+// root!.appendChild(cpf1.getContent());
+// cpf1.dispatchComponentDidMount();
 
 const caf1 = new ChangeAvatarForm();
 root!.appendChild(caf1.getContent());
 caf1.dispatchComponentDidMount();
+
+const mf1 = new MessageForm();
+root!.appendChild(mf1.getContent());
+mf1.dispatchComponentDidMount();
