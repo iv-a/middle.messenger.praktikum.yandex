@@ -7,7 +7,7 @@ import { validateField } from '../../utils';
 import { ButtonProps } from '../button/button';
 import { InputProps } from '../input/input';
 
-interface SignInFormProps {
+export interface SignInFormProps {
   formState: {
     login: string;
     password: string;

@@ -1,1 +1,1 @@
-export { MessageForm } from './message-form';
+export { MessageForm, type MessageFormProps } from './message-form';

@@ -7,7 +7,7 @@ import { Input } from '../input';
 import rawTemplate from './message-form.hbs?raw';
 import styles from './message-form.module.css';
 
-interface MessageFormProps {
+export interface MessageFormProps {
   formState: {
     message: string;
   };

@@ -2,7 +2,7 @@ import { Block } from '../../core';
 import rawTemplate from './avatar.hbs?raw';
 import styles from './avatar.module.css';
 
-interface AvatarProps {
+export interface AvatarProps {
   avatarUrl: string;
   size: 's' | 'm' | 'l' | 'xl' | 'xxl';
   title?: string;

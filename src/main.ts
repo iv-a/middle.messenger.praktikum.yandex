@@ -15,6 +15,7 @@ import {
   ChangePasswordForm,
   ChangeAvatarForm,
   MessageForm,
+  ChatItem,
 } from './components';
 
 // const pages = {
@@ -554,3 +555,14 @@ caf1.dispatchComponentDidMount();
 const mf1 = new MessageForm();
 root!.appendChild(mf1.getContent());
 mf1.dispatchComponentDidMount();
+
+const ci1 = new ChatItem({
+  avatarUrl:
+    'https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+  displayName: 'Isabella Taylor',
+  time: '15:19',
+  message: 'Let’s catch up after lunch.',
+  unread: 1,
+});
+root!.appendChild(ci1.getContent());
+ci1.dispatchComponentDidMount();

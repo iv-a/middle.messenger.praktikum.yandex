@@ -7,7 +7,7 @@ import { InputProps } from '../input/input';
 import rawTemplate from './sign-up-form.hbs?raw';
 import styles from './sign-up-form.module.css';
 
-interface SignUpFormProps {
+export interface SignUpFormProps {
   formState: {
     email: string;
     login: string;

@@ -1,1 +1,1 @@
-export { SignInForm } from './sign-in-form';
+export { SignInForm, type SignInFormProps } from './sign-in-form';

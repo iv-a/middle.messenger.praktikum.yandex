@@ -7,7 +7,7 @@ import { InputProps } from '../input/input';
 import rawTemplate from './user-information-form.hbs?raw';
 import styles from './user-information-form.module.css';
 
-interface UserInformationFormProps {
+export interface UserInformationFormProps {
   formState: {
     login: string;
     first_name: string;

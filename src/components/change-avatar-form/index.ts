@@ -1,1 +1,4 @@
-export { ChangeAvatarForm } from './change-avatar-form';
+export {
+  ChangeAvatarForm,
+  type ChangeAvatarFormProps,
+} from './change-avatar-form';

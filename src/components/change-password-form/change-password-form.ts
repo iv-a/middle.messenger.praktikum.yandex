@@ -7,7 +7,7 @@ import { InputProps } from '../input/input';
 import rawTemplate from './change-password-form.hbs?raw';
 import styles from './change-password-form.module.css';
 
-interface ChangePasswordFormProps {
+export interface ChangePasswordFormProps {
   formState: {
     oldPassword: string;
     newPassword: string;

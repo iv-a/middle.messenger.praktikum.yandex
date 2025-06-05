@@ -1,1 +1,4 @@
-export { UserInformationForm } from './user-information-form';
+export {
+  UserInformationForm,
+  type UserInformationFormProps,
+} from './user-information-form';

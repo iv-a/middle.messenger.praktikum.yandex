@@ -6,7 +6,7 @@ import { icons } from '../../assets/icons';
 import rawTemplate from './change-avatar-form.hbs?raw';
 import styles from './change-avatar-form.module.css';
 
-interface ChangeAvatarFormProps {
+export interface ChangeAvatarFormProps {
   formState: {
     avatar: string;
   };
