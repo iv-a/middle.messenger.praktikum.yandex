@@ -12,7 +12,7 @@
 .inputs {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(4, 1fr);
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
   gap: var(--s-4) var(--s-6);
 }

@@ -11,7 +11,10 @@
     "build": "tsc && vite build",
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview",
-    "lint": "eslint \"src/**/*.{ts,tsx,js}\""
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "eslint \"src/**/*.{ts,tsx,js}\"",
+    "lint:stylelint": "stylelint \"src/**/*.{css,scss,less}\"",
+    "lint": "npm run lint:tsc && npm run lint:eslint && npm run lint:stylelint"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

@@ -1,8 +1,8 @@
 .button {
   display: inline-flex;
   gap: var(--s-2);
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: max-content;
   min-width: max-content;
   font: var(--font-h4);
@@ -14,8 +14,11 @@
   outline: none;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease,
-    border-color 0.2s ease, opacity 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .primary {
@@ -139,8 +142,8 @@
 
 .icon {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: var(--w-4);
   height: var(--h-4);
   color: inherit;

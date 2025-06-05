@@ -40,8 +40,8 @@
 .dialogControls {
   display: flex;
   gap: var(--s-3);
-  align-items: center;
   justify-content: flex-end;
+  align-items: center;
   width: 100%;
   margin: 0;
   padding: 0;

@@ -16,8 +16,8 @@
 
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   height: 60px;
   min-height: 60px;
   padding: 0 var(--s-4);
@@ -96,12 +96,12 @@
 
 .messagesList {
   display: flex;
-  height: 100%;
   flex: 1;
-  flex-direction: column;
   flex-shrink: 1;
+  flex-direction: column;
   gap: var(--s-2);
   justify-content: flex-end;
+  height: 100%;
   margin: 0;
   padding: var(--s-4);
   list-style: none;
