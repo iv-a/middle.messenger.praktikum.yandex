@@ -1,15 +1,15 @@
-<main class="{{styles.page}}">
-  <section class="{{styles.section}}">
-    {{> Header title="Create your account" subtitle="Join Toki and start messaging in seconds." styles=headerStyles}}
+<section class="{{styles.section}}">
+  {{{Header}}}
+  <div class="{{styles.container}}">
+    {{{SignUpForm}}}
 
-    <div class="{{styles.container}}">
-      {{> sign-up-form}}
-
-      <nav class="{{styles.linkGroup}}">
-        <p class="{{styles.subtitle}}">Already have an account?</p>
-        <a class="{{styles.link}}" href="/#sign-in">Sign in</a>
-      </nav>
-    </div>
-
-  </section>
-</main>
+    <nav class="{{styles.linkGroup}}">
+      <p class="{{styles.subtitle}}">
+        Already have an account?
+      </p>
+      <a class="{{styles.link}}" href="/#sign-in">
+        Sign in
+      </a>
+    </nav>
+  </div>
+</section>
