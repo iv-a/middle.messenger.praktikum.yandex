@@ -5,7 +5,14 @@ import { icons } from './assets/icons';
 import './assets/styles/index.css';
 import { HELPERS, registerHelpers } from './utils';
 
-import { Button, Avatar, Input, SignInForm, SignUpForm } from './components';
+import {
+  Button,
+  Avatar,
+  Input,
+  SignInForm,
+  SignUpForm,
+  UserInformationForm,
+} from './components';
 
 // const pages = {
 //   home: [
@@ -528,3 +535,7 @@ sgnin1.dispatchComponentDidMount();
 const sgnup1 = new SignUpForm();
 root!.appendChild(sgnup1.getContent());
 sgnup1.dispatchComponentDidMount();
+
+const uif1 = new UserInformationForm();
+root!.appendChild(uif1.getContent());
+uif1.dispatchComponentDidMount();

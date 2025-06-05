@@ -27,3 +27,4 @@ export * from './avatar';
 export * from './input';
 export * from './sign-in-form';
 export * from './sign-up-form';
+export * from './user-information-form';

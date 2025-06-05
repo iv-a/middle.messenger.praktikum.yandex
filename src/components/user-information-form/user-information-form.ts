@@ -4,51 +4,43 @@ import { Button } from '../button';
 import { ButtonProps } from '../button/button';
 import { Input } from '../input';
 import { InputProps } from '../input/input';
-import rawTemplate from './sign-up-form.hbs?raw';
-import styles from './sign-up-form.module.css';
+import rawTemplate from './user-information-form.hbs?raw';
+import styles from './user-information-form.module.css';
 
-interface SignUpFormProps {
+interface UserInformationFormProps {
   formState: {
-    email: string;
     login: string;
     first_name: string;
     second_name: string;
+    email: string;
     phone: string;
-    password: string;
-    confirm_password: string;
   };
   errors: {
-    email: string;
     login: string;
     first_name: string;
     second_name: string;
+    email: string;
     phone: string;
-    password: string;
-    confirm_password: string;
   };
   [key: string]: unknown;
 }
 
-export class SignUpForm extends Block<SignUpFormProps> {
+export class UserInformationForm extends Block<UserInformationFormProps> {
   constructor(
-    props: SignUpFormProps = {
+    props: UserInformationFormProps = {
       formState: {
-        email: '',
         login: '',
         first_name: '',
         second_name: '',
+        email: '',
         phone: '',
-        password: '',
-        confirm_password: '',
       },
       errors: {
-        email: '',
         login: '',
         first_name: '',
         second_name: '',
+        email: '',
         phone: '',
-        password: '',
-        confirm_password: '',
       },
     },
   ) {
@@ -235,115 +227,22 @@ export class SignUpForm extends Block<SignUpFormProps> {
           },
         },
       }),
-      PasswordInput: new Input({
-        inputId: 'password',
-        name: 'password',
-        placeholder: 'Password',
-        label: 'Password',
-        type: 'password',
-        value: '',
-        helpText:
-          '8–40 characters, must include at least one uppercase letter and one digit.',
-        events: {
-          blur: (e: Event) => {
-            const target = e.target;
-            if (target instanceof HTMLInputElement) {
-              const error = validateField('password', target.value);
-              (this.children.PasswordInput as Block<InputProps>).setProps({
-                error,
-              });
-              if (error !== this.props.errors.password) {
-                this.setProps({
-                  errors: { ...this.props.errors, password: error },
-                });
-              }
-            }
-          },
-          change: (e: Event) => {
-            const target = e.target;
-
-            if (target instanceof HTMLInputElement) {
-              this.setProps({
-                formState: {
-                  ...this.props.formState,
-                  password: target.value,
-                },
-              });
-            }
-          },
-        },
-      }),
-      ConfirmPasswordInput: new Input({
-        inputId: 'confirm_password',
-        name: 'confirm_password',
-        placeholder: 'Confirm Password',
-        label: 'Confirm Password',
-        type: 'password',
-        value: '',
-        helpText: 'Repeat your password exactly.',
-        events: {
-          blur: (e: Event) => {
-            const target = e.target;
-            if (target instanceof HTMLInputElement) {
-              const error = validateField('confirm_password', target.value);
-              (
-                this.children.ConfirmPasswordInput as Block<InputProps>
-              ).setProps({
-                error,
-              });
-              if (error !== this.props.errors.confirm_password) {
-                this.setProps({
-                  errors: { ...this.props.errors, confirm_password: error },
-                });
-              }
-            }
-          },
-          change: (e: Event) => {
-            const target = e.target;
-
-            if (target instanceof HTMLInputElement) {
-              this.setProps({
-                formState: {
-                  ...this.props.formState,
-                  confirm_password: target.value,
-                },
-              });
-            }
-          },
-        },
-      }),
-      SignUpButton: new Button({
+      SaveButton: new Button({
         variant: 'primary',
-        text: 'Sign up',
-        size: 'l',
-        block: true,
+        text: 'Save',
+        size: 'm',
         type: 'submit',
         events: {
           click: (e: Event) => {
             e.preventDefault();
 
-            const {
-              email,
-              login,
-              first_name,
-              second_name,
-              phone,
-              password,
-              confirm_password,
-            } = this.props.formState;
+            const { email, login, first_name, second_name, phone } =
+              this.props.formState;
             const emailError = validateField('email', email);
             const loginError = validateField('login', login);
             const firstNameError = validateField('first_name', first_name);
             const secondNameError = validateField('second_name', second_name);
             const phoneError = validateField('phone', phone);
-            const passwordError = validateField('password', password);
-            const confirmPasswordError = validateField(
-              'confirm_password',
-              confirm_password,
-              {
-                password,
-              },
-            );
 
             this.setProps({
               errors: {
@@ -352,8 +251,6 @@ export class SignUpForm extends Block<SignUpFormProps> {
                 first_name: firstNameError,
                 second_name: secondNameError,
                 phone: phoneError,
-                password: passwordError,
-                confirm_password: confirmPasswordError,
               },
             });
 
@@ -372,21 +269,13 @@ export class SignUpForm extends Block<SignUpFormProps> {
             (this.children.PhoneInput as Block<InputProps>).setProps({
               error: phoneError,
             });
-            (this.children.PasswordInput as Block<InputProps>).setProps({
-              error: passwordError,
-            });
-            (this.children.ConfirmPasswordInput as Block<InputProps>).setProps({
-              error: confirmPasswordError,
-            });
 
             if (
               emailError ||
               loginError ||
               firstNameError ||
               secondNameError ||
-              phoneError ||
-              passwordError ||
-              confirmPasswordError
+              phoneError
             ) {
               return;
             }
@@ -403,27 +292,18 @@ export class SignUpForm extends Block<SignUpFormProps> {
   }
 
   protected componentDidUpdate(
-    _oldProps: SignUpFormProps,
-    _newProps: SignUpFormProps,
+    _oldProps: UserInformationFormProps,
+    _newProps: UserInformationFormProps,
   ): boolean {
-    const {
-      email,
-      login,
-      first_name,
-      second_name,
-      phone,
-      password,
-      confirm_password,
-    } = _newProps.errors;
+    const { email, login, first_name, second_name, phone } = _newProps.errors;
     const hasErrors =
       email.length > 0 ||
       login.length > 0 ||
       first_name.length > 0 ||
       second_name.length > 0 ||
-      phone.length > 0 ||
-      password.length > 0 ||
-      confirm_password.length > 0;
-    (this.children.SignUpButton as Block<ButtonProps>).setProps({
+      phone.length > 0;
+
+    (this.children.SaveButton as Block<ButtonProps>).setProps({
       ..._newProps,
       disabled: hasErrors,
     });
