@@ -8,10 +8,11 @@ import {
   MessageItem,
 } from '../../components';
 import { Block } from '../../core';
+import { BaseProps } from '../../core';
 import rawTemplate from './chats.hbs?raw';
 import styles from './chats.module.css';
 
-export interface ChatsPageProps {
+export interface ChatsPageProps extends BaseProps {
   chatName: string;
   [key: string]: unknown;
 }

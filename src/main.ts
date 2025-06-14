@@ -1,56 +1,40 @@
 import './assets/styles/index.css';
-import { HELPERS, registerHelpers } from './utils';
+import { HELPERS, registerHelpers, ROUTES } from './utils';
 import {
   ChatsPage,
+  ChatsPageProps,
   ErrorPage,
+  ErrorPageProps,
   HomePage,
   SettingsPage,
   SignInPage,
   SignUpPage,
 } from './pages';
+import { Router } from './core';
 
 registerHelpers(HELPERS);
 
-const pages = {
-  home: new HomePage({}),
-  'sign-in': new SignInPage({}),
-  'sign-up': new SignUpPage({}),
-  settings: new SettingsPage({}),
-  '404': new ErrorPage({
+const APP_ROOT_QUERY = '#app';
+new Router(APP_ROOT_QUERY)
+  .use(ROUTES.SIGN_IN, SignInPage)
+  .use(ROUTES.SIGN_UP, SignUpPage)
+  .use<ChatsPageProps>(ROUTES.MESSENGER, ChatsPage, {
+    chatName: 'William Smith',
+  })
+  .use(ROUTES.SETTINGS, SettingsPage)
+  .use<ErrorPageProps>(ROUTES.NOT_FOUND, ErrorPage, {
     code: 404,
     description: 'This page could not be found.',
-  }),
-  '500': new ErrorPage({
+  })
+  .use<ErrorPageProps>(ROUTES.NOT_ALLOWED, ErrorPage, {
+    code: 403,
+    description: 'Access to this resource is denied.',
+  })
+  .use<ErrorPageProps>(ROUTES.SERVER_ERROR, ErrorPage, {
     code: 500,
-    description: 'Something went wrong.',
-  }),
-  chats: new ChatsPage({ chatName: 'William Smith' }),
-} as const;
-
-const navigate = (page: keyof typeof pages) => {
-  const app = document.getElementById('app');
-
-  const block = pages[page];
-
-  if (app && block) {
-    app.innerHTML = '';
-    app.appendChild(block.getContent());
-    block.dispatchComponentDidMount();
-  }
-};
-
-type PageName = keyof typeof pages;
-
-const handleRouting = () => {
-  const hash = window.location.hash.slice(2);
-  const page = (hash || 'home') as PageName;
-
-  if (pages[page]) {
-    navigate(page);
-  } else {
-    navigate('404');
-  }
-};
-
-window.addEventListener('hashchange', handleRouting);
-window.addEventListener('DOMContentLoaded', handleRouting);
+    description:
+      'Please try again later or contact support if the issue persists.',
+  })
+  .use(ROUTES.EXPLORE, HomePage)
+  .use('/', HomePage)
+  .start();

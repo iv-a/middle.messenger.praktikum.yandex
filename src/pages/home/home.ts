@@ -1,6 +1,7 @@
 import { icons } from '../../assets/icons';
 import { Button, Header } from '../../components';
-import { Block } from '../../core';
+import { Block, Router } from '../../core';
+import { ROUTES } from '../../utils';
 import rawTemplate from './home.hbs?raw';
 import styles from './home.module.css';
 
@@ -21,7 +22,7 @@ export class HomePage extends Block<HomePageProps> {
       SignInButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/sign-in',
+          href: ROUTES.SIGN_IN,
         },
         text: 'Sign In Page',
         variant: 'primary',
@@ -29,11 +30,17 @@ export class HomePage extends Block<HomePageProps> {
         block: true,
         icon: icons.arrowRightIcon,
         suffix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.SIGN_IN);
+          },
+        },
       }),
       SignUpButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/sign-up',
+          href: ROUTES.SIGN_UP,
         },
         text: 'Sign Up Page',
         variant: 'primary',
@@ -41,11 +48,17 @@ export class HomePage extends Block<HomePageProps> {
         block: true,
         icon: icons.arrowRightIcon,
         suffix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.SIGN_UP);
+          },
+        },
       }),
       ChatsButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/chats',
+          href: ROUTES.MESSENGER,
         },
         text: 'Chats Page',
         variant: 'primary',
@@ -53,11 +66,17 @@ export class HomePage extends Block<HomePageProps> {
         block: true,
         icon: icons.arrowRightIcon,
         suffix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.MESSENGER);
+          },
+        },
       }),
       SettingsButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/settings',
+          href: ROUTES.SETTINGS,
         },
         text: 'Settings Page',
         variant: 'primary',
@@ -65,11 +84,17 @@ export class HomePage extends Block<HomePageProps> {
         block: true,
         icon: icons.arrowRightIcon,
         suffix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.SETTINGS);
+          },
+        },
       }),
       NotFoundButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/404',
+          href: ROUTES.NOT_FOUND,
         },
         text: 'Not Found Page',
         variant: 'primary',
@@ -77,11 +102,17 @@ export class HomePage extends Block<HomePageProps> {
         block: true,
         icon: icons.arrowRightIcon,
         suffix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.NOT_FOUND);
+          },
+        },
       }),
       ServerErrorButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/500',
+          href: ROUTES.SERVER_ERROR,
         },
         text: 'Server Error Page',
         variant: 'primary',
@@ -89,6 +120,12 @@ export class HomePage extends Block<HomePageProps> {
         block: true,
         icon: icons.arrowRightIcon,
         suffix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.SERVER_ERROR);
+          },
+        },
       }),
     });
   }

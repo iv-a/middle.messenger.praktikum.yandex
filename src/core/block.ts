@@ -18,7 +18,7 @@ export type BlockEventSignatures = {
   [EVENTS_CONFIG.FLOW_RENDER]: [];
 };
 
-type BaseProps = {
+export type BaseProps = {
   className?: string;
   attrs?: Record<string, string>;
   events?: Record<string, EventListener>;
@@ -251,7 +251,7 @@ export abstract class Block<P extends BaseProps> {
   }
 
   public show() {
-    this.getContent().style.display = 'block';
+    this.getContent().style.display = 'flex';
   }
 
   public destroy() {
