@@ -7,8 +7,9 @@ import {
   MessageForm,
   MessageItem,
 } from '../../components';
-import { Block } from '../../core';
+import { Block, Router } from '../../core';
 import { BaseProps } from '../../core';
+import { ROUTES } from '../../utils';
 import rawTemplate from './chats.hbs?raw';
 import styles from './chats.module.css';
 
@@ -31,6 +32,12 @@ export class ChatsPage extends Block<ChatsPageProps> {
         size: 'm',
         iconOnly: true,
         icon: icons.gearSixIcon,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.SETTINGS);
+          },
+        },
       }),
       SearchInput: new Input({
         inputId: 'search',

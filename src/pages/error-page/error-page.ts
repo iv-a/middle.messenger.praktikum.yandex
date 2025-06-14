@@ -1,6 +1,6 @@
 import { icons } from '../../assets/icons';
 import { Button } from '../../components';
-import { Block } from '../../core';
+import { Block, Router } from '../../core';
 import rawTemplate from './error-page.hbs?raw';
 import styles from './error-page.module.css';
 
@@ -22,13 +22,19 @@ export class ErrorPage extends Block<ErrorPageProps> {
       BackButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/',
+          href: '/',
         },
         variant: 'primary',
         size: 'l',
         block: true,
         iconOnly: true,
         icon: icons.caretLeftIcon,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().back();
+          },
+        },
       }),
     });
   }

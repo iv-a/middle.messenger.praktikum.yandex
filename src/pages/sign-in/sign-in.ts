@@ -1,6 +1,7 @@
 import { icons } from '../../assets/icons';
-import { Header, SignInForm } from '../../components';
+import { Header, Link, SignInForm } from '../../components';
 import { Block } from '../../core';
+import { ROUTES } from '../../utils';
 import rawTemplate from './sign-in.hbs?raw';
 import styles from './sign-in.module.css';
 
@@ -18,6 +19,7 @@ export class SignInPage extends Block<SignInPageProps> {
         subtitle: 'Enter your credentials to access your account.',
       }),
       SignInForm: new SignInForm(),
+      SignUpLink: new Link({ to: ROUTES.SIGN_UP, title: 'Sign up' }),
     });
   }
 

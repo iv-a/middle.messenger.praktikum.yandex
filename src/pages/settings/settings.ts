@@ -7,7 +7,8 @@ import {
   SectionHeading,
   UserInformationForm,
 } from '../../components';
-import { Block } from '../../core';
+import { Block, Router } from '../../core';
+import { ROUTES } from '../../utils';
 import rawTemplate from './settings.hbs?raw';
 import styles from './settings.module.css';
 
@@ -27,7 +28,7 @@ export class SettingsPage extends Block<SettingsPageProps> {
       ToChatsButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/',
+          href: '/',
         },
         variant: 'outline',
         text: 'Back to Chats',
@@ -35,6 +36,12 @@ export class SettingsPage extends Block<SettingsPageProps> {
         block: true,
         icon: icons.caretLeftIcon,
         prefix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.MESSENGER);
+          },
+        },
       }),
       BasicInfoHeading: new SectionHeading({
         title: 'Basic information',

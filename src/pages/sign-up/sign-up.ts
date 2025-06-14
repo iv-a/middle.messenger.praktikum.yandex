@@ -1,6 +1,7 @@
 import { icons } from '../../assets/icons';
-import { Header, SignUpForm } from '../../components';
+import { Header, Link, SignUpForm } from '../../components';
 import { Block } from '../../core';
+import { ROUTES } from '../../utils';
 import rawTemplate from './sign-up.hbs?raw';
 import styles from './sign-up.module.css';
 
@@ -18,6 +19,7 @@ export class SignUpPage extends Block<SignUpPageProps> {
         subtitle: 'Join Toki and start messaging in seconds.',
       }),
       SignUpForm: new SignUpForm(),
+      SignInLink: new Link({ to: ROUTES.SIGN_IN, title: 'Sign in' }),
     });
   }
 

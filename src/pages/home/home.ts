@@ -15,7 +15,7 @@ export class HomePage extends Block<HomePageProps> {
       ...props,
       Header: new Header({
         logoIcon: icons.logoIcon,
-        title: 'Sprint 2',
+        title: 'Sprint 3',
         subtitle:
           'Use the buttons below and browser navigation to go to the appropriate page.',
       }),
