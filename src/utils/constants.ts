@@ -8,3 +8,5 @@ export const ROUTES = {
   SERVER_ERROR: '/500',
   EXPLORE: '/explore',
 } as const;
+
+export const BASE_API_URL = 'ya-praktikum.tech/api/v2/';
