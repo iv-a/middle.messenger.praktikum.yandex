@@ -1,5 +1,6 @@
 import { icons } from '../../assets/icons';
 import { Header, Link, SignInForm } from '../../components';
+import { authController } from '../../controllers';
 import { Block } from '../../core';
 import { ROUTES } from '../../utils';
 import rawTemplate from './sign-in.hbs?raw';
@@ -21,6 +22,10 @@ export class SignInPage extends Block<SignInPageProps> {
       SignInForm: new SignInForm(),
       SignUpLink: new Link({ to: ROUTES.SIGN_UP, title: 'Sign up' }),
     });
+  }
+
+  protected componentDidMount(): void {
+    authController.getMe();
   }
 
   protected getTemplateContext(): Record<string, unknown> {

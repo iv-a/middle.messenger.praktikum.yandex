@@ -9,4 +9,4 @@ export const ROUTES = {
   EXPLORE: '/explore',
 } as const;
 
-export const BASE_API_URL = 'ya-praktikum.tech/api/v2/';
+export const BASE_API_URL = 'https://ya-praktikum.tech/api/v2/';

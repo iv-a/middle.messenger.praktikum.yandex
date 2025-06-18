@@ -1,3 +1,5 @@
+import { HTTPError } from './errors';
+
 export const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -6,18 +8,6 @@ export const METHODS = {
 } as const;
 
 export type HTTPMethodName = (typeof METHODS)[keyof typeof METHODS];
-
-export class HTTPError extends Error {
-  public status: number;
-  public data: unknown;
-
-  constructor(status: number, data: unknown) {
-    super(`HTTP Error: ${status}`);
-    this.name = 'HTTPError';
-    this.status = status;
-    this.data = data;
-  }
-}
 
 export interface RequestOptions<H = Record<string, unknown>> {
   headers?: Record<string, string>;

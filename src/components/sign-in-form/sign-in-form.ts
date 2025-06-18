@@ -6,13 +6,14 @@ import styles from './sign-in-form.module.css';
 import { validateField } from '../../utils';
 import { ButtonProps } from '../button/button';
 import { InputProps } from '../input/input';
+import { authController } from '../../controllers';
 
 export interface SignInFormProps {
-  formState?: {
+  formState: {
     login: string;
     password: string;
   };
-  errors?: {
+  errors: {
     login: string;
     password: string;
   };
@@ -113,7 +114,7 @@ export class SignInForm extends Block<SignInFormProps> {
           click: (e: Event) => {
             e.preventDefault();
 
-            const { login, password } = this.props.formState!;
+            const { login, password } = this.props.formState;
             const loginError = validateField('login', login);
             const passwordError = validateField('password', password);
 
@@ -131,6 +132,8 @@ export class SignInForm extends Block<SignInFormProps> {
             if (loginError || passwordError) {
               return;
             }
+
+            authController.signIn(this.props.formState);
 
             console.log(this.props.formState);
           },

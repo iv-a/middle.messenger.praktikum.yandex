@@ -1,3 +1,4 @@
+import { authController } from '../../controllers';
 import { Block } from '../../core';
 import { validateField } from '../../utils';
 import { Button } from '../button';
@@ -393,6 +394,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
               return;
             }
 
+            authController.signUp(this.props.formState);
             console.log(this.props.formState);
           },
         },
@@ -445,3 +447,24 @@ export class SignUpForm extends Block<SignUpFormProps> {
     this.props.className = styles.form;
   }
 }
+
+// export const SignUpForm = withStore<SignUpFormProps>(() => ({
+//   formState: {
+//     email: '',
+//     login: '',
+//     first_name: '',
+//     second_name: '',
+//     phone: '',
+//     password: '',
+//     confirm_password: '',
+//   },
+//   errors: {
+//     email: '',
+//     login: '',
+//     first_name: '',
+//     second_name: '',
+//     phone: '',
+//     password: '',
+//     confirm_password: '',
+//   },
+// }))(PureSignUpForm);

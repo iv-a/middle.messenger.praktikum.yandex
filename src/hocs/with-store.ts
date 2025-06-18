@@ -1,7 +1,10 @@
-import { BaseProps, store } from '../core';
-import { BlockClass } from '../core/route';
+import { BaseProps, Block, store } from '../core';
 import { State, STORE_EVENTS_CONFIG } from '../core/store';
 import { isEqual } from '../utils';
+
+type BlockClass<P extends BaseProps = BaseProps> = new (
+  props: P,
+) => Block<P> & { render(): string };
 
 export function withStore<P extends BaseProps = BaseProps>(
   mapStateToProps: (state: State) => P,
@@ -24,10 +27,6 @@ export function withStore<P extends BaseProps = BaseProps>(
         };
 
         store.on(STORE_EVENTS_CONFIG.UPDATE, this.onChangeStoreCallback);
-      }
-
-      protected render(): string {
-        throw new Error('Method not implemented.');
       }
     };
   };
