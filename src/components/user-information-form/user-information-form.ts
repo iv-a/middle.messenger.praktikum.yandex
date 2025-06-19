@@ -1,4 +1,6 @@
 import { Block } from '../../core';
+import { withStore } from '../../hocs';
+import { User } from '../../types';
 import { validateField } from '../../utils';
 import { Button } from '../button';
 import { ButtonProps } from '../button/button';
@@ -8,6 +10,7 @@ import rawTemplate from './user-information-form.hbs?raw';
 import styles from './user-information-form.module.css';
 
 export interface UserInformationFormProps {
+  user: User | null;
   formState: {
     login: string;
     first_name: string;
@@ -25,25 +28,26 @@ export interface UserInformationFormProps {
   [key: string]: unknown;
 }
 
-export class UserInformationForm extends Block<UserInformationFormProps> {
-  constructor(
-    props: UserInformationFormProps = {
-      formState: {
-        login: '',
-        first_name: '',
-        second_name: '',
-        email: '',
-        phone: '',
-      },
-      errors: {
-        login: '',
-        first_name: '',
-        second_name: '',
-        email: '',
-        phone: '',
-      },
-    },
-  ) {
+const defaultProps: UserInformationFormProps = {
+  user: null,
+  formState: {
+    login: '',
+    first_name: '',
+    second_name: '',
+    email: '',
+    phone: '',
+  },
+  errors: {
+    login: '',
+    first_name: '',
+    second_name: '',
+    email: '',
+    phone: '',
+  },
+};
+
+class PureUserInformationForm extends Block<UserInformationFormProps> {
+  constructor(props: UserInformationFormProps = defaultProps) {
     super('form', {
       ...props,
       EmailInput: new Input({
@@ -52,7 +56,7 @@ export class UserInformationForm extends Block<UserInformationFormProps> {
         placeholder: 'Email',
         label: 'Email',
         type: 'email',
-        value: '',
+        value: props.formState.email,
         helpText: 'Enter a valid email you have access to.',
         events: {
           blur: (e: Event) => {
@@ -279,8 +283,6 @@ export class UserInformationForm extends Block<UserInformationFormProps> {
             ) {
               return;
             }
-
-            console.log(this.props.formState);
           },
         },
       }),
@@ -292,10 +294,10 @@ export class UserInformationForm extends Block<UserInformationFormProps> {
   }
 
   protected componentDidUpdate(
-    _oldProps: UserInformationFormProps,
-    _newProps: UserInformationFormProps,
+    oldProps: UserInformationFormProps,
+    newProps: UserInformationFormProps,
   ): boolean {
-    const { email, login, first_name, second_name, phone } = _newProps.errors;
+    const { email, login, first_name, second_name, phone } = newProps.errors;
     const hasErrors =
       email.length > 0 ||
       login.length > 0 ||
@@ -304,10 +306,39 @@ export class UserInformationForm extends Block<UserInformationFormProps> {
       phone.length > 0;
 
     (this.children.SaveButton as Block<ButtonProps>).setProps({
-      ..._newProps,
-      disabled: hasErrors,
+      ...newProps,
+      disabled: hasErrors || this.isInitial(),
     });
     this._setClassName();
+
+    const emailInput = this.children.EmailInput as Input;
+    const loginInput = this.children.LoginInput as Input;
+    const firstNameInput = this.children.FirstNameInput as Input;
+    const secondNameInput = this.children.SecondNameInput as Input;
+    const phoneInput = this.children.PhoneInput as Input;
+
+    if (oldProps.formState.email !== newProps.formState.email && emailInput) {
+      emailInput.setProps({ value: newProps.formState.email });
+    }
+    if (oldProps.formState.login !== newProps.formState.login && loginInput) {
+      loginInput.setProps({ value: newProps.formState.login });
+    }
+    if (
+      oldProps.formState.first_name !== newProps.formState.first_name &&
+      firstNameInput
+    ) {
+      firstNameInput.setProps({ value: newProps.formState.first_name });
+    }
+    if (
+      oldProps.formState.second_name !== newProps.formState.second_name &&
+      secondNameInput
+    ) {
+      secondNameInput.setProps({ value: newProps.formState.second_name });
+    }
+    if (oldProps.formState.phone !== newProps.formState.phone && phoneInput) {
+      phoneInput.setProps({ value: newProps.formState.phone });
+    }
+
     return true;
   }
 
@@ -315,11 +346,35 @@ export class UserInformationForm extends Block<UserInformationFormProps> {
     this._setClassName();
   }
 
-  protected render(): string {
+  public render(): string {
     return rawTemplate;
   }
 
   private _setClassName() {
     this.props.className = styles.form;
   }
+
+  protected isInitial() {
+    return (
+      this.props.formState.email === this.props.user?.email &&
+      this.props.formState.login === this.props.user?.login &&
+      this.props.formState.first_name === this.props.user?.first_name &&
+      this.props.formState.second_name === this.props.user?.second_name &&
+      this.props.formState.phone === this.props.user?.phone
+    );
+  }
 }
+
+export const UserInformationForm = withStore<UserInformationFormProps>(
+  (state) => ({
+    ...defaultProps,
+    formState: {
+      login: state.user?.login ?? '',
+      first_name: state.user?.first_name ?? '',
+      second_name: state.user?.second_name ?? '',
+      email: state.user?.email ?? '',
+      phone: state.user?.phone ?? '',
+    },
+    user: state.user,
+  }),
+)(PureUserInformationForm);

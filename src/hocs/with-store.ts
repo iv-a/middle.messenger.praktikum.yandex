@@ -13,7 +13,7 @@ export function withStore<P extends BaseProps = BaseProps>(
     return class WithStore extends blockClass {
       private onChangeStoreCallback: () => void;
 
-      constructor(props: P) {
+      constructor(props?: P) {
         let state = mapStateToProps(store.get());
         super({ ...props, ...state });
 

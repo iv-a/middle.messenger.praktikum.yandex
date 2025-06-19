@@ -7,16 +7,20 @@ import {
   SectionHeading,
   UserInformationForm,
 } from '../../components';
+import { authController } from '../../controllers';
 import { Block, Router } from '../../core';
+import { withStore } from '../../hocs';
+import { User } from '../../types';
 import { ROUTES } from '../../utils';
 import rawTemplate from './settings.hbs?raw';
 import styles from './settings.module.css';
 
 export interface SettingsPageProps {
+  user: User | null;
   [key: string]: unknown;
 }
 
-export class SettingsPage extends Block<SettingsPageProps> {
+class PureSettingsPage extends Block<SettingsPageProps> {
   constructor(props: SettingsPageProps) {
     super('div', {
       ...props,
@@ -61,22 +65,33 @@ export class SettingsPage extends Block<SettingsPageProps> {
       }),
       ChangeAvatarForm: new ChangeAvatarForm(),
     });
+    authController.getMe();
   }
 
   protected getTemplateContext(): Record<string, unknown> {
     return { styles };
   }
 
+  protected componentDidMount(): void {}
+
   protected init() {
     this._setClassName();
   }
 
-  protected componentDidUpdate(): boolean {
-    this._setClassName();
-    return true;
-  }
+  // protected componentDidUpdate(
+  //   oldProps: SettingsPageProps,
+  //   newProps: SettingsPageProps,
+  // ): boolean {
 
-  protected render(): string {
+  //   return true;
+  // }
+
+  // protected componentDidUpdate(): boolean {
+  //   this._setClassName();
+  //   return true;
+  // }
+
+  public render(): string {
     return rawTemplate;
   }
 
@@ -84,3 +99,7 @@ export class SettingsPage extends Block<SettingsPageProps> {
     this.props.className = styles.page;
   }
 }
+
+export const SettingsPage = withStore<SettingsPageProps>((state) => ({
+  user: state.user,
+}))(PureSettingsPage);

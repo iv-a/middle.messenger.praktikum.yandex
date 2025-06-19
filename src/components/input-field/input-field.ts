@@ -13,7 +13,10 @@ export class InputField extends Block<InputFieldProps> {
     super('input', props);
   }
 
-  protected componentDidUpdate(): boolean {
+  protected componentDidUpdate(
+    _oldProps: InputFieldProps,
+    _newProps: InputFieldProps,
+  ): boolean {
     this._setClassName();
     return true;
   }

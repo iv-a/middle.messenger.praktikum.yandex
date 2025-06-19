@@ -13,6 +13,7 @@ class AuthController {
     try {
       await this.authAPI.signIn(data);
       await this.getMe();
+      Router.getInstance().go(ROUTES.MESSENGER);
     } catch (err) {
       console.error({ err });
     }
@@ -23,7 +24,6 @@ class AuthController {
       const user = await this.authAPI.getMe();
 
       store.set('user', transformGetMeResponse(user));
-      Router.getInstance().go(ROUTES.MESSENGER);
     } catch (err) {
       console.error(err);
     }
@@ -33,6 +33,7 @@ class AuthController {
     try {
       await this.authAPI.signUp(data);
       await this.getMe();
+      Router.getInstance().go(ROUTES.MESSENGER);
     } catch (err) {
       console.error(err);
     }
