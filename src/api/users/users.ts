@@ -1,6 +1,6 @@
 import { HTTPTransport } from '../../core';
 import { BASE_API_URL } from '../../utils';
-import {
+import type {
   FindUserRequest,
   FindUserResponse,
   UpdateUserAvatarRequest,

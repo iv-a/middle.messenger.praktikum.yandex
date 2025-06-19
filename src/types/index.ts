@@ -17,3 +17,20 @@ export interface User {
   avatar: string;
   email: string;
 }
+
+export interface Message {
+  user: Pick<
+    User,
+    'email' | 'login' | 'first_name' | 'second_name' | 'avatar' | 'phone'
+  >;
+  time: string;
+  content: string;
+}
+
+export interface Chat {
+  id: number;
+  title: string;
+  avatar: string;
+  unread_count: number;
+  last_message: Message;
+}
