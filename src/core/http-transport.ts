@@ -9,7 +9,7 @@ export const METHODS = {
 
 export type HTTPMethodName = (typeof METHODS)[keyof typeof METHODS];
 
-export interface RequestOptions<H = Record<string, unknown>> {
+export interface RequestOptions<H = Record<string, unknown> | FormData> {
   headers?: Record<string, string>;
   data?: H;
   timeout?: number;
@@ -30,7 +30,7 @@ function queryStringify(params: Record<string, unknown>): string {
   return parts.length > 0 ? `?${parts.join('&')}` : '';
 }
 
-type HTTPMethod = <T = unknown, H = Record<string, unknown>>(
+type HTTPMethod = <T = unknown, H = Record<string, unknown> | FormData>(
   url: string,
   options?: RequestOptions<H>,
 ) => Promise<T>;
