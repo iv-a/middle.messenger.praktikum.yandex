@@ -283,6 +283,8 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             ) {
               return;
             }
+
+            // usersController.updateUserInfo(this.props.formState)
           },
         },
       }),

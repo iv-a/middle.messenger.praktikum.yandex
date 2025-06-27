@@ -15,30 +15,30 @@ const baseUrl = BASE_API_URL.endsWith('/')
   ? BASE_API_URL.slice(0, -1)
   : BASE_API_URL;
 
-const userApi = new HTTPTransport(`${baseUrl}/user`);
+const usersApi = new HTTPTransport(`${baseUrl}/user`);
 
-export class UserAPI {
+export class UsersAPI {
   async updateUserInfo(
     data: UpdateUserInfoRequest,
   ): Promise<UpdateUserInfoResponse> {
-    return userApi.put<UpdateUserInfoResponse>('/profile', { data });
+    return usersApi.put<UpdateUserInfoResponse>('/profile', { data });
   }
 
-  async updateUserAvatarInfo(
+  async updateUserAvatar(
     data: UpdateUserAvatarRequest,
   ): Promise<UpdateUserAvatarResponse> {
-    return userApi.put<UpdateUserAvatarResponse>('/profile/avatar', { data });
+    return usersApi.put<UpdateUserAvatarResponse>('/profile/avatar', { data });
   }
 
-  async updateUserPasswordInfo(
+  async updateUserPassword(
     data: UpdateUserPasswordRequest,
   ): Promise<UpdateUserPasswordResponse> {
-    return userApi.put<UpdateUserPasswordResponse>('/password', { data });
+    return usersApi.put<UpdateUserPasswordResponse>('/password', { data });
   }
 
   async findUser(data: FindUserRequest): Promise<FindUserResponse> {
-    return userApi.post<FindUserResponse>('/search', { data });
+    return usersApi.post<FindUserResponse>('/search', { data });
   }
 }
 
-export default new UserAPI();
+export default new UsersAPI();

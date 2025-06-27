@@ -395,7 +395,6 @@ export class SignUpForm extends Block<SignUpFormProps> {
             }
 
             authController.signUp(this.props.formState);
-            console.log(this.props.formState);
           },
         },
       }),
@@ -431,7 +430,6 @@ export class SignUpForm extends Block<SignUpFormProps> {
       ..._newProps,
       disabled: hasErrors,
     });
-    this._setClassName();
     return true;
   }
 
@@ -447,24 +445,3 @@ export class SignUpForm extends Block<SignUpFormProps> {
     this.props.className = styles.form;
   }
 }
-
-// export const SignUpForm = withStore<SignUpFormProps>(() => ({
-//   formState: {
-//     email: '',
-//     login: '',
-//     first_name: '',
-//     second_name: '',
-//     phone: '',
-//     password: '',
-//     confirm_password: '',
-//   },
-//   errors: {
-//     email: '',
-//     login: '',
-//     first_name: '',
-//     second_name: '',
-//     phone: '',
-//     password: '',
-//     confirm_password: '',
-//   },
-// }))(PureSignUpForm);

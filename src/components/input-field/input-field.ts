@@ -40,6 +40,9 @@ export class InputField extends Block<InputFieldProps> {
     if (error && error.length) {
       classes.push(styles.inputError);
     }
+    if (this.props.attrs?.type === 'file') {
+      classes.push(styles.file);
+    }
     const combined = classes.filter(Boolean).join(' ');
     this.props.className = combined;
   }

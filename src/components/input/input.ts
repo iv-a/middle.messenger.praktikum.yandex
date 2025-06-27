@@ -3,6 +3,7 @@ import styles from './input.module.css';
 import rawTemplate from './input.hbs?raw';
 import { InputField } from '../input-field';
 import { isEqual } from '../../utils';
+import { icons } from '../../assets/icons';
 
 export interface InputProps {
   label?: string;
@@ -64,7 +65,7 @@ export class Input extends Block<InputProps> {
   }
 
   protected getTemplateContext(): Record<string, unknown> {
-    return { styles };
+    return { styles, alertIcon: icons.alertIcon };
   }
 
   protected render(): string {

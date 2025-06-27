@@ -1,6 +1,9 @@
 .container {
   width: 40px;
   aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--br-input);
+  border-radius: 50%;
 }
 
 .avatar {
@@ -30,4 +33,14 @@
 
 .xxl {
   width: 64px;
+}
+
+.no_avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 600;
+  background-color: var(--secondary);
 }
