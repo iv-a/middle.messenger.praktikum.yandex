@@ -15,6 +15,7 @@ type FieldName =
   | 'avatar'
   | 'first_name'
   | 'second_name'
+  | 'display_name'
   | 'login'
   | 'email'
   | 'password'
@@ -44,6 +45,7 @@ export function validateField(
       return '';
     case 'first_name':
     case 'second_name':
+    case 'display_name':
       if (!str) return 'This field must not be empty.';
       if (!nameRegex.test(str)) {
         return 'Must start with an uppercase letter; letters and hyphen only.';

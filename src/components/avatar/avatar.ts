@@ -36,8 +36,6 @@ export class Avatar extends Block<AvatarProps> {
     oldProps: AvatarProps,
     newProps: AvatarProps,
   ): boolean {
-    console.count();
-
     if (oldProps.size !== newProps.size) {
       this._setClassName();
     }

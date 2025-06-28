@@ -42,6 +42,7 @@ class AuthController {
   public async logout() {
     try {
       await this.authAPI.logout();
+      Router.getInstance().go(ROUTES.SIGN_IN);
     } catch (err) {
       console.error(err);
     }

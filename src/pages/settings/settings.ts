@@ -64,6 +64,23 @@ class PureSettingsPage extends Block<SettingsPageProps> {
           'Avatar is your profile picture - everyone who visits your profile will see this.',
       }),
       ChangeAvatarForm: new ChangeAvatarForm(),
+      SignOutHeading: new SectionHeading({
+        title: 'Sign out',
+        subtitle: 'We’ll miss you! Tap the button to sign out.',
+      }),
+      SignOutButton: new Button({
+        variant: 'destructive',
+        text: 'Sign out',
+        size: 'l',
+        type: 'button',
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+
+            authController.logout();
+          },
+        },
+      }),
     });
     authController.getMe();
   }
