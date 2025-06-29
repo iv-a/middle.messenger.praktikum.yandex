@@ -30,7 +30,8 @@ export interface Message {
 export interface IChat {
   id: number;
   title: string;
-  avatar: string;
+  avatar: string | null;
   unread_count: number;
   last_message: Message | null;
+  created_by: number;
 }

@@ -3,6 +3,7 @@ import {
   Button,
   Chat,
   ChatItem,
+  ChatsList,
   CreateChatModal,
   Input,
 } from '../../components';
@@ -45,26 +46,6 @@ class PureChatsPage extends Block<ChatsPageProps> {
         placeholder: 'Search',
         type: 'text',
       }),
-      OptionsButton: new Button({
-        tagName: 'button',
-        type: 'button',
-        variant: 'outline',
-        size: 'm',
-        iconOnly: true,
-        icon: icons.dotsThreeIcon,
-      }),
-      chatItems:
-        props.chats?.map(
-          ({ avatar, id, last_message, title, unread_count }) => {
-            return new ChatItem({
-              avatarUrl: avatar,
-              displayName: title,
-              time: last_message?.time || '',
-              message: last_message?.content || '',
-              unread: unread_count,
-            });
-          },
-        ) || [],
       CreateChatButton: new Button({
         tagName: 'button',
         type: 'button',
@@ -88,6 +69,7 @@ class PureChatsPage extends Block<ChatsPageProps> {
       }),
       CreateChatModal: new CreateChatModal(),
       Chat: new Chat(),
+      ChatsList: new ChatsList(),
     });
     chatsController.getChats({ limit: 50, offset: 0 });
   }
@@ -101,19 +83,15 @@ class PureChatsPage extends Block<ChatsPageProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: ChatsPageProps,
-    newProps: ChatsPageProps,
+    _oldProps: ChatsPageProps,
+    _newProps: ChatsPageProps,
   ): boolean {
     this._setClassName();
-    console.log({ oldProps, newProps });
 
     return true;
   }
 
   render(): string {
-    // console.count();
-    console.log(this.props);
-
     return rawTemplate;
   }
 

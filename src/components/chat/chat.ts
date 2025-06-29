@@ -1,7 +1,9 @@
+import { icons } from '../../assets/icons';
 import { Block } from '../../core';
 import { withStore } from '../../hocs';
 import { IChat } from '../../types';
 import { Avatar } from '../avatar';
+import { Button } from '../button';
 import { MessageForm } from '../message-form';
 import rawTemplate from './chat.hbs?raw';
 import styles from './chat.module.css';
@@ -21,6 +23,14 @@ class PureChat extends Block<ChatProps> {
         size: 's',
       }),
       MessageForm: new MessageForm(),
+      OptionsButton: new Button({
+        tagName: 'button',
+        type: 'button',
+        variant: 'outline',
+        size: 'm',
+        iconOnly: true,
+        icon: icons.dotsThreeIcon,
+      }),
     });
   }
 
@@ -32,8 +42,18 @@ class PureChat extends Block<ChatProps> {
     this._setClassName();
   }
 
-  protected componentDidUpdate(): boolean {
-    this._setClassName();
+  protected componentDidUpdate(
+    _oldProps: ChatProps,
+    newProps: ChatProps,
+  ): boolean {
+    const avatar = this.children.Avatar as Avatar;
+    if (avatar) {
+      avatar.setProps({
+        avatarUrl: newProps.activeChat?.avatar,
+        first_name: newProps.activeChat?.title,
+      });
+    }
+
     return true;
   }
 

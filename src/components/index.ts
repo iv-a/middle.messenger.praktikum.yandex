@@ -14,3 +14,4 @@ export * from './section-heading';
 export * from './link';
 export * from './chat';
 export * from './create-chat-modal';
+export * from './chats-list';
