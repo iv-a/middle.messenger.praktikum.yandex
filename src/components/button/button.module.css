@@ -108,6 +108,12 @@
   font-size: 14px;
 }
 
+.xl {
+  height: 52px;
+  padding: 0 var(--s-8);
+  font-size: 14px;
+}
+
 .disabled {
   opacity: 0.5;
   pointer-events: none;
@@ -160,4 +166,8 @@
 
 .block {
   width: 100%;
+}
+
+.round {
+  border-radius: 50%;
 }

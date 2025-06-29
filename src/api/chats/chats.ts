@@ -28,7 +28,7 @@ export class ChatsAPI {
     const query = new URLSearchParams(
       Object.entries(data).map(([K, v]) => [K, String(v)]),
     ).toString();
-    return chatsApi.get<GetChatsResponse>(query);
+    return chatsApi.get<GetChatsResponse>(`?${query}`);
   }
 
   async createChat(data: CreateChatRequest): Promise<CreateChatResponse> {

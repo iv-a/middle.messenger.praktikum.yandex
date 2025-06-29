@@ -1,0 +1,25 @@
+{{#if activeChat}}
+  <div class='{{styles.rightPanel}}'>
+    <header class='{{styles.header}}'>
+      <div class={{styles.chatInfo}}>
+        {{{Avatar}}}
+        <h1 class='{{styles.chatName}}'>
+          {{activeChat.title}}
+        </h1>
+      </div>
+      {{{OptionsButton}}}
+    </header>
+    <div class='{{styles.wrapper}}'>
+      <ul class='{{styles.messagesList}}'>
+        {{{MessageItem}}}
+      </ul>
+    </div>
+    {{{MessageForm}}}
+  </div>
+{{else}}
+  <div class='{{styles.section}}'>
+    <p class='{{styles.placeholder}}'>
+      Select a chat to start mesagging
+    </p>
+  </div>
+{{/if}}

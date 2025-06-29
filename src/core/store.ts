@@ -1,9 +1,11 @@
-import { User } from '../types';
+import { IChat, User } from '../types';
 import { set } from '../utils';
 import { EventBus } from './event-bus';
 
 export interface State {
+  activeChat: IChat | null;
   user: User | null;
+  chats: Array<IChat>;
 }
 
 export const STORE_EVENTS_CONFIG = {
@@ -16,7 +18,9 @@ type EventSignatures = {
 
 class Store extends EventBus<EventSignatures> {
   private state: State = {
+    activeChat: null,
     user: null,
+    chats: [],
   };
 
   public get() {

@@ -1,11 +1,11 @@
-import { Chat, User } from '../../types';
+import { IChat, User } from '../../types';
 
 export type GetChatsRequest = {
   offset?: number;
   limit?: number;
   title?: string;
 };
-export type GetChatsResponse = Array<Chat>;
+export type GetChatsResponse = Array<IChat>;
 
 export type CreateChatRequest = {
   title: string;

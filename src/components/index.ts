@@ -12,3 +12,4 @@ export * from './message-item';
 export * from './header';
 export * from './section-heading';
 export * from './link';
+export * from './chat';

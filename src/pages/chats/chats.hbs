@@ -1,37 +1,25 @@
-<section class="{{styles.leftPanel}}">
-  <header class="{{styles.header}}">
+<section class='{{styles.leftPanel}}'>
+  <header class='{{styles.header}}'>
     <div class={{styles.logo}}>
       {{{logoIcon}}}
     </div>
     {{{SettingsButton}}}
   </header>
 
-  <form class="{{styles.searchChat}}">
+  <form class='{{styles.searchChat}}'>
     {{{SearchInput}}}
   </form>
 
-  <ul class="{{styles.chatsList}}">
-    {{{ChatItem}}}
+  <ul class='{{styles.chatsList}}'>
+    {{#each chatItems}}
+      {{{this}}}
+    {{/each}}
   </ul>
+  <div class='{{styles.createCharButton}}'>
+    {{{CreateChatButton}}}
+  </div>
 </section>
 
 <div class={{styles.dividerV}}></div>
 
-<section class="{{styles.rightPanel}}">
-  <header class="{{styles.header}}">
-    <div class={{styles.chatInfo}}>
-      {{{Avatar}}}
-      <h1 class="{{styles.chatName}}">
-        {{chatName}}
-      </h1>
-    </div>
-    {{{OptionsButton}}}
-  </header>
-  <div class="{{styles.wrapper}}">
-    <ul class="{{styles.messagesList}}">
-      {{{MessageItem}}}
-    </ul>
-  </div>
-
-  {{{MessageForm}}}
-</section>
+{{{Chat}}}

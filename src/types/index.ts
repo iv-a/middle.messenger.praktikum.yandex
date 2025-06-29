@@ -27,7 +27,7 @@ export interface Message {
   content: string;
 }
 
-export interface Chat {
+export interface IChat {
   id: number;
   title: string;
   avatar: string;

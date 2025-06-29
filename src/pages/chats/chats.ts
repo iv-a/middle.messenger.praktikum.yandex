@@ -1,33 +1,27 @@
 import { icons } from '../../assets/icons';
-import {
-  Avatar,
-  Button,
-  ChatItem,
-  Input,
-  MessageForm,
-  MessageItem,
-} from '../../components';
+import { Button, Chat, ChatItem, Input } from '../../components';
+import { chatsController } from '../../controllers';
 import { Block, Router } from '../../core';
 import { BaseProps } from '../../core';
+import { withStore } from '../../hocs';
+import { IChat } from '../../types';
 import { ROUTES } from '../../utils';
 import rawTemplate from './chats.hbs?raw';
 import styles from './chats.module.css';
 
 export interface ChatsPageProps extends BaseProps {
-  chatName: string;
+  chats: Array<IChat>;
+  chatItems?: Array<ChatItem>;
   [key: string]: unknown;
 }
 
-export class ChatsPage extends Block<ChatsPageProps> {
+class PureChatsPage extends Block<ChatsPageProps> {
   constructor(props: ChatsPageProps) {
     super('main', {
       ...props,
       logoIcon: icons.logoIcon,
       SettingsButton: new Button({
         tagName: 'a',
-        attrs: {
-          href: '#/settings',
-        },
         variant: 'outline',
         size: 'm',
         iconOnly: true,
@@ -45,19 +39,6 @@ export class ChatsPage extends Block<ChatsPageProps> {
         placeholder: 'Search',
         type: 'text',
       }),
-      ChatItem: new ChatItem({
-        avatarUrl:
-          'https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
-        displayName: 'Isabella Taylor',
-        time: '15:19',
-        message: 'Let’s catch up after lunch.',
-        unread: 1,
-      }),
-      Avatar: new Avatar({
-        avatarUrl:
-          'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
-        size: 's',
-      }),
       OptionsButton: new Button({
         tagName: 'button',
         type: 'button',
@@ -66,13 +47,30 @@ export class ChatsPage extends Block<ChatsPageProps> {
         iconOnly: true,
         icon: icons.dotsThreeIcon,
       }),
-      MessageItem: new MessageItem({
-        isSelf: true,
-        message: 'sdasdasdas',
-        time: '10:32',
+      chatItems: props.chats?.map(
+        ({ avatar, id, last_message, title, unread_count }) => {
+          const { content, time } = last_message;
+          return new ChatItem({
+            avatarUrl: avatar,
+            displayName: title,
+            time,
+            message: content,
+            unread: unread_count,
+          });
+        },
+      ),
+      CreateChatButton: new Button({
+        tagName: 'button',
+        type: 'button',
+        variant: 'primary',
+        size: 'xl',
+        iconOnly: true,
+        icon: icons.plus,
+        round: true,
       }),
-      MessageForm: new MessageForm(),
+      Chat: new Chat(),
     });
+    chatsController.getChats({ limit: 50, offset: 0 });
   }
 
   protected getTemplateContext(): Record<string, unknown> {
@@ -88,7 +86,7 @@ export class ChatsPage extends Block<ChatsPageProps> {
     return true;
   }
 
-  protected render(): string {
+  render(): string {
     return rawTemplate;
   }
 
@@ -96,3 +94,7 @@ export class ChatsPage extends Block<ChatsPageProps> {
     this.props.className = styles.page;
   }
 }
+
+export const ChatsPage = withStore<ChatsPageProps>((state) => ({
+  chats: state.chats,
+}))(PureChatsPage);
