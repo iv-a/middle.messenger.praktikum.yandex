@@ -31,6 +31,7 @@ class ChatsController {
     try {
       const res = await this.chatsAPI.createChat(data);
       store.set('activeChatId', res);
+      await this.getChats({});
     } catch (err) {
       console.error({ err });
     }

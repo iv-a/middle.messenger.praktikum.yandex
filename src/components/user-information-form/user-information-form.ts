@@ -371,8 +371,6 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
     });
     this._setClassName();
 
-    console.log(this.isInitial());
-
     const emailInput = this.children.EmailInput as Input;
     const loginInput = this.children.LoginInput as Input;
     const firstNameInput = this.children.FirstNameInput as Input;

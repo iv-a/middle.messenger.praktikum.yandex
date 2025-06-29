@@ -21,6 +21,7 @@ type FieldName =
   | 'password'
   | 'confirm_password'
   | 'phone'
+  | 'title'
   | 'message';
 
 export function validateField(
@@ -86,6 +87,9 @@ export function validateField(
       return '';
     case 'message':
       if (!str.trim()) return 'Message must not be empty.';
+      return '';
+    case 'title':
+      if (!str.trim()) return 'Chat name must not be empty.';
       return '';
     default:
       return '';

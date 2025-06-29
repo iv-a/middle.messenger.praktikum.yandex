@@ -18,9 +18,7 @@ const APP_ROOT_QUERY = '#app';
 new Router(APP_ROOT_QUERY)
   .use(ROUTES.SIGN_IN, SignInPage)
   .use(ROUTES.SIGN_UP, SignUpPage)
-  .use<ChatsPageProps>(ROUTES.MESSENGER, ChatsPage, {
-    chatName: 'William Smith',
-  })
+  .use<ChatsPageProps>(ROUTES.MESSENGER, ChatsPage)
   .use(ROUTES.SETTINGS, SettingsPage)
   .use<ErrorPageProps>(ROUTES.NOT_FOUND, ErrorPage, {
     code: 404,

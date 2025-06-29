@@ -32,5 +32,5 @@ export interface IChat {
   title: string;
   avatar: string;
   unread_count: number;
-  last_message: Message;
+  last_message: Message | null;
 }

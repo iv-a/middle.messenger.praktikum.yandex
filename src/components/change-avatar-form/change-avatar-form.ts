@@ -53,10 +53,6 @@ class PureChangeAvatarForm extends Block<ChangeAvatarFormProps> {
 
               const error = validateField('avatar', file);
 
-              const avatarInput = this.children
-                .AvatarInput as Block<InputProps>;
-              console.log(avatarInput.props);
-
               this.setProps({
                 formState: {
                   avatar: file,
@@ -134,8 +130,6 @@ class PureChangeAvatarForm extends Block<ChangeAvatarFormProps> {
     oldProps: ChangeAvatarFormProps,
     newProps: ChangeAvatarFormProps,
   ): boolean {
-    console.log({ oldProps, newProps });
-
     const avatar = this.children.Avatar as Avatar;
     if (
       (oldProps.user?.avatar !== newProps.user?.avatar ||
