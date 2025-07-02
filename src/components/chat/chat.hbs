@@ -7,7 +7,14 @@
           {{activeChat.title}}
         </h1>
       </div>
-      {{{OptionsButton}}}
+      <div class='{{styles.dropdown}}'>
+        {{{OptionsButton}}}
+        <div class='{{styles.dropdownContent}}'>
+          {{{AddUsersModalButton}}}
+          {{{DeleteUsersModalButton}}}
+          {{{DeleteChatButton}}}
+        </div>
+      </div>
     </header>
     <div class='{{styles.wrapper}}'>
       <ul class='{{styles.messagesList}}'>
@@ -23,3 +30,4 @@
     </p>
   </div>
 {{/if}}
+{{{AddUsersModal}}}

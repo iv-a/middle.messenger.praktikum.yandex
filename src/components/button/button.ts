@@ -5,7 +5,7 @@ import styles from './button.module.css';
 import { Block } from '../../core';
 export interface ButtonProps {
   tagName?: 'button' | 'a';
-  variant?: 'primary' | 'secondary' | 'outline' | 'destructive';
+  variant?: 'primary' | 'secondary' | 'outline' | 'destructive' | 'dropdown';
   size?: 's' | 'm' | 'l' | 'xl';
   round?: boolean;
   loading?: boolean;
@@ -56,6 +56,7 @@ export class Button extends Block<ButtonProps> {
       secondary: styles.secondary,
       outline: styles.outline,
       destructive: styles.destructive,
+      dropdown: styles.dropdown,
     };
     if (variant && variantMap[variant]) {
       buttonClasses.push(variantMap[variant]);

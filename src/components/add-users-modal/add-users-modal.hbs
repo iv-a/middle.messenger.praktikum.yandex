@@ -1,0 +1,37 @@
+<div class='{{styles.overlay}} {{#if isOpen}} {{styles.open}}{{/if}}'>
+  <div class='{{styles.dialog}}'>
+    <div class='{{styles.form}}'>
+      <h2 class='{{styles.dialogTitle}}'>
+        Add users to chat
+      </h2>
+      <div class='{{styles.group}}'>
+        <h4 class='{{styles.sectionTitle}}' >
+          Find users:
+        </h4>
+        <form id="find-users" action="submit" class='{{styles.findForm}}'>
+          {{{FindUsersInput}}} 
+          {{{FindUsersButton}}}
+        </form>
+        <ul class='{{styles.list}}'>
+          {{{FoundUsers}}}
+        </ul>
+      </div>
+
+      {{#if SelectedUsers}}
+        <div class='{{styles.group}}'>
+          <h4 class='{{styles.sectionTitle}}' >
+            Users to add:
+          </h4>
+          <ul class='{{styles.list}}'>
+            {{{SelectedUsers}}}
+          </ul>
+        </div>
+      {{/if}}
+      
+      <menu class='{{styles.dialogControls}}'>
+        {{{CancelButton}}}
+        {{{SubmitButton}}}
+      </menu>
+    </div>
+  </div>
+</div>

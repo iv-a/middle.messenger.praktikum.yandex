@@ -1,4 +1,4 @@
-import { IChat, User } from '../../types';
+import { IChat, IChatUser } from '../../types';
 
 export type GetChatsRequest = {
   offset?: number;
@@ -18,15 +18,6 @@ export type DeleteChatRequest = {
   chatId: number;
 };
 export type DeleteChatResponse = void;
-// export type DeleteChatResponse = {
-//   userId: number;
-//   result: {
-//     id: number;
-//     title: string;
-//     avatar: string;
-//     created_by: number;
-//   };
-// };
 
 export type GetChatUsersRequest = {
   id: number;
@@ -35,12 +26,7 @@ export type GetChatUsersRequest = {
   name?: string;
   email?: string;
 };
-export type GetChatUsersResponse = Array<
-  Pick<
-    User,
-    'id' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'avatar'
-  > & { role: string }
->;
+export type GetChatUsersResponse = Array<IChatUser & { role: string }>;
 
 export type GetNewMessagesCountRequest = {
   id: number;

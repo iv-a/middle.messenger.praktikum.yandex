@@ -1,4 +1,5 @@
 import {
+  FindUserRequest,
   UpdateUserAvatarRequest,
   UpdateUserInfoRequest,
   UpdateUserPasswordRequest,
@@ -36,6 +37,14 @@ class UsersController {
     try {
       const res = await this.userAPI.updateUserAvatar(data);
       store.set('user', transformUserDataResponse(res));
+    } catch (err) {
+      console.error({ err });
+    }
+  }
+
+  public async findUser(data: FindUserRequest) {
+    try {
+      return await this.userAPI.findUser(data);
     } catch (err) {
       console.error({ err });
     }

@@ -15,3 +15,5 @@ export * from './link';
 export * from './chat';
 export * from './create-chat-modal';
 export * from './chats-list';
+export * from './add-users-modal';
+export * from './users-list-item';

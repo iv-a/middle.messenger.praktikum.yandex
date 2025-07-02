@@ -35,3 +35,8 @@ export interface IChat {
   last_message: Message | null;
   created_by: number;
 }
+
+export type IChatUser = Pick<
+  User,
+  'id' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'avatar'
+>;

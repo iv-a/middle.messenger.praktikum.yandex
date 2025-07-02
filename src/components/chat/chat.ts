@@ -2,6 +2,7 @@ import { icons } from '../../assets/icons';
 import { Block } from '../../core';
 import { withStore } from '../../hocs';
 import { IChat } from '../../types';
+import { AddUsersModal, PureAddUsersModal } from '../add-users-modal';
 import { Avatar } from '../avatar';
 import { Button } from '../button';
 import { MessageForm } from '../message-form';
@@ -31,6 +32,48 @@ class PureChat extends Block<ChatProps> {
         iconOnly: true,
         icon: icons.dotsThreeIcon,
       }),
+      AddUsersModalButton: new Button({
+        tagName: 'button',
+        type: 'button',
+        variant: 'dropdown',
+        size: 'l',
+        text: 'Add users',
+        block: true,
+        prefix: true,
+        icon: icons.userPlus,
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+
+            const addUsersModal = this.children
+              .AddUsersModal as PureAddUsersModal;
+            if (addUsersModal) {
+              addUsersModal.setProps({ isOpen: true });
+            }
+          },
+        },
+      }),
+      DeleteUsersModalButton: new Button({
+        tagName: 'button',
+        type: 'button',
+        variant: 'dropdown',
+        size: 'l',
+        text: 'Delete users',
+        block: true,
+        prefix: true,
+        icon: icons.userMinus,
+      }),
+      DeleteChatButton: new Button({
+        tagName: 'button',
+        type: 'button',
+        variant: 'dropdown',
+        size: 'l',
+        text: 'Delete chat',
+        block: true,
+        prefix: true,
+        icon: icons.trash,
+      }),
+      AddUsersModal: new AddUsersModal(),
     });
   }
 

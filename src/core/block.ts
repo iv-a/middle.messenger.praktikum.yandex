@@ -73,9 +73,13 @@ export abstract class Block<P extends BaseProps> {
       if (!Object.prototype.hasOwnProperty.call(propsWithChildren, key))
         continue;
       const value = propsWithChildren[key];
+      const first = key.charAt(0);
       if (
         value instanceof Block ||
-        (Array.isArray(value) && value.every((item) => item instanceof Block))
+        (Array.isArray(value) &&
+          first === first.toUpperCase() &&
+          first !== first.toLowerCase() &&
+          value.every((item) => item instanceof Block))
       ) {
         children[key] = value as Block<BaseProps> | Block<BaseProps>[];
       } else {

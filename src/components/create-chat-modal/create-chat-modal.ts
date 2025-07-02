@@ -88,38 +88,25 @@ export class CreateChatModal extends Block<CreateChatModalProps> {
         type: 'submit',
         events: {
           click: (e: Event) => {
-            // console.log(0);
-
             e.preventDefault();
 
-            // console.log(1);
-
             const { title } = this.props.formState;
-            // console.log(2);
             const titleError = validateField('title', title);
-            // console.log(3);
             this.setProps({ errors: { title: titleError } });
 
-            // console.log(4);
             const titleInput = this.children
               .ChatTitleInput as Block<InputProps>;
-            // console.log(5);
             if (titleInput) {
               titleInput.setProps({ error: titleError });
             }
-            // console.log(6);
 
             if (titleError) return;
-            // console.log(7);
 
             if (!this.props.formState.title) return;
-            // console.log(8);
 
             chatsController.createChat({ title });
-            // console.log(9);
 
             this.setProps(defaultProps);
-            // console.log(10);
           },
         },
       }),
@@ -155,8 +142,6 @@ export class CreateChatModal extends Block<CreateChatModalProps> {
   }
 
   render(): string {
-    // console.count();
-
     return rawTemplate;
   }
 

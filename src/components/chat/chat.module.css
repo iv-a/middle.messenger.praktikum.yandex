@@ -72,3 +72,33 @@
   min-height: 0;
   background-color: var(--secondary);
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+  max-width: 200px;
+  padding: var(--s-1);
+  background-color: #fff;
+  border: 1px solid var(--br-input);
+  border-radius: 8px;
+  box-shadow:
+    0 2px 4px -2px #0000001a,
+    0 4px 6px -1px #0000001a;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dropdown:hover .dropdownContent {
+  display: flex;
+  opacity: 1;
+}
