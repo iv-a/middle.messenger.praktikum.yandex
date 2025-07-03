@@ -20,5 +20,9 @@
   </div>
 </div>
 <div class='{{styles.btn}}'>
-  {{{ActionButton}}}
+  {{#if currentUser}}
+    Me
+  {{else}}
+    {{{ActionButton}}}
+  {{/if}}
 </div>

@@ -1,6 +1,6 @@
 import { AuthAPI, authAPI, SignInRequest, SignUpRequest } from '../api';
 import { Router, store } from '../core';
-import { ROUTES, transformUserDataResponse } from '../utils';
+import { ROUTES, transformDataWithAvatar } from '../utils';
 
 class AuthController {
   private readonly authAPI: AuthAPI;
@@ -23,7 +23,7 @@ class AuthController {
     try {
       const user = await this.authAPI.getMe();
 
-      store.set('user', transformUserDataResponse(user));
+      store.set('user', transformDataWithAvatar(user));
     } catch (err) {
       console.error(err);
     }

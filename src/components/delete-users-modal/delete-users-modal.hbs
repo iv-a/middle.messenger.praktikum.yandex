@@ -1,0 +1,21 @@
+<div class='{{styles.overlay}} {{#if isOpen}} {{styles.open}}{{/if}}'>
+  <div class='{{styles.dialog}}'>
+    <div class='{{styles.form}}'>
+      <h2 class='{{styles.dialogTitle}}'>
+        Delete users from chat
+      </h2>
+      <div class='{{styles.group}}'>
+        <h4 class='{{styles.sectionTitle}}' >
+          Chat users:
+        </h4>
+        <ul class='{{styles.list}}'>
+          {{{ChatUsers}}}
+        </ul>
+      </div>
+      
+      <menu class='{{styles.dialogControls}}'>
+        {{{CancelButton}}}
+      </menu>
+    </div>
+  </div>
+</div>

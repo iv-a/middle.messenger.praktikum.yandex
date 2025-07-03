@@ -1,5 +1,6 @@
 import { Block } from '../../core';
 import { IChatUser } from '../../types';
+import { getActionButtonTitle, getActionButtonVariant } from '../../utils';
 import { Avatar } from '../avatar';
 import { Button } from '../button';
 import rawTemplate from './users-list-item.hbs?raw';
@@ -7,7 +8,8 @@ import styles from './users-list-item.module.css';
 
 export interface UsersListItemProps {
   user: IChatUser;
-  action: 'add' | 'delete';
+  action: 'add' | 'delete' | 'select' | 'unselect';
+  currentUser?: boolean;
   onClick: (id: number) => void;
   [key: string]: unknown;
 }
@@ -27,8 +29,8 @@ export class UsersListItem extends Block<UsersListItemProps> {
         second_name: props.user.second_name,
       }),
       ActionButton: new Button({
-        variant: props.action === 'add' ? 'outline' : 'destructive',
-        text: props.action === 'add' ? 'Select' : 'Unselect',
+        variant: getActionButtonVariant(props.action),
+        text: getActionButtonTitle(props.action),
         size: 'm',
         type: 'button',
         block: true,

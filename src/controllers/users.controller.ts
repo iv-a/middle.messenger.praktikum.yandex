@@ -7,7 +7,7 @@ import {
   UserAPI,
 } from '../api';
 import { store } from '../core';
-import { transformUserDataResponse } from '../utils';
+import { transformArrayWithAvatar, transformDataWithAvatar } from '../utils';
 
 class UsersController {
   private readonly userAPI: UserAPI;
@@ -19,7 +19,7 @@ class UsersController {
   public async updateUserInfo(data: UpdateUserInfoRequest) {
     try {
       const res = await this.userAPI.updateUserInfo(data);
-      store.set('user', transformUserDataResponse(res));
+      store.set('user', transformDataWithAvatar(res));
     } catch (err) {
       console.error({ err });
     }
@@ -36,7 +36,7 @@ class UsersController {
   public async updateUserAvatar(data: UpdateUserAvatarRequest) {
     try {
       const res = await this.userAPI.updateUserAvatar(data);
-      store.set('user', transformUserDataResponse(res));
+      store.set('user', transformDataWithAvatar(res));
     } catch (err) {
       console.error({ err });
     }
@@ -44,7 +44,8 @@ class UsersController {
 
   public async findUser(data: FindUserRequest) {
     try {
-      return await this.userAPI.findUser(data);
+      const user = await this.userAPI.findUser(data);
+      return transformArrayWithAvatar(user);
     } catch (err) {
       console.error({ err });
     }

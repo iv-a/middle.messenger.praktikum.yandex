@@ -10,6 +10,7 @@ import {
   GetNewMessagesCountRequest,
 } from '../api';
 import { store } from '../core';
+import { transformArrayWithAvatar } from '../utils';
 
 class ChatsController {
   private readonly chatsAPI: ChatsAPI;
@@ -21,7 +22,7 @@ class ChatsController {
   public async getChats(data: GetChatsRequest) {
     try {
       const res = await this.chatsAPI.getChats(data);
-      store.set('chats', res);
+      store.set('chats', transformArrayWithAvatar(res));
     } catch (err) {
       console.error({ err });
     }
@@ -47,7 +48,8 @@ class ChatsController {
 
   public async getChatUsers(data: GetChatUsersRequest) {
     try {
-      return await this.chatsAPI.getChatUsers(data);
+      const users = await this.chatsAPI.getChatUsers(data);
+      return transformArrayWithAvatar(users);
     } catch (err) {
       console.error({ err });
     }

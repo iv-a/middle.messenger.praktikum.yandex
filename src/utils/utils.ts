@@ -1,5 +1,6 @@
 import Handlebars, { type HelperDelegate } from 'handlebars';
 import { Indexed, PartialComponent } from '../types';
+import { ButtonProps, UsersListItemProps } from '../components';
 
 export const registerHelpers = (helpers: Record<string, HelperDelegate>) => {
   Object.entries(helpers).forEach(([name, helper]) => {
@@ -153,3 +154,39 @@ export function set(
 
   return result;
 }
+
+export const getActionButtonTitle = (action: UsersListItemProps['action']) => {
+  switch (action) {
+    case 'add': {
+      return 'Add';
+    }
+    case 'delete': {
+      return 'Delete';
+    }
+    case 'select': {
+      return 'Select';
+    }
+    case 'unselect': {
+      return 'Unselect';
+    }
+    default:
+      return 'Action';
+  }
+};
+
+export const getActionButtonVariant = (
+  action: UsersListItemProps['action'],
+): ButtonProps['variant'] => {
+  switch (action) {
+    case 'add':
+    case 'select': {
+      return 'outline';
+    }
+    case 'delete':
+    case 'unselect': {
+      return 'destructive';
+    }
+    default:
+      return 'outline';
+  }
+};

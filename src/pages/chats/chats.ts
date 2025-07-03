@@ -7,7 +7,7 @@ import {
   CreateChatModal,
   Input,
 } from '../../components';
-import { chatsController } from '../../controllers';
+import { authController, chatsController } from '../../controllers';
 import { Block, Router } from '../../core';
 import { BaseProps } from '../../core';
 import { withStore } from '../../hocs';
@@ -72,6 +72,7 @@ class PureChatsPage extends Block<ChatsPageProps> {
       ChatsList: new ChatsList(),
     });
     chatsController.getChats({ limit: 50, offset: 0 });
+    authController.getMe();
   }
 
   protected getTemplateContext(): Record<string, unknown> {

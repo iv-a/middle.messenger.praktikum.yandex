@@ -206,7 +206,7 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
                 login,
               };
               return new UsersListItem({
-                action: 'add',
+                action: 'select',
                 onClick: () => {
                   this.setProps({
                     selectedUsers: [...selectedUsers, user],
@@ -234,7 +234,7 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
               login,
             };
             return new UsersListItem({
-              action: 'delete',
+              action: 'unselect',
               onClick: () =>
                 this.setProps({
                   selectedUsers: this.props.selectedUsers.filter(

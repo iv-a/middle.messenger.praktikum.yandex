@@ -17,3 +17,4 @@ export * from './create-chat-modal';
 export * from './chats-list';
 export * from './add-users-modal';
 export * from './users-list-item';
+export * from './delete-users-modal';

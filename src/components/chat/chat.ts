@@ -5,6 +5,7 @@ import { IChat } from '../../types';
 import { AddUsersModal, PureAddUsersModal } from '../add-users-modal';
 import { Avatar } from '../avatar';
 import { Button } from '../button';
+import { DeleteUsersModal, PureDeleteUsersModal } from '../delete-users-modal';
 import { MessageForm } from '../message-form';
 import rawTemplate from './chat.hbs?raw';
 import styles from './chat.module.css';
@@ -62,6 +63,17 @@ class PureChat extends Block<ChatProps> {
         block: true,
         prefix: true,
         icon: icons.userMinus,
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+
+            const deleteUsersModal = this.children
+              .DeleteUsersModal as PureDeleteUsersModal;
+            if (deleteUsersModal) {
+              deleteUsersModal.setProps({ isOpen: true });
+            }
+          },
+        },
       }),
       DeleteChatButton: new Button({
         tagName: 'button',
@@ -74,6 +86,7 @@ class PureChat extends Block<ChatProps> {
         icon: icons.trash,
       }),
       AddUsersModal: new AddUsersModal(),
+      DeleteUsersModal: new DeleteUsersModal(),
     });
   }
 
