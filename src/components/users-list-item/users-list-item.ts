@@ -52,11 +52,10 @@ export class UsersListItem extends Block<UsersListItemProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: UsersListItemProps,
-    newProps: UsersListItemProps,
+    _oldProps: UsersListItemProps,
+    _newProps: UsersListItemProps,
   ): boolean {
     this._setClassName();
-    // console.log({ oldProps, newProps });
 
     return true;
   }

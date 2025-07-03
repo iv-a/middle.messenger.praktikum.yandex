@@ -2,7 +2,6 @@ import { Block } from '../../core';
 import styles from './input.module.css';
 import rawTemplate from './input.hbs?raw';
 import { InputField } from '../input-field';
-import { isEqual } from '../../utils';
 import { icons } from '../../assets/icons';
 
 export interface InputProps {
@@ -41,19 +40,16 @@ export class Input extends Block<InputProps> {
   }
 
   protected componentDidUpdate(
-    oldProps: InputProps,
+    _oldProps: InputProps,
     newProps: InputProps,
   ): boolean {
-    if (isEqual(oldProps, newProps)) {
-      return false;
-    }
     const inputField = this.children.InputField as InputField;
     if (inputField) {
       inputField.setProps({
         ...inputField.props,
         attrs: {
           ...inputField.props.attrs,
-          value: newProps.value ?? inputField.props.attrs?.value ?? '',
+          value: newProps.value ?? '',
         },
       });
     }

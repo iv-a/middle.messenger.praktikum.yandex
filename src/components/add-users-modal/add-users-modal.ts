@@ -1,4 +1,3 @@
-import { GetChatUsersResponse } from '../../api';
 import { icons } from '../../assets/icons';
 import { chatsController, usersController } from '../../controllers';
 import { Block, store } from '../../core';
@@ -19,10 +18,11 @@ export interface AddUsersModalProps {
   errors: {
     find_users: string;
   };
-  foundUsers: Array<IChatUser>;
+  foundUsers: Array<IChatUser> | null;
   activeChat: IChat | null;
   activeChatUsers: Set<number>;
   selectedUsers: Array<IChatUser>;
+  notFound: boolean;
   [key: string]: unknown;
 }
 
@@ -34,10 +34,11 @@ const defaultProps: AddUsersModalProps = {
   errors: {
     find_users: '',
   },
-  foundUsers: [],
+  foundUsers: null,
   activeChat: store.get().activeChat,
   activeChatUsers: new Set(),
   selectedUsers: [],
+  notFound: false,
 };
 
 export class PureAddUsersModal extends Block<AddUsersModalProps> {
@@ -56,12 +57,12 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
             const target = e.target;
             if (target instanceof HTMLInputElement) {
               const error = validateField('find_users', target.value);
-              (this.children.FindUsersInput as Block<InputProps>).setProps({
-                error,
-              });
               if (error !== this.props.errors.find_users) {
                 this.setProps({
                   errors: { find_users: error },
+                });
+                (this.children.FindUsersInput as Block<InputProps>).setProps({
+                  error,
                 });
               }
             }
@@ -121,37 +122,7 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
                   }),
                 ),
               });
-              // this.children.FoundUsers =
-              //   res?.map(
-              //     ({
-              //       id,
-              //       login,
-              //       avatar,
-              //       first_name,
-              //       second_name,
-              //       display_name,
-              //     }) => {
-              //       const user = {
-              //         id,
-              //         avatar,
-              //         display_name,
-              //         first_name,
-              //         second_name,
-              //         login,
-              //       };
-              //       return new UsersListItem({
-              //         action: 'add',
-              //         onClick: () =>
-              //           this.setProps({
-              //             selectedUsers: [...this.props.selectedUsers, user],
-              //           }),
-              //         user,
-              //       });
-              //     },
-              //   ) || [];
             });
-
-            // this.setProps(defaultProps);
           },
         },
       }),
@@ -164,7 +135,7 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
           click: (e: Event) => {
             e.preventDefault();
 
-            this.setProps({ isOpen: false });
+            this.setProps(defaultProps);
           },
         },
       }),
@@ -177,35 +148,21 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
         events: {
           click: (e: Event) => {
             e.preventDefault();
+
+            const chatId = this.props.activeChat?.id;
+            const users = this.props.selectedUsers.map(({ id }) => id);
+
+            if (chatId && users) {
+              chatsController.addUsersToChat({ chatId, users }).then(() => {
+                this.setProps(defaultProps);
+              });
+            }
+
+            console.log(this.props.selectedUsers);
           },
         },
       }),
-      Item1: new UsersListItem({
-        action: 'add',
-        onClick: () => console.log('click'),
-        user: {
-          id: 1111,
-          avatar:
-            'https://images.unsplash.com/photo-1534528741775-53994a69daeb',
-          display_name: 'Ivan Ivanov',
-          first_name: 'Ivan',
-          second_name: 'Ivanov',
-          login: 'lolkek1337',
-        },
-      }),
-      Item2: new UsersListItem({
-        action: 'delete',
-        onClick: () => console.log('click'),
-        user: {
-          id: 1111,
-          avatar:
-            'https://images.unsplash.com/photo-1534528741775-53994a69daeb',
-          display_name: 'Ivan Ivanov',
-          first_name: 'Ivan',
-          second_name: 'Ivanov',
-          login: 'lolkek1337',
-        },
-      }),
+      notFound: false,
     });
     if (props.activeChat?.id) {
       chatsController
@@ -233,7 +190,7 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
     if (oldProps.foundUsers !== newProps.foundUsers) {
       const selectedUsers = newProps.selectedUsers;
       const foundUsers = newProps.foundUsers;
-      console.log(selectedUsers);
+      this.setProps({ notFound: newProps.foundUsers?.length === 0 });
 
       this.children.FoundUsers =
         newProps.foundUsers
@@ -253,7 +210,7 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
                 onClick: () => {
                   this.setProps({
                     selectedUsers: [...selectedUsers, user],
-                    foundUsers: foundUsers.filter(
+                    foundUsers: foundUsers?.filter(
                       ({ id: found_id }) => found_id !== id,
                     ),
                   });
@@ -307,6 +264,19 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
             }),
           );
       }
+    }
+
+    if (oldProps.isOpen === true && newProps.isOpen === false) {
+      (this.children.FindUsersInput as Block<InputProps>).setProps({
+        value: '',
+        error: '',
+      });
+    }
+
+    if (oldProps.formState.find_users !== newProps.formState.find_users) {
+      (this.children.FindUsersInput as Block<InputProps>).setProps({
+        value: newProps.formState.find_users,
+      });
     }
 
     return true;

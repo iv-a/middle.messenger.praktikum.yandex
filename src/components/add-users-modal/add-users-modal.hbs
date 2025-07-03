@@ -13,7 +13,15 @@
           {{{FindUsersButton}}}
         </form>
         <ul class='{{styles.list}}'>
-          {{{FoundUsers}}}
+            {{#if FoundUsers}}
+              {{{FoundUsers}}}
+            {{else}}
+              {{#if notFound}}
+                <h4 class='{{styles.sectionTitle}}' >
+                  Login not found
+                </h4>
+              {{/if}}
+            {{/if}}
         </ul>
       </div>
 

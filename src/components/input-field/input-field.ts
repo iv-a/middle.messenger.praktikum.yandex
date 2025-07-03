@@ -15,9 +15,14 @@ export class InputField extends Block<InputFieldProps> {
 
   protected componentDidUpdate(
     _oldProps: InputFieldProps,
-    _newProps: InputFieldProps,
+    newProps: InputFieldProps,
   ): boolean {
     this._setClassName();
+
+    const el = this.getContent() as HTMLInputElement;
+    if (newProps.attrs?.value !== undefined) {
+      el.value = String(newProps.attrs.value);
+    }
     return true;
   }
 
