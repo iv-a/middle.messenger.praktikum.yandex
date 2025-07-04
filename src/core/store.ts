@@ -3,6 +3,7 @@ import { set } from '../utils';
 import { EventBus } from './event-bus';
 
 export interface State {
+  error: string | null;
   activeChat: IChat | null;
   user: User | null;
   chats: Array<IChat>;
@@ -18,6 +19,7 @@ type EventSignatures = {
 
 class Store extends EventBus<EventSignatures> {
   private state: State = {
+    error: null,
     activeChat: null,
     user: null,
     chats: [],

@@ -1,54 +1,39 @@
 import {
-  FindUserRequest,
-  UpdateUserAvatarRequest,
-  UpdateUserInfoRequest,
-  UpdateUserPasswordRequest,
   userApi,
-  UserAPI,
+  type UserAPI,
+  type UpdateUserAvatarRequest,
+  type UpdateUserInfoRequest,
+  type UpdateUserPasswordRequest,
+  type FindUserRequest,
 } from '../api';
-import { store } from '../core';
+import { catchErrors, store } from '../core';
 import { transformArrayWithAvatar, transformDataWithAvatar } from '../utils';
+import { BaseController } from './base.controller';
 
-class UsersController {
-  private readonly userAPI: UserAPI;
+class UsersController extends BaseController {
+  private readonly userAPI: UserAPI = userApi;
 
-  constructor() {
-    this.userAPI = userApi;
-  }
-
+  @catchErrors
   public async updateUserInfo(data: UpdateUserInfoRequest) {
-    try {
-      const res = await this.userAPI.updateUserInfo(data);
-      store.set('user', transformDataWithAvatar(res));
-    } catch (err) {
-      console.error({ err });
-    }
+    const res = await this.userAPI.updateUserInfo(data);
+    store.set('user', transformDataWithAvatar(res));
   }
 
+  @catchErrors
   public async updateUserPassword(data: UpdateUserPasswordRequest) {
-    try {
-      await this.userAPI.updateUserPassword(data);
-    } catch (err) {
-      console.error({ err });
-    }
+    await this.userAPI.updateUserPassword(data);
   }
 
+  @catchErrors
   public async updateUserAvatar(data: UpdateUserAvatarRequest) {
-    try {
-      const res = await this.userAPI.updateUserAvatar(data);
-      store.set('user', transformDataWithAvatar(res));
-    } catch (err) {
-      console.error({ err });
-    }
+    const res = await this.userAPI.updateUserAvatar(data);
+    store.set('user', transformDataWithAvatar(res));
   }
 
+  @catchErrors
   public async findUser(data: FindUserRequest) {
-    try {
-      const user = await this.userAPI.findUser(data);
-      return transformArrayWithAvatar(user);
-    } catch (err) {
-      console.error({ err });
-    }
+    const user = await this.userAPI.findUser(data);
+    return transformArrayWithAvatar(user);
   }
 }
 

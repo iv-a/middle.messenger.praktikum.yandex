@@ -16,7 +16,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*", "vite.config.ts", "postcss.config.js"],
   "exclude": ["node_modules", "dist"]

@@ -1,51 +1,40 @@
-import { AuthAPI, authAPI, SignInRequest, SignUpRequest } from '../api';
-import { Router, store } from '../core';
+import {
+  authAPI,
+  type AuthAPI,
+  type SignInRequest,
+  type SignUpRequest,
+} from '../api';
+import { catchErrors, Router, store } from '../core';
 import { ROUTES, transformDataWithAvatar } from '../utils';
+import { BaseController } from './base.controller';
 
-class AuthController {
-  private readonly authAPI: AuthAPI;
+class AuthController extends BaseController {
+  private readonly authAPI: AuthAPI = authAPI;
 
-  constructor() {
-    this.authAPI = authAPI;
-  }
-
+  @catchErrors
   public async signIn(data: SignInRequest) {
-    try {
-      await this.authAPI.signIn(data);
-      await this.getMe();
-      Router.getInstance().go(ROUTES.MESSENGER);
-    } catch (err) {
-      console.error({ err });
-    }
+    await this.authAPI.signIn(data);
+    await this.getMe();
+    Router.getInstance().go(ROUTES.MESSENGER);
   }
 
+  @catchErrors
   public async getMe() {
-    try {
-      const user = await this.authAPI.getMe();
-
-      store.set('user', transformDataWithAvatar(user));
-    } catch (err) {
-      console.error(err);
-    }
+    const user = await this.authAPI.getMe();
+    store.set('user', transformDataWithAvatar(user));
   }
 
+  @catchErrors
   public async signUp(data: SignUpRequest) {
-    try {
-      await this.authAPI.signUp(data);
-      await this.getMe();
-      Router.getInstance().go(ROUTES.MESSENGER);
-    } catch (err) {
-      console.error(err);
-    }
+    await this.authAPI.signUp(data);
+    await this.getMe();
+    Router.getInstance().go(ROUTES.MESSENGER);
   }
 
+  @catchErrors
   public async logout() {
-    try {
-      await this.authAPI.logout();
-      Router.getInstance().go(ROUTES.SIGN_IN);
-    } catch (err) {
-      console.error(err);
-    }
+    await this.authAPI.logout();
+    Router.getInstance().go(ROUTES.SIGN_IN);
   }
 }
 

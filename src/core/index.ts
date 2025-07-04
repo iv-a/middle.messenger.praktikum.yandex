@@ -5,3 +5,4 @@ export {
 } from './http-transport';
 export { Router } from './router';
 export { default as store } from './store';
+export { catchErrors } from './decorators';

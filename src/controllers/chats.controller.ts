@@ -1,82 +1,58 @@
 import {
-  AddUsersToChatRequest,
   chatsApi,
-  ChatsAPI,
-  CreateChatRequest,
-  DeleteChatRequest,
-  DeleteUsersFromChatRequest,
-  GetChatsRequest,
-  GetChatUsersRequest,
-  GetNewMessagesCountRequest,
+  type ChatsAPI,
+  type AddUsersToChatRequest,
+  type CreateChatRequest,
+  type DeleteChatRequest,
+  type DeleteUsersFromChatRequest,
+  type GetChatsRequest,
+  type GetChatUsersRequest,
+  type GetNewMessagesCountRequest,
 } from '../api';
-import { store } from '../core';
+import { catchErrors, store } from '../core';
 import { transformArrayWithAvatar } from '../utils';
+import { BaseController } from './base.controller';
 
-class ChatsController {
-  private readonly chatsAPI: ChatsAPI;
+class ChatsController extends BaseController {
+  private readonly chatsAPI: ChatsAPI = chatsApi;
 
-  constructor() {
-    this.chatsAPI = chatsApi;
-  }
-
+  @catchErrors
   public async getChats(data: GetChatsRequest) {
-    try {
-      const res = await this.chatsAPI.getChats(data);
-      store.set('chats', transformArrayWithAvatar(res));
-    } catch (err) {
-      console.error({ err });
-    }
+    const res = await this.chatsAPI.getChats(data);
+    store.set('chats', transformArrayWithAvatar(res));
   }
 
+  @catchErrors
   public async createChat(data: CreateChatRequest) {
-    try {
-      const res = await this.chatsAPI.createChat(data);
-      store.set('activeChatId', res);
-      await this.getChats({});
-    } catch (err) {
-      console.error({ err });
-    }
+    const res = await this.chatsAPI.createChat(data);
+    store.set('activeChatId', res);
+    await this.getChats({});
   }
 
+  @catchErrors
   public async deleteChat(data: DeleteChatRequest) {
-    try {
-      await this.chatsAPI.deleteChat(data);
-    } catch (err) {
-      console.error({ err });
-    }
+    await this.chatsAPI.deleteChat(data);
   }
 
+  @catchErrors
   public async getChatUsers(data: GetChatUsersRequest) {
-    try {
-      const users = await this.chatsAPI.getChatUsers(data);
-      return transformArrayWithAvatar(users);
-    } catch (err) {
-      console.error({ err });
-    }
+    const users = await this.chatsAPI.getChatUsers(data);
+    return transformArrayWithAvatar(users);
   }
 
+  @catchErrors
   public async getNewMessagesCount(data: GetNewMessagesCountRequest) {
-    try {
-      return await this.chatsAPI.getNewMessagesCount(data);
-    } catch (err) {
-      console.error({ err });
-    }
+    return await this.chatsAPI.getNewMessagesCount(data);
   }
 
+  @catchErrors
   public async addUsersToChat(data: AddUsersToChatRequest) {
-    try {
-      return await this.chatsAPI.addUsersToChat(data);
-    } catch (err) {
-      console.error({ err });
-    }
+    return await this.chatsAPI.addUsersToChat(data);
   }
 
+  @catchErrors
   public async deleteUsersFromChat(data: DeleteUsersFromChatRequest) {
-    try {
-      return await this.chatsAPI.deleteUsersFromChat(data);
-    } catch (err) {
-      console.error({ err });
-    }
+    return await this.chatsAPI.deleteUsersFromChat(data);
   }
 }
 
