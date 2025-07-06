@@ -7,6 +7,7 @@ export const ROUTES = {
   NOT_FOUND: '/404',
   SERVER_ERROR: '/500',
   EXPLORE: '/explore',
+  ROOT: '/',
 } as const;
 
 export const BASE_API_URL = 'https://ya-praktikum.tech/api/v2/';

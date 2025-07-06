@@ -16,6 +16,7 @@ registerHelpers(HELPERS);
 
 const APP_ROOT_QUERY = '#app';
 new Router(APP_ROOT_QUERY)
+  .use(ROUTES.ROOT, SignInPage)
   .use(ROUTES.SIGN_IN, SignInPage)
   .use(ROUTES.SIGN_UP, SignUpPage)
   .use<ChatsPageProps>(ROUTES.MESSENGER, ChatsPage)
@@ -34,5 +35,4 @@ new Router(APP_ROOT_QUERY)
       'Please try again later or contact support if the issue persists.',
   })
   .use(ROUTES.EXPLORE, HomePage)
-  .use('/', HomePage)
   .start();
