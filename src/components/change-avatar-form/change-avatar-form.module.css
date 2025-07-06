@@ -4,9 +4,24 @@
   align-items: center;
 }
 
+.overlay {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  background: #00000080;
+
+  &.open {
+    display: flex;
+  }
+}
+
 .dialog {
+  position: relative;
   width: 400px;
   padding: var(--s-6);
+  background: #fff;
   border: 1px solid var(--br-input);
   border-radius: 12px;
   box-shadow:
@@ -17,6 +32,7 @@
 .fileForm {
   display: flex;
   flex-direction: column;
+  gap: var(--s-6);
   width: 100%;
 }
 
@@ -28,6 +44,7 @@
 }
 
 .dialogTitle {
+  margin: 0;
   font-weight: 500;
   font-size: 18px;
 }
@@ -45,4 +62,23 @@
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+.errorMessage {
+  margin: 0;
+  padding: 0;
+  color: var(--destructive);
+  font: var(--font-h4);
+}
+
+.errorContainer {
+  display: flex;
+  gap: var(--s-1);
+  align-items: center;
+  color: var(--destructive);
+
+  svg {
+    width: var(--w-4);
+    height: var(--h-4);
+  }
 }

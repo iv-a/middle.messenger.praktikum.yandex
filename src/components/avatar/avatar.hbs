@@ -1,1 +1,7 @@
-<img class="{{styles.avatar}}" src="{{avatarUrl}}" alt="{{title}}" />
+{{#if avatarUrl}}
+  <img class='{{styles.avatar}}' src='{{avatarUrl}}' alt='{{title}}' />
+{{else}}
+  <span class='{{styles.no_avatar}}'>
+    {{initials}}
+  </span>
+{{/if}}

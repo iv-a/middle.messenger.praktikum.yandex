@@ -5,6 +5,7 @@ const EVENTS_CONFIG = {
   INIT: 'init',
   FLOW_CDM: 'flow:component-did-mount',
   FLOW_CDU: 'flow:component-did-update',
+  FLOW_CWU: 'flow:component-will-unmount',
   FLOW_RENDER: 'flow:render',
 } as const;
 
@@ -16,9 +17,10 @@ export type BlockEventSignatures = {
     newProps: Record<string, unknown>,
   ];
   [EVENTS_CONFIG.FLOW_RENDER]: [];
+  [EVENTS_CONFIG.FLOW_CWU]: [];
 };
 
-type BaseProps = {
+export type BaseProps = {
   className?: string;
   attrs?: Record<string, string>;
   events?: Record<string, EventListener>;
@@ -73,9 +75,13 @@ export abstract class Block<P extends BaseProps> {
       if (!Object.prototype.hasOwnProperty.call(propsWithChildren, key))
         continue;
       const value = propsWithChildren[key];
+      const first = key.charAt(0);
       if (
         value instanceof Block ||
-        (Array.isArray(value) && value.every((item) => item instanceof Block))
+        (Array.isArray(value) &&
+          first === first.toUpperCase() &&
+          first !== first.toLowerCase() &&
+          value.every((item) => item instanceof Block))
       ) {
         children[key] = value as Block<BaseProps> | Block<BaseProps>[];
       } else {
@@ -110,6 +116,7 @@ export abstract class Block<P extends BaseProps> {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -132,6 +139,9 @@ export abstract class Block<P extends BaseProps> {
     if (shouldUpdate) {
       this._render();
     }
+  }
+  private _componentWillUnmount(): void {
+    this.componentWillUnmount();
   }
 
   private _render() {
@@ -246,16 +256,21 @@ export abstract class Block<P extends BaseProps> {
     }
   }
 
+  public dispatchComponentWillUnmount() {
+    this._eventBus.emit(Block.EVENTS.FLOW_CWU);
+  }
+
   public hide() {
     this.getContent().style.display = 'none';
   }
 
   public show() {
-    this.getContent().style.display = 'block';
+    this.getContent().style.display = 'flex';
   }
 
   public destroy() {
     this._removeEvents();
+    this.dispatchComponentWillUnmount();
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((c) => c.destroy && c.destroy());
@@ -279,5 +294,7 @@ export abstract class Block<P extends BaseProps> {
   protected componentDidUpdate(_oldProps: P, _newProps: P): boolean {
     return true;
   }
+
+  protected componentWillUnmount(): void {}
   protected abstract render(): string;
 }

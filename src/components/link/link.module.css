@@ -1,0 +1,15 @@
+.link {
+  margin: 0;
+  color: var(--primary);
+  font: var(--font-h4);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:active {
+    opacity: 0.9;
+  }
+
+  &:hover:not(:active) {
+    opacity: 0.5;
+  }
+}

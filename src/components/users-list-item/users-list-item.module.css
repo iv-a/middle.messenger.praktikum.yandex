@@ -1,0 +1,45 @@
+.item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--s-1) var(--s-2);
+  border: 1px solid var(--br-input);
+  border-radius: 8px;
+}
+
+.group {
+  display: flex;
+  flex-grow: 1;
+  gap: var(--s-4);
+  align-items: center;
+}
+
+.textGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.nameP,
+.loginP {
+  display: inline-flex;
+  margin: 0;
+}
+
+.nameP {
+  gap: var(--s-1);
+  font: var(--font-h3);
+}
+
+.loginP {
+  color: var(--placeholder);
+  font: var(--font-p);
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  color: var(--placeholder);
+  font: var(--font-h2);
+}

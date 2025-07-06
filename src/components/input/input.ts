@@ -2,7 +2,7 @@ import { Block } from '../../core';
 import styles from './input.module.css';
 import rawTemplate from './input.hbs?raw';
 import { InputField } from '../input-field';
-import { InputFieldProps } from '../input-field/input-field';
+import { icons } from '../../assets/icons';
 
 export interface InputProps {
   label?: string;
@@ -41,9 +41,18 @@ export class Input extends Block<InputProps> {
 
   protected componentDidUpdate(
     _oldProps: InputProps,
-    _newProps: InputProps,
+    newProps: InputProps,
   ): boolean {
-    (this.children.InputField as Block<InputFieldProps>).setProps(_newProps);
+    const inputField = this.children.InputField as InputField;
+    if (inputField) {
+      inputField.setProps({
+        ...inputField.props,
+        attrs: {
+          ...inputField.props.attrs,
+          value: newProps.value ?? '',
+        },
+      });
+    }
     return true;
   }
 
@@ -52,7 +61,7 @@ export class Input extends Block<InputProps> {
   }
 
   protected getTemplateContext(): Record<string, unknown> {
-    return { styles };
+    return { styles, alertIcon: icons.alertIcon };
   }
 
   protected render(): string {

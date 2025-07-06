@@ -1,14 +1,20 @@
 import { Block } from '../../core';
 import { Avatar } from '../avatar';
-import { Button } from '../button';
-import { Input } from '../input';
+import { Button, ButtonProps } from '../button';
+import { Input, InputProps } from '../input';
 import { icons } from '../../assets/icons';
 import rawTemplate from './change-avatar-form.hbs?raw';
 import styles from './change-avatar-form.module.css';
+import { User } from '../../types';
+import { withStore } from '../../hocs';
+import { usersController } from '../../controllers';
+import { validateField } from '../../utils';
 
 export interface ChangeAvatarFormProps {
+  user: User | null;
+  isOpen: boolean;
   formState: {
-    avatar: string;
+    avatar: File | null;
   };
   errors: {
     avatar: string;
@@ -16,18 +22,19 @@ export interface ChangeAvatarFormProps {
   [key: string]: unknown;
 }
 
-export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
-  constructor(
-    props: ChangeAvatarFormProps = {
-      formState: { avatar: '' },
-      errors: { avatar: '' },
-    },
-  ) {
+const defaultProps: ChangeAvatarFormProps = {
+  isOpen: false,
+  user: null,
+  formState: { avatar: null },
+  errors: { avatar: '' },
+};
+
+class PureChangeAvatarForm extends Block<ChangeAvatarFormProps> {
+  constructor(props: ChangeAvatarFormProps = defaultProps) {
     super('form', {
       ...props,
       Avatar: new Avatar({
-        avatarUrl:
-          'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
+        avatarUrl: props.user?.avatar ?? '',
         size: 'xxl',
       }),
       AvatarInput: new Input({
@@ -39,20 +46,18 @@ export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
         value: '',
         helpText: '',
         events: {
-          blur: (e: Event) => {
-            const target = e.target;
-            if (target instanceof HTMLInputElement) {
-              // TODO: Sprint 3
-            }
-          },
           change: (e: Event) => {
             const target = e.target;
             if (target instanceof HTMLInputElement) {
+              const file = target.files?.[0] || null;
+
+              const error = validateField('avatar', file);
+
               this.setProps({
                 formState: {
-                  ...this.props.formState,
-                  avatar: target.value,
+                  avatar: file,
                 },
+                errors: { avatar: error },
               });
             }
           },
@@ -66,7 +71,23 @@ export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
         events: {
           click: (e: Event) => {
             e.preventDefault();
-            console.log(this.props.formState);
+
+            const { avatar } = this.props.formState;
+            const avatarError = validateField('avatar', avatar);
+            this.setProps({ errors: { avatar: avatarError } });
+
+            const avatarInput = this.children.AvatarInput as Block<InputProps>;
+            if (avatarInput) {
+              avatarInput.setProps({ error: avatarError });
+            }
+
+            if (avatarError) return;
+
+            if (!this.props.formState.avatar) return;
+            const formData = new FormData();
+            formData.append('avatar', this.props.formState.avatar);
+            usersController.updateUserAvatar(formData);
+            this.setProps({ isOpen: false });
           },
         },
       }),
@@ -74,7 +95,14 @@ export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
         variant: 'outline',
         text: 'Cancel',
         size: 'm',
-        type: 'cancel',
+        type: 'button',
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+
+            this.setProps({ ...defaultProps, user: this.props.user });
+          },
+        },
       }),
       EditButton: new Button({
         variant: 'outline',
@@ -87,11 +115,7 @@ export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
           click: (e: Event) => {
             e.preventDefault();
 
-            const modal = document.getElementById(
-              'uploadAvatarModal',
-            ) as HTMLDialogElement;
-
-            modal.showModal();
+            this.setProps({ isOpen: true });
           },
         },
       }),
@@ -99,14 +123,46 @@ export class ChangeAvatarForm extends Block<ChangeAvatarFormProps> {
   }
 
   protected getTemplateContext(): Record<string, unknown> {
-    return { styles };
+    return { styles, alertIcon: icons.alertIcon };
   }
 
-  protected componentDidUpdate(): boolean {
+  protected componentDidUpdate(
+    oldProps: ChangeAvatarFormProps,
+    newProps: ChangeAvatarFormProps,
+  ): boolean {
+    const avatar = this.children.Avatar as Avatar;
+    if (
+      (oldProps.user?.avatar !== newProps.user?.avatar ||
+        oldProps.user?.second_name !== newProps.user?.second_name ||
+        oldProps.user?.first_name !== newProps.user?.first_name) &&
+      avatar
+    ) {
+      avatar.setProps({
+        ...avatar.props,
+        avatarUrl: newProps.user?.avatar,
+        first_name: newProps.user?.first_name,
+        second_name: newProps.user?.second_name,
+      });
+    }
+
+    const avatarError = newProps.errors.avatar;
+
+    const hasErrors = avatarError.length > 0;
+
+    const saveButton = this.children.SaveButton as Block<ButtonProps>;
+    if (saveButton) {
+      saveButton.setProps({ disabled: hasErrors });
+    }
+
     return true;
   }
 
-  protected render(): string {
+  render(): string {
     return rawTemplate;
   }
 }
+
+export const ChangeAvatarForm = withStore<ChangeAvatarFormProps>((state) => ({
+  ...defaultProps,
+  user: state.user,
+}))(PureChangeAvatarForm);

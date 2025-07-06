@@ -1,33 +1,34 @@
 import { Block } from '../../core';
+import { IChat } from '../../types';
+import { formatTime, getResourceURL } from '../../utils';
 import { Avatar } from '../avatar';
 import rawTemplate from './chat-item.hbs?raw';
 import styles from './chat-item.module.css';
 
 export interface ChatItemProps {
-  displayName: string;
-  time: string;
-  message: string;
-  unread: number;
-  avatarUrl: string;
+  chat: IChat;
+  isActive: boolean;
   [key: string]: unknown;
 }
 
 export class ChatItem extends Block<ChatItemProps> {
-  constructor(
-    props: ChatItemProps = {
-      displayName: '',
-      time: '',
-      message: '',
-      unread: 0,
-      avatarUrl: '',
-    },
-  ) {
+  constructor(props: ChatItemProps) {
     super('li', {
       ...props,
       Avatar: new Avatar({
         size: 'l',
-        avatarUrl: props.avatarUrl,
+        avatarUrl: props.chat.last_message?.user.avatar
+          ? getResourceURL(props.chat.last_message.user.avatar)
+          : props.chat.avatar,
+        first_name:
+          props.chat.last_message?.user.first_name ?? props.chat.title,
       }),
+      time: props.chat.last_message?.time
+        ? formatTime(props.chat.last_message.time)
+        : '',
+      message: props.chat.last_message?.content ?? '',
+      owner: props.chat.last_message?.user.first_name ?? '',
+      unread: props.chat.unread_count ?? 0,
     });
   }
 
@@ -44,11 +45,16 @@ export class ChatItem extends Block<ChatItemProps> {
     return true;
   }
 
-  protected render(): string {
+  render(): string {
     return rawTemplate;
   }
 
   private _setClassName() {
-    this.props.className = styles.card;
+    const classes = [styles.card];
+
+    if (this.props.isActive) {
+      classes.push(styles.active);
+    }
+    this.props.className = classes.filter(Boolean).join(' ');
   }
 }

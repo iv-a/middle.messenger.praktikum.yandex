@@ -1,5 +1,6 @@
 import Handlebars, { type HelperDelegate } from 'handlebars';
-import { PartialComponent } from '../types';
+import { Indexed, PartialComponent } from '../types';
+import { ButtonProps, UsersListItemProps } from '../components';
 
 export const registerHelpers = (helpers: Record<string, HelperDelegate>) => {
   Object.entries(helpers).forEach(([name, helper]) => {
@@ -19,4 +20,173 @@ export const registerPartials = (partials: Record<string, string>) => {
   Object.entries(partials).forEach(([name, partial]) => {
     Handlebars.registerPartial(name, partial);
   });
+};
+
+export const trim = (str: string, chars: string = ' ') => {
+  const exclude = new Set(chars.split(''));
+
+  let start = 0;
+  let end = str.length - 1;
+
+  while (start <= end && exclude.has(str[start])) start++;
+  while (end >= start && exclude.has(str[end])) end--;
+
+  return str.slice(start, end + 1);
+};
+
+export const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
+  if (typeof lhs !== 'object' || lhs === null) return rhs;
+  if (typeof rhs !== 'object' || rhs === null) return lhs;
+
+  const result: Indexed = {};
+
+  for (const key in lhs) {
+    if (Object.prototype.hasOwnProperty.call(rhs, key)) {
+      const lhsVal = lhs[key];
+      const rhsVal = rhs[key];
+
+      if (
+        typeof lhsVal === 'object' &&
+        lhsVal !== null &&
+        typeof rhsVal === 'object' &&
+        rhsVal !== null
+      ) {
+        result[key] = merge(lhsVal as Indexed, rhsVal as Indexed);
+      } else {
+        result[key] = lhsVal;
+      }
+    } else {
+      result[key] = lhs[key];
+    }
+  }
+
+  for (const key in rhs) {
+    if (!Object.prototype.hasOwnProperty.call(lhs, key)) {
+      result[key] = rhs[key];
+    }
+  }
+
+  return result;
+};
+
+export const isArray = (value: unknown): value is unknown[] => {
+  return Array.isArray(value);
+};
+
+export type PlainObject<T = unknown> = {
+  [k: string]: T;
+};
+
+export const isPlainObject = (value: unknown): value is PlainObject => {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    value.constructor === Object &&
+    Object.prototype.toString.call(value) === '[object Object]'
+  );
+};
+
+export const isArrayOrObject = (
+  value: unknown,
+): value is unknown[] | PlainObject => {
+  return isPlainObject(value) || isArray(value);
+};
+
+export const isEqual = (
+  lhs: PlainObject<unknown>,
+  rhs: PlainObject<unknown>,
+): boolean => {
+  const lhsKeys = Object.keys(lhs);
+  const rhsKeys = Object.keys(rhs);
+
+  if (lhsKeys.length !== rhsKeys.length) {
+    return false;
+  }
+
+  for (const key of lhsKeys) {
+    const leftValue = lhs[key];
+    const rightValue = rhs[key];
+
+    const bothAreObjects =
+      isArrayOrObject(leftValue) && isArrayOrObject(rightValue);
+
+    if (bothAreObjects) {
+      if (!isEqual(leftValue as PlainObject, rightValue as PlainObject)) {
+        return false;
+      }
+    } else if (leftValue !== rightValue) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+export function set(
+  object: Indexed | unknown,
+  path: string,
+  value: unknown,
+): Indexed | unknown {
+  if (!isPlainObject(object)) {
+    return object;
+  }
+  if (typeof path !== 'string') {
+    throw new Error('path must be string');
+  }
+
+  const result: Indexed = object as Indexed;
+
+  const segments = path.split('.');
+  const lastKey = segments.pop();
+
+  let nestedObj: Indexed = result;
+
+  segments.forEach((key) => {
+    if (!isPlainObject(nestedObj[key])) {
+      (nestedObj as Indexed)[key] = {};
+    }
+    nestedObj = (nestedObj as Indexed)[key] as Indexed;
+  });
+
+  if (lastKey) {
+    (nestedObj as Indexed)[lastKey] = value;
+  }
+
+  return result;
+}
+
+export const getActionButtonTitle = (action: UsersListItemProps['action']) => {
+  switch (action) {
+    case 'add': {
+      return 'Add';
+    }
+    case 'delete': {
+      return 'Delete';
+    }
+    case 'select': {
+      return 'Select';
+    }
+    case 'unselect': {
+      return 'Unselect';
+    }
+    default:
+      return 'Action';
+  }
+};
+
+export const getActionButtonVariant = (
+  action: UsersListItemProps['action'],
+): ButtonProps['variant'] => {
+  switch (action) {
+    case 'add':
+    case 'select': {
+      return 'outline';
+    }
+    case 'delete':
+    case 'unselect': {
+      return 'destructive';
+    }
+    default:
+      return 'outline';
+  }
 };

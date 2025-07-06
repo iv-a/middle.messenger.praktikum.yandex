@@ -1,3 +1,4 @@
+import { usersController } from '../../controllers';
 import { Block } from '../../core';
 import { validateField } from '../../utils';
 import { Button } from '../button';
@@ -52,6 +53,7 @@ export class ChangePasswordForm extends Block<ChangePasswordFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('password', target.value);
               (this.children.OldPasswordInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.oldPassword) {
@@ -90,6 +92,7 @@ export class ChangePasswordForm extends Block<ChangePasswordFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('password', target.value);
               (this.children.NewPasswordInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.newPassword) {
@@ -131,6 +134,7 @@ export class ChangePasswordForm extends Block<ChangePasswordFormProps> {
               (
                 this.children.ConfirmPasswordInput as Block<InputProps>
               ).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.confirm_password) {
@@ -199,7 +203,7 @@ export class ChangePasswordForm extends Block<ChangePasswordFormProps> {
               return;
             }
 
-            console.log(this.props.formState);
+            usersController.updateUserPassword(this.props.formState);
           },
         },
       }),

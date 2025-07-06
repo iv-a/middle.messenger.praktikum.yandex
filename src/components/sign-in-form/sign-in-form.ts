@@ -6,13 +6,14 @@ import styles from './sign-in-form.module.css';
 import { validateField } from '../../utils';
 import { ButtonProps } from '../button/button';
 import { InputProps } from '../input/input';
+import { authController } from '../../controllers';
 
 export interface SignInFormProps {
-  formState?: {
+  formState: {
     login: string;
     password: string;
   };
-  errors?: {
+  errors: {
     login: string;
     password: string;
   };
@@ -43,6 +44,7 @@ export class SignInForm extends Block<SignInFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('login', target.value);
               (this.children.LoginInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors!.login) {
@@ -80,11 +82,12 @@ export class SignInForm extends Block<SignInFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('password', target.value);
               (this.children.PasswordInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
-              if (error !== this.props.errors!.password) {
+              if (error !== this.props.errors.password) {
                 this.setProps({
-                  errors: { ...this.props.errors!, password: error },
+                  errors: { ...this.props.errors, password: error },
                 });
               }
             }
@@ -95,7 +98,7 @@ export class SignInForm extends Block<SignInFormProps> {
             if (target instanceof HTMLInputElement) {
               this.setProps({
                 formState: {
-                  ...this.props.formState!,
+                  ...this.props.formState,
                   password: target.value,
                 },
               });
@@ -113,7 +116,7 @@ export class SignInForm extends Block<SignInFormProps> {
           click: (e: Event) => {
             e.preventDefault();
 
-            const { login, password } = this.props.formState!;
+            const { login, password } = this.props.formState;
             const loginError = validateField('login', login);
             const passwordError = validateField('password', password);
 
@@ -132,7 +135,7 @@ export class SignInForm extends Block<SignInFormProps> {
               return;
             }
 
-            console.log(this.props.formState);
+            authController.signIn(this.props.formState);
           },
         },
       }),
@@ -141,13 +144,11 @@ export class SignInForm extends Block<SignInFormProps> {
 
   protected componentDidUpdate(
     _oldProps: SignInFormProps,
-    _newProps: SignInFormProps,
+    newProps: SignInFormProps,
   ): boolean {
     const hasErrors =
-      _newProps.errors!.login.length > 0 ||
-      _newProps.errors!.password.length > 0;
+      newProps.errors!.login.length > 0 || newProps.errors!.password.length > 0;
     (this.children.SignInButton as Block<ButtonProps>).setProps({
-      ..._newProps,
       disabled: hasErrors,
     });
     this._setClassName();
