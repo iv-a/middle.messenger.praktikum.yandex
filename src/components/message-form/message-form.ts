@@ -1,4 +1,5 @@
 import { icons } from '../../assets/icons';
+import { messagesController } from '../../controllers';
 import { Block } from '../../core';
 import { validateField } from '../../utils';
 import { Button } from '../button';
@@ -17,15 +18,43 @@ export interface MessageFormProps {
   [key: string]: unknown;
 }
 
+const defaultProps: MessageFormProps = {
+  formState: { message: '' },
+  errors: { message: '' },
+};
+
 export class MessageForm extends Block<MessageFormProps> {
-  constructor(
-    props: MessageFormProps = {
-      formState: { message: '' },
-      errors: { message: '' },
-    },
-  ) {
+  constructor(props: MessageFormProps = defaultProps) {
     super('form', {
       ...props,
+      events: {
+        submit: (e: Event) => {
+          e.preventDefault();
+
+          const { message } = this.props.formState;
+          const messageError = validateField('message', message);
+
+          this.setProps({
+            errors: { message: messageError },
+          });
+
+          if (messageError) {
+            return;
+          }
+
+          messagesController.sendMessage(this.props.formState.message);
+          this.setProps(defaultProps);
+
+          const messageInput = this.children.MessageInput as Input;
+
+          if (messageInput) {
+            messageInput.setProps({
+              value: '',
+              error: '',
+            });
+          }
+        },
+      },
       MessageInput: new Input({
         inputId: 'message',
         name: 'message',
@@ -38,7 +67,7 @@ export class MessageForm extends Block<MessageFormProps> {
               const error = validateField('message', target.value);
               if (error !== this.props.errors.message) {
                 this.setProps({
-                  errors: { ...this.props.errors, message: error },
+                  errors: { message: error },
                 });
               }
             }
@@ -48,7 +77,6 @@ export class MessageForm extends Block<MessageFormProps> {
             if (target instanceof HTMLInputElement) {
               this.setProps({
                 formState: {
-                  ...this.props.formState,
                   message: target.value,
                 },
               });
@@ -63,24 +91,6 @@ export class MessageForm extends Block<MessageFormProps> {
         type: 'submit',
         iconOnly: true,
         icon: icons.paperPlaneTilt,
-        events: {
-          click: (e: Event) => {
-            e.preventDefault();
-
-            const { message } = this.props.formState;
-            const messageError = validateField('message', message);
-
-            this.setProps({
-              errors: { message: messageError },
-            });
-
-            if (messageError) {
-              return;
-            }
-
-            console.log(this.props.formState);
-          },
-        },
       }),
     });
   }
@@ -91,12 +101,17 @@ export class MessageForm extends Block<MessageFormProps> {
 
   protected componentDidUpdate(
     _oldProps: MessageFormProps,
-    _newProps: MessageFormProps,
+    newProps: MessageFormProps,
   ): boolean {
-    const hasErrors = _newProps.errors.message.length > 0;
+    const hasErrors = newProps.errors.message.length > 0;
     (this.children.SendButton as Block<ButtonProps>).setProps({
-      ..._newProps,
+      ...newProps,
       disabled: hasErrors,
+    });
+
+    (this.children.MessageInput as Input).setProps({
+      value: newProps.formState.message,
+      error: newProps.errors.message,
     });
     this._setClassName();
     return true;

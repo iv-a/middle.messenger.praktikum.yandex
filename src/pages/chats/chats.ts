@@ -11,7 +11,7 @@ import { authController, chatsController } from '../../controllers';
 import { Block, Router } from '../../core';
 import { BaseProps } from '../../core';
 import { withStore } from '../../hocs';
-import { IChat } from '../../types';
+import { IChat, ITextMessage } from '../../types';
 import { ROUTES } from '../../utils';
 import rawTemplate from './chats.hbs?raw';
 import styles from './chats.module.css';
@@ -19,6 +19,7 @@ import styles from './chats.module.css';
 export interface ChatsPageProps extends BaseProps {
   chats: Array<IChat>;
   chatItems?: Array<ChatItem>;
+  activeChatMessages: Array<ITextMessage> | null;
   [key: string]: unknown;
 }
 
@@ -84,10 +85,14 @@ class PureChatsPage extends Block<ChatsPageProps> {
   }
 
   protected componentDidUpdate(
-    _oldProps: ChatsPageProps,
-    _newProps: ChatsPageProps,
+    oldProps: ChatsPageProps,
+    newProps: ChatsPageProps,
   ): boolean {
     this._setClassName();
+
+    if (oldProps.activeChatMessages !== newProps.activeChatMessages) {
+      chatsController.getChats({ limit: 50, offset: 0 });
+    }
 
     return true;
   }
@@ -103,4 +108,5 @@ class PureChatsPage extends Block<ChatsPageProps> {
 
 export const ChatsPage = withStore<ChatsPageProps>((state) => ({
   chats: state.chats,
+  activeChatMessages: state.activeChatMessages,
 }))(PureChatsPage);

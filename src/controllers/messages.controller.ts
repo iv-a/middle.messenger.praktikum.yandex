@@ -58,7 +58,6 @@ class MessagesController extends BaseController {
         const activeChatMessages = state.activeChatMessages || [];
 
         const message = transformDataWithTime(msg as ITextMessage);
-        console.log({ message });
         store.set('activeChatMessages', [...activeChatMessages, message]);
         break;
       }
