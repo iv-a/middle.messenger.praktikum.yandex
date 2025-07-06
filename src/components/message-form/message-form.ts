@@ -111,7 +111,6 @@ export class MessageForm extends Block<MessageFormProps> {
 
     (this.children.MessageInput as Input).setProps({
       value: newProps.formState.message,
-      error: newProps.errors.message,
     });
     this._setClassName();
     return true;

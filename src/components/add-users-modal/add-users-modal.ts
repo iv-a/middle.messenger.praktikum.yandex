@@ -157,8 +157,6 @@ export class PureAddUsersModal extends Block<AddUsersModalProps> {
                 this.setProps(defaultProps);
               });
             }
-
-            console.log(this.props.selectedUsers);
           },
         },
       }),

@@ -69,6 +69,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('email', target.value);
               (this.children.EmailInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.email) {
@@ -106,6 +107,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('login', target.value);
               (this.children.LoginInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.login) {
@@ -142,6 +144,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('first_name', target.value);
               (this.children.FirstNameInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.first_name) {
@@ -178,6 +181,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('second_name', target.value);
               (this.children.SecondNameInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.second_name) {
@@ -214,6 +218,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('phone', target.value);
               (this.children.PhoneInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.phone) {
@@ -251,6 +256,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('password', target.value);
               (this.children.PasswordInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.password) {
@@ -292,6 +298,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
               (
                 this.children.ConfirmPasswordInput as Block<InputProps>
               ).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.confirm_password) {

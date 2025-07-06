@@ -69,6 +69,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('email', target.value);
               (this.children.EmailInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.email) {
@@ -106,6 +107,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('login', target.value);
               (this.children.LoginInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.login) {
@@ -142,6 +144,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('first_name', target.value);
               (this.children.FirstNameInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.first_name) {
@@ -178,6 +181,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('second_name', target.value);
               (this.children.SecondNameInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.second_name) {
@@ -214,6 +218,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('display_name', target.value);
               (this.children.DisplayNameInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.display_name) {
@@ -250,6 +255,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
             if (target instanceof HTMLInputElement) {
               const error = validateField('phone', target.value);
               (this.children.PhoneInput as Block<InputProps>).setProps({
+                value: target.value,
                 error,
               });
               if (error !== this.props.errors.phone) {
@@ -414,8 +420,6 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
   }
 
   public render(): string {
-    console.log(this);
-
     return rawTemplate;
   }
 
