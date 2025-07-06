@@ -15,6 +15,8 @@ import type {
   GetChatUsersResponse,
   GetNewMessagesCountRequest,
   GetNewMessagesCountResponse,
+  GetTokenRequest,
+  GetTokenResponse,
 } from './chats.dto';
 
 const baseUrl = BASE_API_URL.endsWith('/')
@@ -65,6 +67,11 @@ export class ChatsAPI {
     data: DeleteUsersFromChatRequest,
   ): Promise<DeleteUsersFromChatResponse> {
     return chatsApi.delete<DeleteUsersFromChatResponse>('/users', { data });
+  }
+
+  async getToken(data: GetTokenRequest): Promise<GetTokenResponse> {
+    const { id } = data;
+    return chatsApi.post<GetTokenResponse>(`/token/${id}`);
   }
 }
 

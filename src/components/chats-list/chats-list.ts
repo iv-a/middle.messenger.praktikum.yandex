@@ -24,6 +24,7 @@ class PureChatsList extends Block<ChatsListProps> {
               e.preventDefault();
 
               store.set('activeChat', chat);
+              store.set('activeChatMessages', null);
             },
           },
         });

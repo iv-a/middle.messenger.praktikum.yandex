@@ -40,3 +40,24 @@ export type IChatUser = Pick<
   User,
   'id' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'avatar'
 >;
+
+export type WSMessageType =
+  | 'ping'
+  | 'pong'
+  | 'message'
+  | 'file'
+  | 'get old'
+  | 'user connected'
+  | 'sticker';
+
+export interface WSMessage {
+  type: WSMessageType;
+  content?: string;
+}
+export interface ITextMessage {
+  id: number;
+  time: string;
+  user_id: number;
+  content: string;
+  type: 'message';
+}

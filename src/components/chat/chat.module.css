@@ -5,11 +5,12 @@
 }
 
 .rightPanel {
-  display: grid;
+  display: flex;
   flex-direction: column;
-  grid-template-rows: max-content 1fr max-content;
   width: 100%;
   min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
   background-color: var(--secondary);
   background-image: url('../../assets/images/pattern.png');
   background-size: 60%;
@@ -39,6 +40,8 @@
 }
 
 .wrapper {
+  display: flex;
+  flex: 1;
   height: 100%;
   overflow-y: auto;
 }
@@ -50,7 +53,8 @@
   flex-direction: column;
   gap: var(--s-2);
   justify-content: flex-end;
-  height: 100%;
+  height: max-content;
+  min-height: 100%;
   margin: 0;
   padding: var(--s-4);
   list-style: none;
@@ -101,4 +105,9 @@
 .dropdown:hover .dropdownContent {
   display: flex;
   opacity: 1;
+}
+
+.more {
+  align-self: center;
+  margin-bottom: 40px;
 }

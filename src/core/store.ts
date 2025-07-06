@@ -1,10 +1,13 @@
-import { IChat, User } from '../types';
+import { IChat, IChatUser, ITextMessage, User } from '../types';
 import { set } from '../utils';
 import { EventBus } from './event-bus';
 
 export interface State {
   error: string | null;
   activeChat: IChat | null;
+  activeChatMessages: Array<ITextMessage> | null;
+  activeChatUsers: Map<number, IChatUser & { role: string }> | null;
+  noMore: boolean;
   user: User | null;
   chats: Array<IChat>;
 }
@@ -21,7 +24,10 @@ class Store extends EventBus<EventSignatures> {
   private state: State = {
     error: null,
     activeChat: null,
+    activeChatMessages: null,
+    activeChatUsers: null,
     user: null,
+    noMore: true,
     chats: [],
   };
 

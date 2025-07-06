@@ -8,6 +8,7 @@ import {
   type GetChatsRequest,
   type GetChatUsersRequest,
   type GetNewMessagesCountRequest,
+  type GetTokenRequest,
 } from '../api';
 import { catchErrors, store } from '../core';
 import { transformArrayWithAvatar } from '../utils';
@@ -53,6 +54,11 @@ class ChatsController extends BaseController {
   @catchErrors
   public async deleteUsersFromChat(data: DeleteUsersFromChatRequest) {
     return await this.chatsAPI.deleteUsersFromChat(data);
+  }
+
+  @catchErrors
+  public async getToken(data: GetTokenRequest) {
+    return await this.chatsAPI.getToken(data);
   }
 }
 

@@ -46,3 +46,11 @@ export type DeleteUsersFromChatRequest = {
   chatId: number;
 };
 export type DeleteUsersFromChatResponse = void;
+
+export type GetTokenRequest = {
+  id: number;
+};
+
+export type GetTokenResponse = {
+  token: string;
+};

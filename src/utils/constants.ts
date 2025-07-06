@@ -10,3 +10,4 @@ export const ROUTES = {
 } as const;
 
 export const BASE_API_URL = 'https://ya-praktikum.tech/api/v2/';
+export const BASE_WS_URL = 'wss://ya-praktikum.tech/';

@@ -72,3 +72,7 @@
   background-color: #2563eb;
   border-radius: 10px;
 }
+
+.owner {
+  color: var(--primary);
+}

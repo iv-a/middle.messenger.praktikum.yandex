@@ -1,5 +1,6 @@
 import { Block } from '../../core';
 import { IChat } from '../../types';
+import { formatTime, getResourceURL } from '../../utils';
 import { Avatar } from '../avatar';
 import rawTemplate from './chat-item.hbs?raw';
 import styles from './chat-item.module.css';
@@ -16,10 +17,15 @@ export class ChatItem extends Block<ChatItemProps> {
       ...props,
       Avatar: new Avatar({
         size: 'l',
-        avatarUrl: props.chat.avatar,
-        first_name: props.chat.title,
+        avatarUrl: props.chat.last_message?.user.avatar
+          ? getResourceURL(props.chat.last_message.user.avatar)
+          : props.chat.avatar,
+        first_name:
+          props.chat.last_message?.user.first_name ?? props.chat.title,
       }),
-      time: props.chat.last_message?.time ?? '',
+      time: props.chat.last_message?.time
+        ? formatTime(props.chat.last_message.time)
+        : '',
       message: props.chat.last_message?.content ?? '',
       owner: props.chat.last_message?.user.first_name ?? '',
       unread: props.chat.unread_count ?? 0,

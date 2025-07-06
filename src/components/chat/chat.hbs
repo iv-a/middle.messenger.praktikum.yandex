@@ -18,7 +18,20 @@
     </header>
     <div class='{{styles.wrapper}}'>
       <ul class='{{styles.messagesList}}'>
-        {{{MessageItem}}}
+        {{#if (eq activeChatMessages.length 0)}}
+          <div class='{{styles.section}}'>
+            <p class='{{styles.placeholder}}'>
+              No messages yet. Say hello!
+            </p>
+          </div>
+        {{/if}}
+        {{#unless noMore}}
+          <div class='{{styles.more}}'>
+            {{{GetMoreButton}}}
+          </div>
+        {{/unless}}
+
+        {{{Messages}}}
       </ul>
     </div>
     {{{MessageForm}}}

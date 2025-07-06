@@ -97,7 +97,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
         placeholder: 'Login',
         label: 'Login',
         type: 'text',
-        value: '',
+        value: props.formState.login,
         helpText:
           '3–20 characters, Latin letters and digits, no spaces, allowed: "-" and "_", must not be digits only.',
         events: {
@@ -134,7 +134,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
         placeholder: 'First Name',
         label: 'First Name',
         type: 'text',
-        value: '',
+        value: props.formState.first_name,
         helpText: 'Use your real first name.',
         events: {
           blur: (e: Event) => {
@@ -170,7 +170,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
         placeholder: 'Second Name',
         label: 'Second Name',
         type: 'text',
-        value: '',
+        value: props.formState.second_name,
         helpText: 'Use your real last name.',
         events: {
           blur: (e: Event) => {
@@ -206,7 +206,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
         placeholder: 'Display Name',
         label: 'Display Name',
         type: 'text',
-        value: '',
+        value: props.formState.display_name,
         helpText: 'This name will be visible to other users in chats.',
         events: {
           blur: (e: Event) => {
@@ -242,7 +242,7 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
         placeholder: 'Phone number',
         label: 'Phone number',
         type: 'tel',
-        value: '',
+        value: props.formState.phone,
         helpText: 'Include country code (e.g. +7).',
         events: {
           blur: (e: Event) => {
@@ -414,6 +414,8 @@ class PureUserInformationForm extends Block<UserInformationFormProps> {
   }
 
   public render(): string {
+    console.log(this);
+
     return rawTemplate;
   }
 

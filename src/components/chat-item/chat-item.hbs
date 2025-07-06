@@ -12,6 +12,11 @@
   </div>
   <div class='{{styles.group}}'>
     <p class='{{styles.message}}'>
+      {{#if owner}}
+      <span class='{{styles.owner}}'>
+        {{owner}}:
+      </span>
+    {{/if}}
       {{message}}
     </p>
 
