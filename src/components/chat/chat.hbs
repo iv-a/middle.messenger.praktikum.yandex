@@ -1,0 +1,47 @@
+{{#if activeChat}}
+  <div class='{{styles.rightPanel}}'>
+    <header class='{{styles.header}}'>
+      <div class={{styles.chatInfo}}>
+        {{{Avatar}}}
+        <h1 class='{{styles.chatName}}'>
+          {{activeChat.title}}
+        </h1>
+      </div>
+      <div class='{{styles.dropdown}}'>
+        {{{OptionsButton}}}
+        <div class='{{styles.dropdownContent}}'>
+          {{{AddUsersModalButton}}}
+          {{{DeleteUsersModalButton}}}
+          {{{DeleteChatButton}}}
+        </div>
+      </div>
+    </header>
+    <div class='{{styles.wrapper}}'>
+      <ul class='{{styles.messagesList}}'>
+        {{#if (eq activeChatMessages.length 0)}}
+          <div class='{{styles.section}}'>
+            <p class='{{styles.placeholder}}'>
+              No messages yet. Say hello!
+            </p>
+          </div>
+        {{/if}}
+        {{#unless noMore}}
+          <div class='{{styles.more}}'>
+            {{{GetMoreButton}}}
+          </div>
+        {{/unless}}
+
+        {{{Messages}}}
+      </ul>
+    </div>
+    {{{MessageForm}}}
+  </div>
+{{else}}
+  <div class='{{styles.section}}'>
+    <p class='{{styles.placeholder}}'>
+      Select a chat to start messaging
+    </p>
+  </div>
+{{/if}}
+{{{AddUsersModal}}}
+{{{DeleteUsersModal}}}

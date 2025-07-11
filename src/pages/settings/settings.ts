@@ -7,15 +7,20 @@ import {
   SectionHeading,
   UserInformationForm,
 } from '../../components';
-import { Block } from '../../core';
+import { authController } from '../../controllers';
+import { Block, Router } from '../../core';
+import { withStore } from '../../hocs';
+import { User } from '../../types';
+import { ROUTES } from '../../utils';
 import rawTemplate from './settings.hbs?raw';
 import styles from './settings.module.css';
 
 export interface SettingsPageProps {
+  user: User | null;
   [key: string]: unknown;
 }
 
-export class SettingsPage extends Block<SettingsPageProps> {
+class PureSettingsPage extends Block<SettingsPageProps> {
   constructor(props: SettingsPageProps) {
     super('div', {
       ...props,
@@ -27,7 +32,7 @@ export class SettingsPage extends Block<SettingsPageProps> {
       ToChatsButton: new Button({
         tagName: 'a',
         attrs: {
-          href: '#/',
+          href: '/',
         },
         variant: 'outline',
         text: 'Back to Chats',
@@ -35,6 +40,12 @@ export class SettingsPage extends Block<SettingsPageProps> {
         block: true,
         icon: icons.caretLeftIcon,
         prefix: true,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.MESSENGER);
+          },
+        },
       }),
       BasicInfoHeading: new SectionHeading({
         title: 'Basic information',
@@ -53,23 +64,51 @@ export class SettingsPage extends Block<SettingsPageProps> {
           'Avatar is your profile picture - everyone who visits your profile will see this.',
       }),
       ChangeAvatarForm: new ChangeAvatarForm(),
+      SignOutHeading: new SectionHeading({
+        title: 'Sign out',
+        subtitle: 'We’ll miss you! Tap the button to sign out.',
+      }),
+      SignOutButton: new Button({
+        variant: 'destructive',
+        text: 'Sign out',
+        size: 'l',
+        type: 'button',
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+
+            authController.logout();
+          },
+        },
+      }),
     });
+    authController.getMe();
   }
 
   protected getTemplateContext(): Record<string, unknown> {
     return { styles };
   }
 
+  protected componentDidMount(): void {}
+
   protected init() {
     this._setClassName();
   }
 
-  protected componentDidUpdate(): boolean {
-    this._setClassName();
-    return true;
-  }
+  // protected componentDidUpdate(
+  //   oldProps: SettingsPageProps,
+  //   newProps: SettingsPageProps,
+  // ): boolean {
 
-  protected render(): string {
+  //   return true;
+  // }
+
+  // protected componentDidUpdate(): boolean {
+  //   this._setClassName();
+  //   return true;
+  // }
+
+  public render(): string {
     return rawTemplate;
   }
 
@@ -77,3 +116,7 @@ export class SettingsPage extends Block<SettingsPageProps> {
     this.props.className = styles.page;
   }
 }
+
+export const SettingsPage = withStore<SettingsPageProps>((state) => ({
+  user: state.user,
+}))(PureSettingsPage);

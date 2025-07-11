@@ -13,8 +13,16 @@ export class InputField extends Block<InputFieldProps> {
     super('input', props);
   }
 
-  protected componentDidUpdate(): boolean {
+  protected componentDidUpdate(
+    _oldProps: InputFieldProps,
+    newProps: InputFieldProps,
+  ): boolean {
     this._setClassName();
+
+    const el = this.getContent() as HTMLInputElement;
+    if (newProps.attrs?.value !== undefined) {
+      el.value = String(newProps.attrs.value);
+    }
     return true;
   }
 
@@ -36,6 +44,9 @@ export class InputField extends Block<InputFieldProps> {
 
     if (error && error.length) {
       classes.push(styles.inputError);
+    }
+    if (this.props.attrs?.type === 'file') {
+      classes.push(styles.file);
     }
     const combined = classes.filter(Boolean).join(' ');
     this.props.className = combined;

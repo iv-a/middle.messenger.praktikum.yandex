@@ -3,7 +3,9 @@ import rawTemplate from './avatar.hbs?raw';
 import styles from './avatar.module.css';
 
 export interface AvatarProps {
-  avatarUrl: string;
+  avatarUrl: string | null;
+  first_name?: string;
+  second_name?: string;
   size: 's' | 'm' | 'l' | 'xl' | 'xxl';
   title?: string;
   attrs?: Record<string, string>;
@@ -13,7 +15,13 @@ export interface AvatarProps {
 
 export class Avatar extends Block<AvatarProps> {
   constructor(props: AvatarProps) {
-    super('div', props);
+    super('div', {
+      ...props,
+      initials: (
+        (props.first_name?.charAt(0) || '?') +
+        (props.second_name?.charAt(0) || '')
+      ).toUpperCase(),
+    });
   }
 
   protected getTemplateContext(): Record<string, unknown> {
@@ -30,6 +38,19 @@ export class Avatar extends Block<AvatarProps> {
   ): boolean {
     if (oldProps.size !== newProps.size) {
       this._setClassName();
+    }
+    if (
+      oldProps.first_name !== newProps.first_name ||
+      oldProps.second_name !== newProps.second_name ||
+      oldProps.avatarUrl !== newProps.avatarUrl
+    ) {
+      this.setProps({
+        ...newProps,
+        initials: (
+          (newProps.first_name?.charAt(0) || '?') +
+          (newProps.second_name?.charAt(0) || '')
+        ).toUpperCase(),
+      });
     }
     return true;
   }

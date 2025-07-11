@@ -41,3 +41,28 @@
   border-color: var(--destructive);
   box-shadow: var(--sh-destructive-focus);
 }
+
+.file {
+  padding: 0;
+}
+
+.file:focus {
+  box-shadow: none;
+}
+
+.file::file-selector-button {
+  height: 100%;
+  margin-right: var(--s-3);
+  padding: 0 var(--s-5);
+  color: white;
+  font-weight: bold;
+  background-color: var(--primary);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.file::file-selector-button:hover {
+  opacity: 0.8;
+}

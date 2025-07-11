@@ -14,7 +14,8 @@
     background-color: var(--secondary);
   }
 
-  &:active {
+  &:active,
+  &.active {
     background-color: color-mix(in srgb, var(--secondary), var(--primary) 5%);
   }
 }
@@ -70,4 +71,8 @@
   font: var(--font-p);
   background-color: #2563eb;
   border-radius: 10px;
+}
+
+.owner {
+  color: var(--primary);
 }

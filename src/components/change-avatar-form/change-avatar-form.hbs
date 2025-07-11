@@ -1,17 +1,25 @@
-<div class="{{styles.avatarGroup}}">
+<div class='{{styles.avatarGroup}}'>
   {{{Avatar}}}
   {{{EditButton}}}
 </div>
 
-<dialog id="uploadAvatarModal" class="{{styles.dialog}}">
-  <form method="dialog" class="{{styles.fileForm}}">
-    <h2 class="{{styles.dialogTitle}}">
-      Upload new avatar
-    </h2>
-    {{{AvatarInput}}}
-    <menu class="{{styles.dialogControls}}">
-      {{{CancelButton}}}
-      {{{SaveButton}}}
-    </menu>
-  </form>
-</dialog>
+<div id='avatar-modal' class='{{styles.overlay}} {{#if isOpen}} {{styles.open}}{{/if}}'>
+  <div class='{{styles.dialog}}'>
+    <form class='{{styles.fileForm}}'>
+      <h2 class='{{styles.dialogTitle}}'>
+        Upload new avatar
+      </h2>
+      {{{AvatarInput}}}
+      {{#if errors.avatar}}
+        <div class="{{styles.errorContainer}}">
+            {{{alertIcon}}}
+        <p class="{{styles.errorMessage}}">{{errors.avatar}}</p>
+        </div>
+      {{/if}}
+      <menu class='{{styles.dialogControls}}'>
+        {{{CancelButton}}}
+        {{{SaveButton}}}
+      </menu>
+    </form>
+  </div>
+</div>

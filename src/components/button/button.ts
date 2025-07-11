@@ -5,8 +5,9 @@ import styles from './button.module.css';
 import { Block } from '../../core';
 export interface ButtonProps {
   tagName?: 'button' | 'a';
-  variant?: 'primary' | 'secondary' | 'outline' | 'destructive';
-  size?: 's' | 'm' | 'l';
+  variant?: 'primary' | 'secondary' | 'outline' | 'destructive' | 'dropdown';
+  size?: 's' | 'm' | 'l' | 'xl';
+  round?: boolean;
   loading?: boolean;
   disabled?: boolean;
   iconOnly?: boolean;
@@ -17,6 +18,7 @@ export interface ButtonProps {
   text?: string;
   attrs?: Record<string, string>;
   events?: Record<string, EventListener>;
+
   onClick?: EventListener;
   [key: string]: unknown;
 }
@@ -44,7 +46,8 @@ export class Button extends Block<ButtonProps> {
   }
 
   private _setClassName() {
-    const { variant, size, loading, disabled, iconOnly, block } = this.props;
+    const { variant, size, loading, disabled, iconOnly, block, round } =
+      this.props;
 
     const buttonClasses: string[] = [styles.button];
 
@@ -53,6 +56,7 @@ export class Button extends Block<ButtonProps> {
       secondary: styles.secondary,
       outline: styles.outline,
       destructive: styles.destructive,
+      dropdown: styles.dropdown,
     };
     if (variant && variantMap[variant]) {
       buttonClasses.push(variantMap[variant]);
@@ -62,11 +66,11 @@ export class Button extends Block<ButtonProps> {
       s: styles.s,
       m: styles.m,
       l: styles.l,
+      xl: styles.xl,
     };
     if (size && sizeMap[size]) {
       buttonClasses.push(sizeMap[size]);
     }
-
     if (loading) {
       buttonClasses.push(styles.loading);
     }
@@ -78,6 +82,9 @@ export class Button extends Block<ButtonProps> {
     }
     if (block) {
       buttonClasses.push(styles.block);
+    }
+    if (round) {
+      buttonClasses.push(styles.round);
     }
 
     this.props.className = buttonClasses.join(' ');

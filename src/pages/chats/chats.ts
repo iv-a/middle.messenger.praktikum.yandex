@@ -1,35 +1,45 @@
 import { icons } from '../../assets/icons';
 import {
-  Avatar,
   Button,
+  Chat,
   ChatItem,
+  ChatsList,
+  CreateChatModal,
   Input,
-  MessageForm,
-  MessageItem,
 } from '../../components';
-import { Block } from '../../core';
+import { authController, chatsController } from '../../controllers';
+import { Block, Router } from '../../core';
+import { BaseProps } from '../../core';
+import { withStore } from '../../hocs';
+import { IChat, ITextMessage } from '../../types';
+import { ROUTES } from '../../utils';
 import rawTemplate from './chats.hbs?raw';
 import styles from './chats.module.css';
 
-export interface ChatsPageProps {
-  chatName: string;
+export interface ChatsPageProps extends BaseProps {
+  chats: Array<IChat>;
+  chatItems?: Array<ChatItem>;
+  activeChatMessages: Array<ITextMessage> | null;
   [key: string]: unknown;
 }
 
-export class ChatsPage extends Block<ChatsPageProps> {
+class PureChatsPage extends Block<ChatsPageProps> {
   constructor(props: ChatsPageProps) {
     super('main', {
       ...props,
       logoIcon: icons.logoIcon,
       SettingsButton: new Button({
         tagName: 'a',
-        attrs: {
-          href: '#/settings',
-        },
         variant: 'outline',
         size: 'm',
         iconOnly: true,
         icon: icons.gearSixIcon,
+        events: {
+          click: (event: Event) => {
+            event.preventDefault();
+            Router.getInstance().go(ROUTES.SETTINGS);
+          },
+        },
       }),
       SearchInput: new Input({
         inputId: 'search',
@@ -37,34 +47,33 @@ export class ChatsPage extends Block<ChatsPageProps> {
         placeholder: 'Search',
         type: 'text',
       }),
-      ChatItem: new ChatItem({
-        avatarUrl:
-          'https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
-        displayName: 'Isabella Taylor',
-        time: '15:19',
-        message: 'Let’s catch up after lunch.',
-        unread: 1,
-      }),
-      Avatar: new Avatar({
-        avatarUrl:
-          'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0',
-        size: 's',
-      }),
-      OptionsButton: new Button({
+      CreateChatButton: new Button({
         tagName: 'button',
         type: 'button',
-        variant: 'outline',
-        size: 'm',
+        variant: 'primary',
+        size: 'xl',
         iconOnly: true,
-        icon: icons.dotsThreeIcon,
+        icon: icons.plus,
+        round: true,
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+
+            const createChatModal = this.children
+              .CreateChatModal as CreateChatModal;
+
+            if (createChatModal) {
+              createChatModal.setProps({ isOpen: true });
+            }
+          },
+        },
       }),
-      MessageItem: new MessageItem({
-        isSelf: true,
-        message: 'sdasdasdas',
-        time: '10:32',
-      }),
-      MessageForm: new MessageForm(),
+      CreateChatModal: new CreateChatModal(),
+      Chat: new Chat(),
+      ChatsList: new ChatsList(),
     });
+    chatsController.getChats({ limit: 50, offset: 0 });
+    authController.getMe();
   }
 
   protected getTemplateContext(): Record<string, unknown> {
@@ -75,12 +84,20 @@ export class ChatsPage extends Block<ChatsPageProps> {
     this._setClassName();
   }
 
-  protected componentDidUpdate(): boolean {
+  protected componentDidUpdate(
+    oldProps: ChatsPageProps,
+    newProps: ChatsPageProps,
+  ): boolean {
     this._setClassName();
+
+    if (oldProps.activeChatMessages !== newProps.activeChatMessages) {
+      chatsController.getChats({ limit: 50, offset: 0 });
+    }
+
     return true;
   }
 
-  protected render(): string {
+  render(): string {
     return rawTemplate;
   }
 
@@ -88,3 +105,8 @@ export class ChatsPage extends Block<ChatsPageProps> {
     this.props.className = styles.page;
   }
 }
+
+export const ChatsPage = withStore<ChatsPageProps>((state) => ({
+  chats: state.chats,
+  activeChatMessages: state.activeChatMessages,
+}))(PureChatsPage);
