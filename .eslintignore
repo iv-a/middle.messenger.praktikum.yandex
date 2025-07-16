@@ -2,6 +2,8 @@ node_modules/
 dist/
 build/
 *.log
+mochaSetup.js
+*.spec.ts
 
 # Игнорировать все файлы внутри папки coverage
 coverage/
