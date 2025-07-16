@@ -6,7 +6,6 @@ export const ROUTES = {
   NOT_ALLOWED: '/403',
   NOT_FOUND: '/404',
   SERVER_ERROR: '/500',
-  EXPLORE: '/explore',
   ROOT: '/',
 } as const;
 

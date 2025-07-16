@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import { EventBus } from './event-bus';
+import { EventBus } from '../event-bus';
 
 const EVENTS_CONFIG = {
   INIT: 'init',
