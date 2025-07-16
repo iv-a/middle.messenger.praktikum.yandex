@@ -15,12 +15,8 @@
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint \"src/**/*.{ts,tsx,js}\"",
     "lint:stylelint": "stylelint \"src/**/*.{css,scss,less}\"",
-    "lint": "npm run lint:tsc && npm run lint:eslint && npm run lint:stylelint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test lint:all"
-    }
+    "lint": "npm run lint:tsc && npm run lint:eslint && npm run lint:stylelint",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -36,7 +32,7 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.1",
-    "husky": "^9.1.7",
+    "husky": "^8.0.0",
     "jsdom": "^26.1.0",
     "mocha": "^11.7.1",
     "postcss": "^8.5.3",

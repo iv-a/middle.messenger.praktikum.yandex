@@ -5,7 +5,6 @@ import {
   ChatsPageProps,
   ErrorPage,
   ErrorPageProps,
-  HomePage,
   SettingsPage,
   SignInPage,
   SignUpPage,
@@ -34,5 +33,4 @@ new Router(APP_ROOT_QUERY)
     description:
       'Please try again later or contact support if the issue persists.',
   })
-  .use(ROUTES.EXPLORE, HomePage)
   .start();
