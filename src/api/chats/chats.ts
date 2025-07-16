@@ -1,5 +1,5 @@
 import { HTTPTransport } from '../../core';
-import { BASE_API_URL } from '../../utils';
+import { BASE_API_URL, trimUrl } from '../../utils';
 import type {
   AddUsersToChatRequest,
   AddUsersToChatResponse,
@@ -19,9 +19,7 @@ import type {
   GetTokenResponse,
 } from './chats.dto';
 
-const baseUrl = BASE_API_URL.endsWith('/')
-  ? BASE_API_URL.slice(0, -1)
-  : BASE_API_URL;
+const baseUrl = trimUrl(BASE_API_URL);
 
 const chatsApi = new HTTPTransport(`${baseUrl}/chats`);
 

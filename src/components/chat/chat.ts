@@ -99,16 +99,6 @@ class PureChat extends Block<ChatProps> {
           },
         },
       }),
-      DeleteChatButton: new Button({
-        tagName: 'button',
-        type: 'button',
-        variant: 'dropdown',
-        size: 'l',
-        text: 'Delete chat',
-        block: true,
-        prefix: true,
-        icon: icons.trash,
-      }),
       AddUsersModal: new AddUsersModal(),
       DeleteUsersModal: new DeleteUsersModal(),
     });

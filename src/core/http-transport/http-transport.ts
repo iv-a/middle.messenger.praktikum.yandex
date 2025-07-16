@@ -1,4 +1,5 @@
-import { HTTPError } from './errors';
+import { trimUrl } from '../../utils';
+import { HTTPError } from '../errors';
 
 export const METHODS = {
   GET: 'GET',
@@ -15,7 +16,7 @@ export interface RequestOptions<H = Record<string, unknown> | FormData> {
   timeout?: number;
 }
 
-function queryStringify(params: Record<string, unknown>): string {
+export function queryStringify(params: Record<string, unknown>): string {
   if (typeof params !== 'object' || params === null) {
     throw new Error('Data for queryStringify must be a non-null object');
   }
@@ -40,7 +41,7 @@ export class HTTPTransport {
   private baseUrl: string;
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+    this.baseUrl = trimUrl(baseUrl);
   }
 
   public get: HTTPMethod = (endpoint, options) =>
@@ -58,7 +59,7 @@ export class HTTPTransport {
       method: METHODS.DELETE,
     });
 
-  private request<T = unknown, H = Record<string, unknown>>(
+  request<T = unknown, H = Record<string, unknown>>(
     url: string,
     options: RequestOptions<H> & { method: HTTPMethodName },
   ): Promise<T> {

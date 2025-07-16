@@ -7,13 +7,11 @@ import {
 } from '../core';
 import { EventBus } from '../core/event-bus';
 import type { ITextMessage, WSMessage } from '../types';
-import { BASE_WS_URL, transformDataWithTime } from '../utils';
+import { BASE_WS_URL, transformDataWithTime, trimUrl } from '../utils';
 import { BaseController } from './base.controller';
 import chatsController from './chats.controller';
 
-const baseUrl = BASE_WS_URL.endsWith('/')
-  ? BASE_WS_URL.slice(0, -1)
-  : BASE_WS_URL;
+const baseUrl = trimUrl(BASE_WS_URL);
 
 class MessagesController extends BaseController {
   private _eventBus = new EventBus<WSEventSignatures>();

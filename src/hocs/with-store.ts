@@ -28,6 +28,11 @@ export function withStore<P extends BaseProps = BaseProps>(
 
         store.on(STORE_EVENTS_CONFIG.UPDATE, this.onChangeStoreCallback);
       }
+
+      protected componentWillUnmount(): void {
+        store.off(STORE_EVENTS_CONFIG.UPDATE, this.onChangeStoreCallback);
+        super.componentWillUnmount();
+      }
     };
   };
 }

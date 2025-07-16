@@ -1,6 +1,6 @@
-import { ROUTES } from '../utils/constants';
-import { BaseProps } from './block';
-import { BlockClass, GuardFn, IRoute, Route } from './route';
+import { ROUTES } from '../../utils/constants';
+import { BaseProps } from '../block';
+import { BlockClass, GuardFn, IRoute, Route } from '../route';
 
 export class Router {
   private static __instance: Router | null = null;

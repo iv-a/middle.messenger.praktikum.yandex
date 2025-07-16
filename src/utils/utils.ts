@@ -190,3 +190,7 @@ export const getActionButtonVariant = (
       return 'outline';
   }
 };
+
+export const trimUrl = (url: string) => {
+  return trim(url, '/');
+};
